@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <testsuite xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="edu.szu.moments.poststest.PostInputTest" time="0.022" tests="24" errors="0" skipped="0" failures="0" flakes="0">
+    <testcase name="checksTextLimitAndEmptyPatch" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="normalizesTagsAndDistinguishesOmittedFields" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="usesUnicodeCodePointsForTagLimit" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsInvalidDates(String)[1]" classname="edu.szu.moments.poststest.PostInputTest" time="0.007" />
+    <testcase name="rejectsInvalidDates(String)[2]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsInvalidDates(String)[3]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsInvalidDates(String)[4]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsInvalidDates(String)[5]" classname="edu.szu.moments.poststest.PostInputTest" time="0.001" />
+    <testcase name="rejectsReversedDatesAndBadPaging" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[1]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[2]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[3]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[4]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[5]" classname="edu.szu.moments.poststest.PostInputTest" time="0.001" />
+    <testcase name="rejectsMalformedInput(String)[6]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[7]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[8]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[9]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[10]" classname="edu.szu.moments.poststest.PostInputTest" time="0.001" />
+    <testcase name="rejectsMalformedInput(String)[11]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[12]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[13]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="rejectsMalformedInput(String)[14]" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+    <testcase name="mapsBeijingDaysToHalfOpenUtcRange" classname="edu.szu.moments.poststest.PostInputTest" time="0.0" />
+  </testsuite>
+  <testsuite xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="edu.szu.moments.poststest.PostIntegrationTest" time="2.329" tests="24" errors="0" skipped="0" failures="0" flakes="0">
+    <testcase name="enforcesDatabaseForeignKeysAndUniqueness" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.333">
+    </testcase>
+    <testcase name="editBindingFailureRollsBackTextTagsAndBindings" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.026" />
+    <testcase name="rejectsOtherAuthorsAndWrongRoles" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.014" />
+    <testcase name="rejectsForeignBoundAndMissingMedia" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.008" />
+    <testcase name="stabilizesPagingForIdenticalCreationTimes" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.051" />
+    <testcase name="rejectsEmptyContentTooManyImagesAndTagsWithoutPartialPosts" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.005" />
+    <testcase name="supportsConcurrentTagCreationAcrossUsers" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.008" />
+    <testcase name="tagSearchIsCaseSensitiveAndSupportsEmoji" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.018" />
+    <testcase name="batchesMediaAndRatingSummariesAndUsesRealAggregateFixture" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.012" />
+    <testcase name="anonymousMayReadButCannotWriteOrViewMine" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.015" />
+    <testcase name="filtersBeijingInclusiveDaysAndTagIntersection" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.03" />
+    <testcase name="returnsContractErrorsForBadParametersAndUnknownObjects" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.007" />
+    <testcase name="ownListDoesNotLeakOtherUsersPosts" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.009" />
+    <testcase name="adminDeleteAndAuditAreAtomic" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.012" />
+    <testcase name="creationBindingFailureRollsBackPostsTagsAndMedia" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.005" />
+    <testcase name="authorDisableParticipatesInCallerTransactionAndCanRollback" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.01" />
+    <testcase name="missingDependencyResultsFailAndRollbackEdits" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.009" />
+    <testcase name="searchesAdminLiteralKeywordAuthorDateAndTag" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.013" />
+    <testcase name="filtersDisabledAuthorsEvenBeforePostsAreHidden" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.007" />
+    <testcase name="authorDeleteHidesEveryPostReadAndSharedAccessEntry" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.014" />
+    <testcase name="rejectsMixedOrMultipleVideos" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.004" />
+    <testcase name="createsImageAndVideoPostsAndPreservesMediaOrder" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.011" />
+    <testcase name="patchPreservesOmittedFieldsAndCreationTimeAndCanClearLists" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.018" />
+    <testcase name="createsTextWithNormalizedTagsAndPublicDetail" classname="edu.szu.moments.poststest.PostIntegrationTest" time="0.009" />
+  </testsuite>
+</testsuites>
