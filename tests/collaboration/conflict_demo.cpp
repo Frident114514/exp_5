@@ -2,6 +2,6 @@
 
 int main()
 {
-    std::cout << "Team collaboration demo" << std::endl;
+   std::cout << "Team project - Hou Jiankai" << '\n';
     return 0;
 }
