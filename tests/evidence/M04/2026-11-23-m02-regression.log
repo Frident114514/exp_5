@@ -1,0 +1,9 @@
+实际运行输出摘录
+8.4.13
+[INFO] Running edu.szu.moments.poststest.PostIntegrationTest
+2026-11-23T21:18:49.724+08:00  INFO 19534 --- [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema `m02_test`, now at version v2 (execution time 00:00.088s)
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.373 s -- in edu.szu.moments.poststest.PostIntegrationTest
+[INFO] Running edu.szu.moments.poststest.PostInputTest
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in edu.szu.moments.poststest.PostInputTest
+[INFO] Tests run: 48, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
