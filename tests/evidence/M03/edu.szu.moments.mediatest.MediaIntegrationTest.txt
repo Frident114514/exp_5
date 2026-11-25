@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: edu.szu.moments.mediatest.MediaIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.493 s -- in edu.szu.moments.mediatest.MediaIntegrationTest
