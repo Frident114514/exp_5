@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+:root { color-scheme: light; scroll-behavior: smooth; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f8fd;
+  color: #17243a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+}
+a { color: #1d4ed8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+.skip-link { position: fixed; top: -80px; left: 16px; z-index: 10; background: #fff; padding: 8px 16px; }
+.skip-link:focus { top: 8px; }
+.container { max-width: 1200px; min-height: 100vh; margin: 0 28px 0 260px; padding: 44px 32px 72px; background: #fff; }
+h1, h2, h3, h4 { font-weight: 650; line-height: 1.35; scroll-margin-top: 24px; }
+h1 { margin: 28px 0 18px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; color: #123d76; font-size: 30px; }
+h2 { margin: 34px 0 18px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; color: #1d4ed8; font-size: 24px; }
+h3 { margin: 28px 0 16px; padding: 12px 16px; background: #dbeafe; color: #123d76; border-left: 5px solid #3b82f6; border-radius: 6px; font-size: 19px; }
+h4 { margin: 22px 0 10px; color: #123d76; font-size: 17px; }
+p, ul, ol, blockquote, table { margin: 12px 0; }
+ul, ol { padding-left: 26px; }
+li + li { margin-top: 5px; }
+blockquote, .metadata-card { padding: 12px 18px; background: #edf5ff; color: #324760; border-left: 4px solid #60a5fa; overflow-wrap: anywhere; }
+blockquote p:first-child, .metadata-card p:first-child { margin-top: 0; }
+blockquote p:last-child, .metadata-card p:last-child { margin-bottom: 0; }
+code { padding: 2px 5px; border-radius: 4px; background: #eef2f7; color: #334155; font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 0.88em; }
+p code, li code, blockquote code, .metadata-card code { overflow-wrap: anywhere; }
+pre { margin: 16px 0; padding: 16px; background: #f6f8fa; border: 1px solid #e2e8f0; border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+pre > code { background: transparent; color: inherit; padding: 0; font-size: inherit; white-space: pre; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { border: 1px solid #d5dfec; padding: 9px 12px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+th { background: #edf5ff; color: #123d76; }
+tr:nth-child(even) { background: #f8fafc; }
+.table-scroll { overflow-x: auto; margin: 16px 0; }
+hr { margin: 28px 0; border: 0; border-top: 1px solid #e2e8f0; }
+img, svg { max-width: 100%; height: auto; }
+.diagram-card, .mermaid-img { margin: 22px 0; padding: 14px; background: #eff6ff; border: 1px solid #dbeafe; border-radius: 8px; text-align: center; }
+.diagram-card img, .mermaid-img img { display: inline-block; vertical-align: middle; max-width: 100%; height: auto; }
+.function-nav { position: fixed; top: 22px; bottom: 22px; left: 20px; width: 220px; overflow-y: auto; padding: 18px 14px; background: #fff; border: 1px solid #dbe7f4; border-radius: 12px; }
+.function-nav strong { display: block; color: #123d76; margin-bottom: 14px; font-size: 16px; }
+.function-nav a { display: block; color: #365573; font-size: 13px; padding: 8px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+.function-nav a:hover { background: #dbeafe; text-decoration: none; }
+.function-nav .nested { padding-left: 16px; }
+.call-chain-card { margin: 18px 0 22px; background: #f3f4f6; color: #24272d; border: 1px solid #e5e7eb; border-radius: 18px; overflow: hidden; }
+.call-chain-toolbar { padding: 14px 20px 4px; color: #353a42; font-size: 13px; font-weight: 600; }
+.call-chain-card pre { margin: 0; padding: 14px 20px 20px; background: transparent; border: 0; border-radius: 0; color: inherit; overflow-x: auto; font-size: 13px; line-height: 1.75; tab-size: 2; }
+.call-chain-card pre > code { display: block; white-space: pre; overflow-wrap: normal; }
+.source-location { color: #334155; overflow-wrap: anywhere; }
+.chain-note { margin: 12px 0 18px; color: #26364b; }
+@media (min-width: 1530px) { .container { margin-right: auto; } }
+@media (max-width: 900px) {
+  .function-nav { position: static; width: auto; margin: 12px; max-height: 220px; }
+  .container { margin: 0; padding: 24px 18px 48px; }
+  h1 { font-size: 25px; margin-top: 12px; }
+  h2 { font-size: 22px; }
+  .call-chain-toolbar { padding: 12px 16px 4px; }
+  .call-chain-card pre { padding: 12px 16px 18px; }
+}
+@media print {
+  .function-nav, .skip-link { display: none; }
+  .container { max-width: none; margin: 0; padding: 0; }
+  body { background: #fff; font-size: 12px; }
+  h1, h2, h3 { break-after: avoid; }
+  .diagram-card, .metadata-card { break-inside: avoid; }
+  .call-chain-card { overflow: visible; }
+  .call-chain-toolbar { break-after: avoid; }
+  .call-chain-card pre { overflow: visible; }
+  .call-chain-card pre > code { white-space: pre-wrap; overflow-wrap: anywhere; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">跳到正文</a>
+<nav class="function-nav" aria-label="文档目录">
+<strong>{{NAV_TITLE}}</strong>
+{{NAV_HTML}}
+</nav>
+<main class="container" id="main-content">
+<h1>{{TITLE}}</h1>
+<div class="metadata-card">{{METADATA_HTML}}</div>
+{{BODY_HTML}}
+</main>
+</body>
+</html>
