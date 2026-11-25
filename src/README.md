@@ -10,7 +10,7 @@
 - `backend/`：服务端 API、业务逻辑、媒体存储与数据库访问（Java 21 + Spring Boot 3.5.16 + Flyway + MySQL 8.4）。
   - [`backend/modules/posts/`](backend/modules/posts/README.md)：**M02（锡汉唐）动态、标签与检索模块**，已完成独立 Maven 工程与 48 项测试。
   - [`backend/modules/media/`](backend/modules/media/README.md)：**M03（潘铭伟）媒体上传、视频 Range 读取、绑定与清理模块**，已完成独立 Maven 工程、实现 M02 `MediaPort` 并接入 `PostAccess`，通过 26 项单元与跨模块（M02+M03）集成测试。
-- `admin-web/`：管理员 Web 后台（Vue 3 + TypeScript + Vite + Element Plus，由 M08 负责）。
+- [`admin-web/`](admin-web/README.md)：M08 管理员 Web 后台第一周工程已实现，可运行演示模式和构建；真实登录及查询待 M01/M02 联调。
 - [`.env.example`](.env.example)：三端统一环境变量样例（仅含变量名与占位示例值，不含任何真实密钥）。
 
 ---
@@ -72,13 +72,13 @@
    ```
    确认服务监听 `http://127.0.0.1:8080`，且本地媒体目录 `MEDIA_STORAGE_DIR` 可读写。
 
-### 第三步：启动管理员 Web 后台（`src/admin-web`，待 M08 合入后）
+### 第三步：启动管理员 Web 后台（`src/admin-web`）
 ```sh
 cd src/admin-web
-npm install
+npm ci
 npm run dev
 ```
-浏览器打开 `http://127.0.0.1:5173` 进入管理后台登录页。
+使用 Node.js 22.12+，浏览器打开 `http://127.0.0.1:5173` 进入管理后台登录页。后台默认请求 `/api/v1`，开发时通过 Vite 代理到 `http://127.0.0.1:8080`。真实服务未就绪时执行 `npm run dev:demo` 检查虚构样例；详细配置、演示账号和部署方式见 [后台说明](admin-web/README.md)。
 
 ### 第四步：启动用户小程序（`src/miniapp`，待 M05/M06/M07 合入后）
 ```sh

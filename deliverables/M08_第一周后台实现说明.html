@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>软件工程大作业 M08 第一周后台实现说明</title>
+<style>
+:root { color-scheme: light; scroll-behavior: smooth; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f8fd;
+  color: #17243a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+}
+a { color: #1d4ed8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+.skip-link { position: fixed; top: -80px; left: 16px; z-index: 10; background: #fff; padding: 8px 16px; }
+.skip-link:focus { top: 8px; }
+.container { max-width: 1200px; min-height: 100vh; margin: 0 28px 0 260px; padding: 44px 32px 72px; background: #fff; }
+h1, h2, h3, h4 { font-weight: 650; line-height: 1.35; scroll-margin-top: 24px; }
+h1 { margin: 28px 0 18px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; color: #123d76; font-size: 30px; }
+h2 { margin: 34px 0 18px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; color: #1d4ed8; font-size: 24px; }
+h3 { margin: 28px 0 16px; padding: 12px 16px; background: #dbeafe; color: #123d76; border-left: 5px solid #3b82f6; border-radius: 6px; font-size: 19px; }
+h4 { margin: 22px 0 10px; color: #123d76; font-size: 17px; }
+p, ul, ol, blockquote, table { margin: 12px 0; }
+ul, ol { padding-left: 26px; }
+li + li { margin-top: 5px; }
+blockquote, .metadata-card { padding: 12px 18px; background: #edf5ff; color: #324760; border-left: 4px solid #60a5fa; overflow-wrap: anywhere; }
+blockquote p:first-child, .metadata-card p:first-child { margin-top: 0; }
+blockquote p:last-child, .metadata-card p:last-child { margin-bottom: 0; }
+code { padding: 2px 5px; border-radius: 4px; background: #eef2f7; color: #334155; font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 0.88em; }
+p code, li code, blockquote code, .metadata-card code { overflow-wrap: anywhere; }
+pre { margin: 16px 0; padding: 16px; background: #f6f8fa; border: 1px solid #e2e8f0; border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+pre > code { background: transparent; color: inherit; padding: 0; font-size: inherit; white-space: pre; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { border: 1px solid #d5dfec; padding: 9px 12px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+th { background: #edf5ff; color: #123d76; }
+tr:nth-child(even) { background: #f8fafc; }
+.table-scroll { overflow-x: auto; margin: 16px 0; }
+hr { margin: 28px 0; border: 0; border-top: 1px solid #e2e8f0; }
+img, svg { max-width: 100%; height: auto; }
+.diagram-card, .mermaid-img { margin: 22px 0; padding: 14px; background: #eff6ff; border: 1px solid #dbeafe; border-radius: 8px; text-align: center; }
+.diagram-card img, .mermaid-img img { display: inline-block; vertical-align: middle; max-width: 100%; height: auto; }
+.function-nav { position: fixed; top: 22px; bottom: 22px; left: 20px; width: 220px; overflow-y: auto; padding: 18px 14px; background: #fff; border: 1px solid #dbe7f4; border-radius: 12px; }
+.function-nav strong { display: block; color: #123d76; margin-bottom: 14px; font-size: 16px; }
+.function-nav a { display: block; color: #365573; font-size: 13px; padding: 8px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+.function-nav a:hover { background: #dbeafe; text-decoration: none; }
+.function-nav .nested { padding-left: 16px; }
+.call-chain-card { margin: 18px 0 22px; background: #f3f4f6; color: #24272d; border: 1px solid #e5e7eb; border-radius: 18px; overflow: hidden; }
+.call-chain-toolbar { padding: 14px 20px 4px; color: #353a42; font-size: 13px; font-weight: 600; }
+.call-chain-card pre { margin: 0; padding: 14px 20px 20px; background: transparent; border: 0; border-radius: 0; color: inherit; overflow-x: auto; font-size: 13px; line-height: 1.75; tab-size: 2; }
+.call-chain-card pre > code { display: block; white-space: pre; overflow-wrap: normal; }
+.source-location { color: #334155; overflow-wrap: anywhere; }
+.chain-note { margin: 12px 0 18px; color: #26364b; }
+@media (min-width: 1530px) { .container { margin-right: auto; } }
+@media (max-width: 900px) {
+  .function-nav { position: static; width: auto; margin: 12px; max-height: 220px; }
+  .container { margin: 0; padding: 24px 18px 48px; }
+  h1 { font-size: 25px; margin-top: 12px; }
+  h2 { font-size: 22px; }
+  .call-chain-toolbar { padding: 12px 16px 4px; }
+  .call-chain-card pre { padding: 12px 16px 18px; }
+}
+@media print {
+  .function-nav, .skip-link { display: none; }
+  .container { max-width: none; margin: 0; padding: 0; }
+  body { background: #fff; font-size: 12px; }
+  h1, h2, h3 { break-after: avoid; }
+  .diagram-card, .metadata-card { break-inside: avoid; }
+  .call-chain-card { overflow: visible; }
+  .call-chain-toolbar { break-after: avoid; }
+  .call-chain-card pre { overflow: visible; }
+  .call-chain-card pre > code { white-space: pre-wrap; overflow-wrap: anywhere; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+.container { max-width: 1150px; }
+h1 { border-bottom: 0; padding-bottom: 0; }
+.diagram-card { padding: 8px; }
+.diagram-source { font-size: 13px; color: #46658f; margin: -12px 0 22px; }
+summary { cursor: pointer; }
+th:first-child { min-width: 95px; }
+.function-nav .nested { font-size: 12px; padding-top: 6px; padding-bottom: 6px; }
+@media print { .diagram-source { display: none; } table { font-size: 10px; } .table-scroll { overflow: visible; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">跳到正文</a>
+<nav class="function-nav" aria-label="文档目录">
+<strong>第一周实施目录</strong>
+<a href="#section-1">1. 怎么做</a>
+<a href="#section-2">2. 函数调用链</a>
+<a class="nested" href="#section-3">2.1 打开受保护路由 → 验证后显示管理页面</a>
+<a class="nested" href="#section-4">2.2 提交登录表单 → 建立管理员会话</a>
+<a class="nested" href="#section-5">2.3 提交用户或动态筛选 → 显示服务端当前页</a>
+<a class="nested" href="#section-6">2.4 翻页或连续查询 → 保持条件和最新结果一致</a>
+<a class="nested" href="#section-7">2.5 服务端返回 401 或点击退出 → 清理管理会话</a>
+</nav>
+<main class="container" id="main-content">
+<h1>软件工程大作业 M08 第一周后台实现说明</h1>
+<div class="metadata-card"><p>项目：多媒体朋友圈展示系统 · 负责人：叶天豪（M08）</p>
+<p>日期：2026 年 11 月 25 日 · 工作分支：<code>feat/m08-admin-week1</code></p>
+<p>基线：<code>main</code> / <code>8c399d44894e3bd922657f244b31ae1a1237513c</code>；第一周成果位于上述工作分支。</p>
+<p>实现状态：第一周前端工程、登录与查询功能已落地；真实服务端联调、同伴验收和浏览器视觉检查尚未完成。</p></div>
+<p>第一周后台已实现管理员登录、路由布局、用户基础查询和动态组合查询。两个表格共用分页和请求反馈，显示加载、空结果、失败与重试。页面通过统一 API 请求服务端，数据库读写和真实权限校验仍由 Spring Boot 完成。运行配置、待确认字段和最终部署示例见 <a href="../src/admin-web/README.md">后台 README</a>。</p>
+<h2 id="section-1">1. 怎么做</h2>
+<div class="diagram-card"><svg viewBox="0 0 910 675" role="img" aria-labelledby="overview-title overview-desc" xmlns="http://www.w3.org/2000/svg"><title id="overview-title">第一周管理后台流程</title><desc id="overview-desc">工程启动后登录，仅管理员进入后台布局，两个查询页共用请求和分页状态；成功显示表格或空结果，失败显示重试，401返回登录页。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#5274a6" stroke-width="1.2"/></marker></defs><g fill="none" stroke="#5274a6" stroke-width="2" marker-end="url(#arrow)"><path d="M285 75H335"/><path d="M575 75H625"/><path d="M745 105V160"/><path d="M625 190H575"/><path d="M745 220V275"/><path d="M745 335V355H455V390"/><path d="M745 335V390"/><path d="M335 420H285"/><path d="M745 450V465H165V450"/><path d="M165 450V510"/><path d="M285 530H310V510H335"/><path d="M285 550H310V595H335"/><path d="M70 390V315H20V130H455V105" stroke-dasharray="7 5"/></g><rect x="45" y="45" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="165.0" y="82.0" text-anchor="middle" fill="#173f73" font-size="19">启动后台工程</text><rect x="335" y="45" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="455.0" y="82.0" text-anchor="middle" fill="#173f73" font-size="19">打开管理员登录页</text><rect x="625" y="45" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="745.0" y="82.0" text-anchor="middle" fill="#173f73" font-size="19">调用登录接口</text><rect x="625" y="160" width="240" height="60" rx="12" fill="#d9e9ff" stroke="#90b4e8" stroke-width="1.5"/><text x="745.0" y="197.0" text-anchor="middle" fill="#173f73" font-size="19">认证结果</text><rect x="335" y="160" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="455.0" y="197.0" text-anchor="middle" fill="#173f73" font-size="19">留在登录页并提示</text><rect x="625" y="275" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="745.0" y="312.0" text-anchor="middle" fill="#173f73" font-size="19">保存会话并进入后台布局</text><rect x="335" y="390" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="455.0" y="427.0" text-anchor="middle" fill="#173f73" font-size="19">用户管理查询表格</text><rect x="625" y="390" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="745.0" y="427.0" text-anchor="middle" fill="#173f73" font-size="19">动态管理查询表格</text><rect x="45" y="390" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="165.0" y="427.0" text-anchor="middle" fill="#173f73" font-size="19">统一请求层与分页状态</text><rect x="45" y="510" width="240" height="60" rx="12" fill="#d9e9ff" stroke="#90b4e8" stroke-width="1.5"/><text x="165.0" y="547.0" text-anchor="middle" fill="#173f73" font-size="19">查询结果</text><rect x="335" y="480" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="455.0" y="517.0" text-anchor="middle" fill="#173f73" font-size="19">表格或空结果</text><rect x="335" y="565" width="240" height="60" rx="12" fill="#ffffff" stroke="#90b4e8" stroke-width="1.5"/><text x="455.0" y="602.0" text-anchor="middle" fill="#173f73" font-size="19">错误说明与重试</text><text x="490" y="145" text-anchor="middle" fill="#46658f" font-size="16">失败或普通用户</text><text x="811" y="247" text-anchor="middle" fill="#46658f" font-size="16">管理员</text><text x="310" y="493" text-anchor="middle" fill="#46658f" font-size="16">成功</text><text x="310" y="585" text-anchor="middle" fill="#46658f" font-size="16">失败</text><text x="28" y="282" fill="#46658f" font-size="16">401</text></svg></div><details class="diagram-source"><summary>查看可复制的 Mermaid 流程图源码</summary><pre><code>flowchart TD
+    A[启动后台工程] --&gt; B[打开管理员登录页]
+    B --&gt; C[调用登录接口]
+    C --&gt; D{认证结果}
+    D --&gt;|失败或普通用户| E[留在登录页并提示]
+    D --&gt;|管理员| F[保存会话并进入后台布局]
+    F --&gt; G[用户管理查询表格]
+    F --&gt; H[动态管理查询表格]
+    G --&gt; I[统一请求层与分页状态]
+    H --&gt; I
+    I --&gt; J{查询结果}
+    J --&gt;|成功| K[表格或空结果]
+    J --&gt;|失败| L[错误说明与重试]
+    I -. 401 .-&gt; B</code></pre></details>
+<p><strong>主线：</strong>登录管理员 → 进入用户或动态页面 → 提交查询条件 → 获取服务端分页 → 显示记录或明确反馈。</p>
+<ul><li><strong>运行：</strong>Node.js 22.12+，<code>npm ci</code> 后使用 <code>npm run dev</code> 调用真实 API；<code>npm run dev:demo</code> 为显式虚构样例演示。生产构建不装配演示请求。机器上 Node.js 22.23.1 已用于验证，无需修改默认系统 Node。</li><li><strong>代码：</strong>按 aireader 规则区分 app 装配、modules 页面与业务逻辑、common 请求与共用组件；具名函数和类有中文头部注释。依赖固定版本和锁文件，ESLint、Prettier 与严格 TypeScript 检查一致。</li><li><strong>权限：</strong>登录角色为 <code>ADMIN</code> 才建立后台会话；刷新后复核 <code>/users/me</code>；无令牌不发管理请求，401 回登录，403 清空本页管理数据。服务端必须独立校验令牌、角色与用户状态。</li><li><strong>查询：</strong>草稿条件和已提交条件分开；筛选及页大小改变回第一页。日期按北京时间发送和展示；旧请求取消与版本检查防止晚到结果覆盖新结果。</li><li><strong>本周边界：</strong>删除或禁用、改密、媒体预览尚未实现。M01 主工程和用户完整样例待接入；已有前端自动化测试及构建结果见 <a href="../tests/evidence/M08/week1/README.md">第一周证据</a>。</li></ul>
+<p>实际目录如下，保留各文件的主要职责，测试位于同工程 <code>tests/</code>：</p>
+<div class="call-chain-card"><div class="call-chain-toolbar">纯文本</div><pre><code>src/admin-web/
+├── package.json / package-lock.json    npm 命令与固定依赖
+├── vite.config.ts / vitest.config.ts   开发代理与测试配置
+├── .env.example / .env.demo            真实服务样例与开发演示模式
+├── eslint.config.js / .prettierrc.json  规范与格式检查
+├── README.md                          运行和部署交接
+└── src/
+    ├── main.ts / App.vue               挂载组件、中文组件配置与路由出口
+    ├── app/services.ts                 请求、认证及演示入口装配
+    ├── app/router.ts                   路由与身份复核守卫
+    ├── app/AdminLayout.vue             导航、账号与退出入口
+    ├── modules/auth/logic/authState.ts  会话状态、登录与恢复
+    ├── modules/auth/pages/LoginPage.vue 登录表单与重试
+    ├── modules/users/pages/UsersPage.vue 用户关键词表格
+    ├── modules/posts/pages/PostsPage.vue 动态组合筛选表格
+    ├── common/data/models.ts           跨页面业务类型
+    ├── common/data/http.ts             请求、响应信封与 API 错误
+    ├── common/data/adminApi.ts         四个端点与网络对象校验
+    ├── common/logic/query.ts           筛选校验及北京时间格式化
+    ├── common/logic/usePagedQuery.ts   分页、取消与状态一致性
+    ├── common/components/ListPanel.vue 加载、空结果、错误与分页
+    ├── common/components/StatusPage.vue 无权限和 404 页面
+    ├── demo/demoFetch.ts               显式演示请求与虚构数据
+    └── styles/main.css                 布局、主题与窄屏适配</code></pre></div>
+<h2 id="section-2">2. 函数调用链</h2>
+<h3 id="section-3">2.1 打开受保护路由 → 验证后显示管理页面</h3>
+<p>入口：<a href="../src/admin-web/src/app/router.ts#L60">路由守卫</a>。状态装配：<a href="../src/admin-web/src/app/services.ts#L11">services.ts</a>。身份复核：<a href="../src/admin-web/src/modules/auth/logic/authState.ts#L140">ensureSession</a>。</p>
+<div class="call-chain-card"><div class="call-chain-toolbar">纯文本</div><pre><code>浏览器进入 /users 或 /posts
+→ router.beforeEach(to)
+  → auth.ensureSession()
+    → getRequestSession()
+      ├─ 无会话或本地过期：返回 false；过期先 clearSession()
+      └─ 有会话：
+         ├─ 本次身份已验证：返回 true
+         ├─ 身份验证正在进行：等待共享 Promise
+         └─ 刷新恢复后的首次验证：api.getMe(signal)
+            → http.request(&#x27;/users/me&#x27;) → HTTP 请求交接
+
+本人信息返回 ensureSession 后：
+├─ 响应属于旧会话、被取消或期间过期：返回 false
+├─ 非管理员、禁用、401 或 403：清会话，返回 false
+├─ 网络或格式异常：向守卫抛错，登录页显示验证失败与重试
+└─ 有效管理员：更新 user 并标记已复核，返回 true
+
+守卫接收结果：
+├─ true：挂载 AdminLayout 与对应子页面
+└─ false：跳转 /login，并保存允许的 returnTo</code></pre></div>
+<p>公开的 <code>/login</code>、<code>/403</code> 和 404 路由不挂载管理表格；登录目标只允许 <code>/users</code>、<code>/posts</code>，避免外部地址进入跳转流程。</p>
+<h3 id="section-4">2.2 提交登录表单 → 建立管理员会话</h3>
+<p>入口：<a href="../src/admin-web/src/modules/auth/pages/LoginPage.vue#L29">LoginPage</a>。关键操作：<a href="../src/admin-web/src/modules/auth/logic/authState.ts#L103">认证 login</a>、<a href="../src/admin-web/src/common/data/adminApi.ts#L167">API login</a>。</p>
+<div class="call-chain-card"><div class="call-chain-toolbar">纯文本</div><pre><code>点击登录 / 表单回车 → submitLogin()
+├─ 正在提交：不重复发送
+├─ 账号或密码为空：显示必填提示
+└─ 有输入：auth.login(account, password)
+   → clearSession() → 新登录版本与 AbortController
+   → api.login(trim 后账号, 原始密码, signal)
+     → http.request(&#x27;/auth/login&#x27;, public=true)
+       → 不附加旧令牌 → 发送账号密码 → 解析响应
+
+响应返回 auth.login 后：
+├─ 登录已取消或版本变化：拒绝旧结果
+├─ USER / DISABLED：抛出无后台权限提示，不持久保存会话
+├─ 有效期已过：拒绝失效凭证
+└─ ADMIN：保存内存会话与 sessionStorage，标记已验证
+
+submitLogin 成功后：清空密码 → router.replace(合法 returnTo)
+失败：登录页显示具体原因；finally 解除提交状态</code></pre></div>
+<p>真实密码检查和 JWT 签名验证属于 M01 服务端；前端不解析未经验证的 JWT 来授予权限。演示模式使用相同前端流程，响应由独立的 demoFetch 提供。</p>
+<h3 id="section-5">2.3 提交用户或动态筛选 → 显示服务端当前页</h3>
+<p>入口：<a href="../src/admin-web/src/modules/users/pages/UsersPage.vue#L21">用户 searchUsers</a>、<a href="../src/admin-web/src/modules/posts/pages/PostsPage.vue#L29">动态 searchPosts</a>。请求：<a href="../src/admin-web/src/common/data/adminApi.ts#L205">listUsers / listPosts</a>。</p>
+<div class="call-chain-card"><div class="call-chain-toolbar">纯文本</div><pre><code>页面挂载 → list.runQuery(初始 page=1, pageSize=10)
+
+用户页点击查询 → searchUsers()
+→ buildUserQuery(keyword 草稿, page=1, 已选 pageSize)
+→ list.runQuery(nextQuery)
+  → api.listUsers(query, signal)
+    → http.request(&#x27;/admin/users&#x27;, query, signal)
+
+动态页点击查询 → searchPosts()
+→ buildPostQuery(filters 草稿, page=1, 已选 pageSize)
+  ├─ 作者、日期或 Unicode 长度无效：本页提示，不发请求
+  └─ 合法：省略空字段，日期保留 YYYY-MM-DD
+→ list.runQuery(nextQuery)
+  → api.listPosts(query, signal)
+    → http.request(&#x27;/admin/posts&#x27;, query, signal)
+
+API 结果返回后 → readPage() 核对页码、条数、总数并解析每项
+→ list 接受最新有效结果
+→ ListPanel 展示表格 / 成功零条的空结果 / 错误与重试</code></pre></div>
+<p>动态接口对齐现有 <a href="https://github.com/Frident114514/exp_5/blob/8c399d44894e3bd922657f244b31ae1a1237513c/src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostController.java#L58">PostController.adminList</a>，用户列表字段仍待 M01 确认；不存在的响应字段不会被包装成假成功。</p>
+<h3 id="section-6">2.4 翻页或连续查询 → 保持条件和最新结果一致</h3>
+<p>关键实现：<a href="../src/admin-web/src/common/logic/usePagedQuery.ts#L39">runQuery</a>、<a href="../src/admin-web/src/common/logic/usePagedQuery.ts#L75">分页操作</a>。</p>
+<div class="call-chain-card"><div class="call-chain-toolbar">纯文本</div><pre><code>runQuery(nextQuery)
+→ cancelQuery()：递增 requestId 并取消前一个请求
+→ 保存已提交条件，捕获 requestId 与 sessionVersion
+→ 设置 loading，清除本次错误 → 等待 loadPage()
+
+响应或异常返回后：
+├─ requestId 或 sessionVersion 变化：忽略旧结果
+├─ 主动取消：不显示请求失败
+├─ 成功：更新分页结果
+├─ 401 / 403：清空本页管理数据
+└─ 其他失败：保留上次成功结果，并显示“当前为上次查询结果”
+
+finally 只有当前请求结束 loading
+
+翻页 → changePage(page) → 保留已提交条件 runQuery()
+改页大小 → changePageSize(size) → page=1 后 runQuery()
+重试 → runQuery() → 重用已提交条件
+组件离开 / 会话版本变化 → cancelQuery()，旧响应不能恢复结果</code></pre></div>
+<p>查询输入草稿不直接进入翻页请求。失败时暂停旧分页控件，避免已显示的旧页码与正在生效的查询条件混淆。</p>
+<h3 id="section-7">2.5 服务端返回 401 或点击退出 → 清理管理会话</h3>
+<p>请求处理：<a href="../src/admin-web/src/common/data/http.ts#L65">http.ts</a>。清理：<a href="../src/admin-web/src/modules/auth/logic/authState.ts#L28">clearSession</a>。</p>
+<div class="call-chain-card"><div class="call-chain-toolbar">纯文本</div><pre><code>受保护请求返回 HTTP 401
+→ request() 调用 onUnauthorized(发起请求的版本)
+→ auth.expireSession(requestVersion)
+  ├─ 是旧会话请求：不撤销后来建立的新会话
+  └─ 当前会话：clearSession(&#x27;登录已失效，请重新登录&#x27;)
+     → 递增会话版本，取消认证，移除 sessionStorage
+     → 查询状态监听版本：取消在途查询，清空列表
+     → 路由监听 hasSession：回 /login
+
+管理员点击退出 → AdminLayout.logout()
+→ auth.clearSession() → router.replace(&#x27;/login&#x27;)</code></pre></div>
+<p>401 即使响应体不是 JSON 也先通知认证失效；403 表示无权限，不一律作为令牌过期。退出只清本标签页会话，服务端撤销令牌需要后续接口约定。</p>
+</main>
+</body>
+</html>

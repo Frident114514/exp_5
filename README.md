@@ -36,7 +36,7 @@
 | `tests/` | 自动化测试、必要的手工验收记录和演示数据说明 | 完成功能时补测试及验收证据 |
 | `deliverables/` | 最终实验报告、四个附件表格和课堂展示 PPT | 整理课程提交物时使用；代码仍放 `src/` |
 
-当前可运行的模块测试见 [M02 动态工程](src/backend/modules/posts/README.md)，结果见 [M02 测试证据](tests/evidence/M02/README.md)。小程序、Web 后台和服务端主工程仍待对应负责人合入；模块测试通过不代表完整系统已经可启动。
+当前可运行的模块测试见 [M02 动态工程](src/backend/modules/posts/README.md)，结果见 [M02 测试证据](tests/evidence/M02/README.md)。[M08 Web 后台](src/admin-web/README.md)已完成第一周登录、路由和查询页面及前端自测，真实 API 待联调。小程序和服务端主工程仍待对应负责人合入；模块测试通过不代表完整系统已经可启动。
 
 ## 八人任务入口
 
