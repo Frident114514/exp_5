@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-25",
+  "phase": "原始实施方案的历史检查；当前实现检查见 实现检查结果.json",
+  "sourceCommit": "8c399d44894e3bd922657f244b31ae1a1237513c",
+  "structuralChecks": "passed",
+  "markdownHtmlSynchronized": true,
+  "sourceLocations": [
+    {
+      "file": "成员任务/08_Web后台与交付汇总.md",
+      "line": 40
+    },
+    {
+      "file": "specs/contracts/api.md",
+      "line": 7
+    },
+    {
+      "file": "specs/contracts/posts-module.md",
+      "line": 7
+    },
+    {
+      "file": "src/.env.example",
+      "line": 39
+    },
+    {
+      "file": "specs/contracts/api.md",
+      "line": 13
+    },
+    {
+      "file": "specs/contracts/api.md",
+      "line": 21
+    },
+    {
+      "file": "specs/contracts/api.md",
+      "line": 22
+    },
+    {
+      "file": "specs/contracts/api.md",
+      "line": 13
+    },
+    {
+      "file": "specs/contracts/api.md",
+      "line": 35
+    },
+    {
+      "file": "specs/contracts/data-model.md",
+      "line": 11
+    },
+    {
+      "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostController.java",
+      "line": 58
+    },
+    {
+      "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostFilter.java",
+      "line": 14
+    },
+    {
+      "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostService.java",
+      "line": 108
+    },
+    {
+      "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostSpecifications.java",
+      "line": 10
+    },
+    {
+      "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostService.java",
+      "line": 196
+    },
+    {
+      "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostErrorHandler.java",
+      "line": 16
+    }
+  ],
+  "businessScenarios": 6,
+  "weekOneCases": 9,
+  "backendFrontendTests": "方案编写时未执行；当前前端 25 项通过，真实服务端未联调",
+  "browserVisualReview": "unavailable: native pipe closed before response",
+  "defaultNodeAtPlanReview": "v12.22.12",
+  "implementationVerificationNode": "v22.23.1"
+}
