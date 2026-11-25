@@ -33,6 +33,7 @@ S1 过程中实际遇到并修复的问题，均为本人代码问题，保留�
 3. **事件参数类型不匹配**：`FormField` 的 `@input`/`@blur` 处理函数声明为 `{ detail: { value: string } }`，与 uni-app 组件声明的 `Event` 不兼容（`TS2322`）。改为接收 `Event` 后从 `detail.value` 安全取值。
 4. **测试配置缺 Node 类型**：`vitest.config.ts` 使用 `node:url` 报 `TS2307`。补充 `@types/node` 开发依赖并在 `tsconfig.json` 的 `types` 中加入 `node`。
 5. **Sass mixed-decls 警告**：`button-reset` mixin 内含嵌套的 `&::after`，其后又输出声明，Sass 1.77 提示未来行为变更。把 `&::after` 重置移到组件样式块末尾，构建设告警消除。
+6. **小程序端占位文字样式不生效**：`FormField` 用 `placeholder-class="form-field__placeholder"`，但该样式写在 scoped 块内，编译后选择器带 `.data-v-*` 后缀，而微信给占位节点加的是裸类名，令牌颜色静默回退为平台默认灰——构建与单测都不会报错，是检查 `dist/build/mp-weixin` 产物时发现的。改为全局类 `.form-placeholder`（`styles/base.scss`），并在 `app.wxss` 中确认输出 `.form-placeholder{color:#c0c4cc}`、`FormField.wxml` 的 `placeholder-class` 为裸类名。
 
 以上修复后重新执行四项检查，全部退出码 0；日志为同一版本产物，未保留中间失败日志（失败信息在本节按实际输出记录）。
 

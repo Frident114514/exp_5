@@ -97,7 +97,7 @@ function toggleVisible(): void {
         :password="isPassword"
         :value="modelValue"
         :placeholder="placeholder"
-        :placeholder-class="'form-field__placeholder'"
+        :placeholder-class="'form-placeholder'"
         :maxlength="maxlength"
         :disabled="disabled"
         @input="handleInput"
@@ -155,10 +155,6 @@ function toggleVisible(): void {
     min-width: 0;
     font-size: $font-size-subtitle;
     color: $text-primary;
-  }
-
-  &__placeholder {
-    color: $text-placeholder;
   }
 
   &__action {
