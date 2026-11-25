@@ -1,5 +1,23 @@
 # M01 容量压测
 
+## 已执行的本机初测
+
+2026-11-25 已使用 .NET 10 异步 HttpClient 对独立 MySQL 8.4.13 和真实 HTTP 服务施压。k6 下载中断，本轮未执行 k6。完整计数、成功请求 P95/P99、资源采样及限制见 [实测记录](../evidence/M01/performance-2026-11-25-182730/README.md)。
+
+本人信息查询在 100、500、1000 QPS 各持续 20 秒，全部成功；10000 请求批量实验成功 6474 次、503 为 3526 次，未通过。客户端峰值在途 3476，发出跨度约 1 秒，未验证严格的万人同时在途。过载后恢复档通过。
+
+复现需 PowerShell 7、.NET 10、Java 21、MySQL 8.4，以及已构建的 `src/backend/target/moments-backend-0.1.0-SNAPSHOT.jar`；设置 `JAVA_HOME` 后运行：
+
+```powershell
+./tests/performance/run_local_m01.ps1 -MysqlBin 'C:/Program Files/MySQL/MySQL Server 8.4/bin'
+```
+
+脚本创建隔离数据库、10000 个虚构账号及私有 JWT 夹具，运行后停止本次服务并删除夹具。结果保存在新的 `tests/evidence/M01/performance-*` 目录。20 秒同机初测不构成长时间或全系统混合业务验收。
+
+## k6 备用脚本
+
+新增 `successful_requests`、`responses_429`、`responses_503`、`transport_errors` 计数和 HTTP 200 的 `successful_request_duration` 时延趋势及门禁；业务账号一致性由 checks 独立核查。
+
 压测对象为独立测试环境中的完整 HTTP 服务和 MySQL 8.4。脚本需要本机已有 k6；没有安装时先准备工具。本脚本不代表系统已通过万人容量验收。
 
 准备 `users.local.json`，每项为 `{"account":"load_001","password":"虚构测试密码","accessToken":"预先登录取得的令牌"}`。使用专用测试账号；令牌有效期为 12 小时。该文件已在本目录忽略规则中。多个账号覆盖不同用户记录，避免把单账号热数据当成全部负载。
