@@ -14,6 +14,7 @@
 | [api.md](api.md) | 全组 API 路径、统一响应、权限和分页约定 |
 | [data-model.md](data-model.md) | 全组数据模型及字段约定 |
 | [posts-module.md](posts-module.md) | M02 已实现接口的参数、PATCH 行为、样例及跨模块端口、事务和接入要求 |
+| [media-module.md](media-module.md) | M03 已实现媒体上传、Range 读取、存储键、清理规则及 `MediaPort` 端口适配约定 |
 
 M02 的独立实现与模块测试已完成，真实认证、媒体、评分及前端联调待完成。各模块约定的确认和验收状态见 [总任务表](../tasks.md)，文档存在不代表已联调。
 
