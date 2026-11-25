@@ -74,6 +74,8 @@ M02 动态接口的部分编辑规则、完整样例、内部依赖和事务边�
 | 409 | `CONFLICT` | 重复操作或资源状态冲突 |
 | 413 | `FILE_TOO_LARGE` | 上传文件超过限制 |
 | 415 | `UNSUPPORTED_MEDIA_TYPE` | 上传了不支持的文件格式 |
+| 429 | `RATE_LIMITED` | 注册或登录超过单实例速率或并发上限；带 `Retry-After: 1` |
+| 503 | `SERVICE_BUSY` | 本人信息查询超过并发上限，或数据库暂时不可用；带 `Retry-After: 1` |
 
 ## 实现和联调检查
 

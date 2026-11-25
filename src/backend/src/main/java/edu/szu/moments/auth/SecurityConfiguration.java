@@ -30,6 +30,7 @@ import org.springframework.security.oauth2.jwt.JwtTimestampValidator;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.SecretKey;
@@ -80,8 +81,10 @@ class SecurityConfiguration {
     }
 
     @Bean
-    SecurityFilterChain apiSecurity(HttpSecurity http, UserRepository users, ObjectMapper mapper) throws Exception {
+    SecurityFilterChain apiSecurity(HttpSecurity http, UserRepository users, ObjectMapper mapper,
+                                    AuthAdmission admission) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(new AuthLoadFilter(admission, mapper), BearerTokenAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
@@ -109,7 +112,7 @@ class SecurityConfiguration {
         } catch (NumberFormatException failure) {
             throw new InvalidBearerTokenException("Invalid token subject");
         }
-        UserAccount user = users.findById(id).orElseThrow(() -> new InvalidBearerTokenException("Unknown user"));
+        UserAuthState user = users.findAuthState(id).orElseThrow(() -> new InvalidBearerTokenException("Unknown user"));
         if (!user.active() || user.tokenVersion() != ((Number) version).longValue()) {
             throw new InvalidBearerTokenException("Inactive token");
         }

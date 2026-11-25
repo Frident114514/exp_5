@@ -1,0 +1,10 @@
+# Opt-in profile for measured spike tests on Java 21.
+# Virtual threads reduce blocked platform threads, not SQL or BCrypt work.
+spring:
+  threads:
+    virtual:
+      enabled: true
+server:
+  tomcat:
+    max-connections: ${MOMENTS_HTTP_CONNECTIONS:16384}
+    accept-count: ${MOMENTS_HTTP_BACKLOG:512}

@@ -27,7 +27,9 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = {"moments.auth.requests-per-second=1000", "moments.auth.burst=1000",
+                "moments.auth.max-concurrent=4", "moments.auth.me-max-concurrent=64"})
 class AuthIntegrationTest {
     private static final String API = "/api/v1";
     private static final String PASSWORD = "M01-example-01";
@@ -36,6 +38,31 @@ class AuthIntegrationTest {
     @Autowired JdbcTemplate db;
     @Autowired JwtEncoder encoder;
     @Autowired PasswordEncoder passwords;
+    @Autowired AuthAdmission admission;
+
+    @Test
+    void httpRejectsOverloadAndRecoversWithoutAffectingOtherIdentityTraffic() throws Exception {
+        var passwordPermits = new java.util.ArrayList<AutoCloseable>();
+        try {
+            for (int i = 0; i < 4; i++) passwordPermits.add(admission.admit(true));
+            var busy = login("unknown_user", PASSWORD);
+            expect(busy, HttpStatus.TOO_MANY_REQUESTS, "RATE_LIMITED");
+            assertThat(busy.getHeaders().getFirst("Retry-After")).isEqualTo("1");
+            expect(get("/users/me", null), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        } finally {
+            for (var permit : passwordPermits) permit.close();
+        }
+        expect(login("unknown_user", PASSWORD), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+
+        var identityPermits = new java.util.ArrayList<AutoCloseable>();
+        try {
+            for (int i = 0; i < 64; i++) identityPermits.add(admission.admit(false));
+            expect(get("/users/me", null), HttpStatus.SERVICE_UNAVAILABLE, "SERVICE_BUSY");
+        } finally {
+            for (var permit : identityPermits) permit.close();
+        }
+        expect(get("/users/me", null), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+    }
 
     @Test
     void flywayMigratesMysql84AndCreatesUsers() {
