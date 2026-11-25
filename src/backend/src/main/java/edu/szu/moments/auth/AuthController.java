@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -17,6 +19,7 @@ import java.time.Instant;
 class AuthController {
     record Registration(String account, String password, String nickname) {}
     record Credentials(String account, String password) {}
+    record PasswordChange(String oldPassword, String newPassword) {}
     record LoginResult(String accessToken, Instant expiresAt, UserProfile user) {}
 
     private final AuthService auth;
@@ -39,5 +42,12 @@ class AuthController {
     @GetMapping("/users/me")
     ApiResponse<UserProfile> me(@AuthenticationPrincipal UserProfile user) {
         return ApiResponse.ok(user);
+    }
+
+    @PutMapping("/users/me/password")
+    ApiResponse<Void> changePassword(@AuthenticationPrincipal UserProfile user,
+                                    Authentication authentication, @RequestBody PasswordChange request) {
+        auth.changePassword(user.id(), ((Number) authentication.getDetails()).intValue(), request);
+        return ApiResponse.ok(null);
     }
 }

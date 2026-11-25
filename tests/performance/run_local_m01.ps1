@@ -14,7 +14,7 @@ $password=[guid]::NewGuid().ToString('N')
 $jwtKey=[Security.Cryptography.RandomNumberGenerator]::GetBytes(32)
 $db=$null; $app=$null; $load=$null
 Add-Type -Path (Join-Path $PSScriptRoot 'M01Load.cs')
-$names=@('MOMENTS_DB_URL','MOMENTS_DB_USER','MOMENTS_DB_PASSWORD','MOMENTS_JWT_SECRET','MOMENTS_ME_CONCURRENCY','MOMENTS_ME_WAITERS','MOMENTS_ME_WAIT_MS','MOMENTS_DIAGNOSTICS_ENABLED','SERVER_TOMCAT_CONNECTION_TIMEOUT','SPRING_PROFILES_ACTIVE','SERVER_PORT','SERVER_ADDRESS','MYSQL_PWD','M01_USERS_FILE','BASE_URL','MODE','RATE','DURATION','BURST_VUS','VUS','MAX_VUS','K6_SUMMARY_TREND_STATS')
+$names=@('MOMENTS_DB_URL','MOMENTS_DB_USER','MOMENTS_DB_PASSWORD','MOMENTS_JWT_SECRET','MOMENTS_ADMIN_ACCOUNT','MOMENTS_ADMIN_PASSWORD','MOMENTS_ADMIN_NICKNAME','MOMENTS_ME_CONCURRENCY','MOMENTS_ME_WAITERS','MOMENTS_ME_WAIT_MS','MOMENTS_DIAGNOSTICS_ENABLED','SERVER_TOMCAT_CONNECTION_TIMEOUT','SPRING_PROFILES_ACTIVE','SERVER_PORT','SERVER_ADDRESS','MYSQL_PWD','M01_USERS_FILE','BASE_URL','MODE','RATE','DURATION','BURST_VUS','VUS','MAX_VUS','K6_SUMMARY_TREND_STATS')
 $previous=@{}
 foreach($name in $names){$previous[$name]=[Environment]::GetEnvironmentVariable($name,'Process')}
 function Free-Port {
@@ -40,6 +40,9 @@ try {
  $dbWorkerInfo=Get-CimInstance Win32_Process -Filter "Name='mysqld.exe' AND ParentProcessId=$($db.Id)" | Select-Object -First 1
  $dbWorker=if($dbWorkerInfo){Get-Process -Id $dbWorkerInfo.ProcessId}else{$db}
  Remove-Item -LiteralPath $initFile
+ foreach($adminVariable in @('MOMENTS_ADMIN_ACCOUNT','MOMENTS_ADMIN_PASSWORD','MOMENTS_ADMIN_NICKNAME')){
+  [Environment]::SetEnvironmentVariable($adminVariable,$null,'Process')
+ }
  $env:MOMENTS_DB_URL="jdbc:mysql://127.0.0.1:${dbPort}/m01_load"
  $env:MOMENTS_DB_USER='m01_load';$env:MOMENTS_DB_PASSWORD=$dbPassword;$env:MYSQL_PWD=$dbPassword
  $env:MOMENTS_JWT_SECRET=[Convert]::ToBase64String($jwtKey)

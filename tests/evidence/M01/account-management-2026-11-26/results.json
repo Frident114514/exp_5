@@ -1,0 +1,66 @@
+{
+  "command": "./src/backend/scripts/verify_mysql.ps1 -MysqlBin <MySQL84 bin>",
+  "build": "SUCCESS",
+  "database": "MySQL 8.4.13",
+  "suites": [
+    {
+      "suite": "edu.szu.moments.api.M01DiagnosticsTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        "disabledDiagnosticsIgnoreInputAndEnabledCaptureIsBounded",
+        "globalDatabaseErrorsAreCountedOnceAndDuplicateIdsAreVisible"
+      ]
+    },
+    {
+      "suite": "edu.szu.moments.auth.AuthAdmissionTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        "concurrentPasswordWorkIsBoundedAndCapacityRecovers",
+        "rateLimitRefillsWithoutSleepingAndDoesNotAccumulateBeyondBurst",
+        "authenticationDatabaseFailureReturns503AndReleasesCapacity",
+        "invalidCapacityCannotDisableProtectionSilently",
+        "ioFailureReleasesAdmissionAndOverloadNeverEntersController",
+        "boundedIdentityWaitingTimesOutAndRecoversAfterRelease",
+        "saturatedPasswordGateDoesNotBlockIdentityReads",
+        "diagnosticsSeparateRejectionsDatabaseErrorsAndAbortWithoutLeakingPermits",
+        "identityWaiterCanAcquireReleasedSlotAndInterruptDoesNotLeakBudget"
+      ]
+    },
+    {
+      "suite": "edu.szu.moments.auth.AuthIntegrationTest",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "cases": [
+        "passwordChangeUsesPasswordAdmissionAndRequiresLogin",
+        "protectedEndpointRejectsExpiredAndStaleTokensAndDisabledUsers",
+        "adminInitializationIsIdempotentAndNeverPromotesExistingUser",
+        "synchronousDisableFailureRollsBackUserAndAudit",
+        "adminDisableIsAtomicAuditedIdempotentAndRevokesTokens",
+        "flywayMigratesMysql84AndCreatesUsers",
+        "wrongPasswordAndMissingAccountReturnSameUnauthorizedResponse",
+        "diagnosticsRequireAdminAndCorrelateActualHttpRequests",
+        "passwordChangeRejectsInvalidInputAndRevokesAllOldTokens",
+        "concurrentPasswordChangesAllowOnlyOneVersionAndRejectStaleAdminMutation",
+        "userCannotPassAdminSecurityGate",
+        "duplicateAccountReturnsConflictAndLeavesOneRow",
+        "registrationForcesUserRoleAndOnlyStoresBcryptHash",
+        "adminListsLiteralKeywordsWithPaginationAndNoSecrets",
+        "loginIssuesTwelveHourTokenAndMeReturnsSameUser",
+        "startupAdminUsesEnvironmentWithoutExposingCredentials",
+        "rejectsInvalidRegistrationAndMalformedJson",
+        "httpRejectsOverloadAndRecoversWithoutAffectingOtherIdentityTraffic",
+        "protectedEndpointRejectsMissingMalformedAndAlteredTokens"
+      ]
+    }
+  ],
+  "java": "21.0.8",
+  "date": "2026-11-26"
+}

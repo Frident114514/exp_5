@@ -8,6 +8,7 @@ import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 class ApiErrorHandler {
@@ -30,5 +31,10 @@ class ApiErrorHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     ResponseEntity<ApiResponse<Void>> handleUnreadableJson() {
         return ResponseEntity.badRequest().body(ApiResponse.error("VALIDATION_ERROR", "请求体须为有效的 JSON 对象"));
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    ResponseEntity<ApiResponse<Void>> handleInvalidParameter() {
+        return ResponseEntity.badRequest().body(ApiResponse.error("VALIDATION_ERROR", "请求参数类型不正确"));
     }
 }

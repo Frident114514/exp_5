@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -83,6 +84,40 @@ class AuthService {
         String token = encoder.encode(JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims))
                 .getTokenValue();
         return new AuthController.LoginResult(token, expiresAt, user.profile());
+    }
+
+    @Transactional
+    public void changePassword(long id, int expectedVersion, AuthController.PasswordChange request) {
+        if (!validPassword(request.newPassword()) || !validPassword(request.oldPassword())) {
+            throw invalid("密码至少 8 个字符，UTF-8 编码最长 72 字节，且不能全为空白");
+        }
+        var user = users.lockById(id).orElseThrow(AuthService::badCredentials);
+        if (!user.active() || user.tokenVersion() != expectedVersion
+                || !passwords.matches(request.oldPassword(), user.passwordHash())) throw badCredentials();
+        if (request.oldPassword().equals(request.newPassword())) throw invalid("新密码不能与原密码相同");
+        user.changePassword(passwords.encode(request.newPassword()));
+    }
+
+    @Transactional
+    public void initializeAdmin(String rawAccount, String password, String rawNickname) {
+        String account = normalizeAccount(rawAccount);
+        if (account == null || !validPassword(password)) {
+            throw new IllegalStateException("Invalid administrator account or password configuration");
+        }
+        String nickname = rawNickname == null ? "管理员" : rawNickname.strip();
+        if (nickname.isEmpty() || nickname.codePointCount(0, nickname.length()) > 32) {
+            throw new IllegalStateException("Invalid administrator nickname configuration");
+        }
+        var existing = users.findByAccount(account);
+        if (existing.isPresent()) {
+            if (existing.get().role() != UserAccount.Role.ADMIN) {
+                throw new IllegalStateException("Administrator account conflicts with an existing user");
+            }
+            return;
+        }
+        var user = new UserAccount(account, passwords.encode(password), nickname);
+        user.makeAdmin();
+        users.saveAndFlush(user);
     }
 
     private static String normalizeAccount(String raw) {

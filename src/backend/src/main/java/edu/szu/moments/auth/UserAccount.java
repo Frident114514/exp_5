@@ -53,5 +53,18 @@ class UserAccount {
     Role role() { return role; }
     boolean active() { return status == Status.ACTIVE; }
     int tokenVersion() { return tokenVersion; }
+    String account() { return account; }
+    String nickname() { return nickname; }
+    Status status() { return status; }
+    Instant createdAt() { return createdAt; }
+    void changePassword(String hash) {
+        passwordHash = hash;
+        tokenVersion = Math.incrementExact(tokenVersion);
+    }
+    void disable() {
+        status = Status.DISABLED;
+        tokenVersion = Math.incrementExact(tokenVersion);
+    }
+    void makeAdmin() { role = Role.ADMIN; }
     UserProfile profile() { return new UserProfile(id, account, nickname, role.name()); }
 }

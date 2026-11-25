@@ -39,6 +39,178 @@ class AuthIntegrationTest {
     @Autowired JwtEncoder encoder;
     @Autowired PasswordEncoder passwords;
     @Autowired AuthAdmission admission;
+    @Autowired AuthService authService;
+    @Autowired AdminUserService adminUsers;
+    @Autowired org.springframework.context.ConfigurableApplicationContext context;
+
+    @Test
+    @org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable(named = "MOMENTS_ADMIN_ACCOUNT", matches = "verify_admin")
+    void startupAdminUsesEnvironmentWithoutExposingCredentials() {
+        var admin = db.queryForMap("SELECT role,nickname FROM users WHERE account='verify_admin'");
+        assertThat(admin.get("role")).isEqualTo("ADMIN");
+        assertThat(admin.get("nickname")).isEqualTo("Verification admin");
+    }
+
+    @Test
+    void concurrentPasswordChangesAllowOnlyOneVersionAndRejectStaleAdminMutation() throws Exception {
+        String account = account(); long id = register(account).getBody().path("data").path("id").asLong();
+        var ready = new java.util.concurrent.CountDownLatch(2);
+        var start = new java.util.concurrent.CountDownLatch(1);
+        try (var executor = java.util.concurrent.Executors.newFixedThreadPool(2)) {
+            var tasks = new java.util.ArrayList<java.util.concurrent.Future<Integer>>();
+            for (String password : new String[]{"New-password-01", "New-password-02"}) {
+                tasks.add(executor.submit(() -> {
+                    ready.countDown(); start.await();
+                    try {
+                        authService.changePassword(id, 0, new AuthController.PasswordChange(PASSWORD, password));
+                        return 200;
+                    } catch (edu.szu.moments.api.ApiFailure failure) { return failure.status().value(); }
+                }));
+            }
+            try { assertThat(ready.await(5, java.util.concurrent.TimeUnit.SECONDS)).isTrue(); }
+            finally { start.countDown(); }
+            assertThat(java.util.List.of(tasks.get(0).get(), tasks.get(1).get())).containsExactlyInAnyOrder(200, 401);
+        }
+        assertThat(db.queryForObject("SELECT token_version FROM users WHERE id=?", Integer.class, id)).isEqualTo(1);
+        String admin = account(); authService.initializeAdmin(admin, PASSWORD, "管理员");
+        long adminId = get("/users/me", token(admin)).getBody().path("data").path("id").asLong();
+        db.update("UPDATE users SET token_version=1 WHERE id=?", adminId);
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> adminUsers.disable(adminId, 0, id))
+                .isInstanceOfSatisfying(edu.szu.moments.api.ApiFailure.class,
+                        failure -> assertThat(failure.status().value()).isEqualTo(401));
+        assertThat(db.queryForObject("SELECT status FROM users WHERE id=?", String.class, id)).isEqualTo("ACTIVE");
+    }
+
+    @Test
+    void passwordChangeRejectsInvalidInputAndRevokesAllOldTokens() {
+        String account = account();
+        long id = register(account).getBody().path("data").path("id").asLong();
+        String oldToken = token(account);
+        expect(change(oldToken, PASSWORD, "short"), HttpStatus.BAD_REQUEST, "VALIDATION_ERROR");
+        expect(change(oldToken, "wrong-password", "New-password-01"), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        expect(change(oldToken, PASSWORD, PASSWORD), HttpStatus.BAD_REQUEST, "VALIDATION_ERROR");
+        expect(get("/users/me", oldToken), HttpStatus.OK, "OK");
+        expect(change(oldToken, PASSWORD, "New-password-01"), HttpStatus.OK, "OK");
+        expect(get("/users/me", oldToken), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        expect(change(oldToken, PASSWORD, "Another-password"), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        expect(login(account, PASSWORD), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        expect(login(account, "New-password-01"), HttpStatus.OK, "OK");
+        assertThat(db.queryForObject("SELECT token_version FROM users WHERE id=?", Integer.class, id)).isEqualTo(1);
+    }
+
+    @Test
+    void passwordChangeUsesPasswordAdmissionAndRequiresLogin() throws Exception {
+        String account = account(); register(account); String token = token(account);
+        expect(change(null, PASSWORD, "New-password-01"), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        var permits = new java.util.ArrayList<AutoCloseable>();
+        try {
+            for (int i=0; i<4; i++) permits.add(admission.admit(true));
+            expect(change(token, PASSWORD, "New-password-01"), HttpStatus.TOO_MANY_REQUESTS, "RATE_LIMITED");
+        } finally { for (var permit : permits) permit.close(); }
+        expect(change(token, PASSWORD, "New-password-01"), HttpStatus.OK, "OK");
+    }
+
+    @Test
+    void adminInitializationIsIdempotentAndNeverPromotesExistingUser() {
+        String account = account();
+        authService.initializeAdmin(account, PASSWORD, "管理测试");
+        authService.initializeAdmin(account, "Different-password", "不覆盖");
+        var login = login(account, PASSWORD);
+        expect(login, HttpStatus.OK, "OK");
+        assertThat(login.getBody().path("data").path("user").path("role").asText()).isEqualTo("ADMIN");
+        String ordinary = account(); register(ordinary);
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> authService.initializeAdmin(ordinary, PASSWORD, "管理测试"))
+                .isInstanceOf(IllegalStateException.class);
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> authService.initializeAdmin(account(), null, "管理测试"))
+                .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    void adminListsLiteralKeywordsWithPaginationAndNoSecrets() {
+        String admin = account(); authService.initializeAdmin(admin, PASSWORD, "管理员");
+        String token = token(admin); String prefix = account();
+        register(prefix + "a"); register(prefix + "b");
+        var result = get("/admin/users?keyword="+prefix+"&page=1&pageSize=1", token);
+        expect(result, HttpStatus.OK, "OK");
+        var data = result.getBody().path("data");
+        assertThat(data.path("total").asInt()).isEqualTo(2);
+        assertThat(data.path("items").size()).isEqualTo(1);
+        assertThat(data.path("items").get(0).path("account").asText()).isEqualTo(prefix+"b");
+        assertThat(data.path("items").get(0).path("status").asText()).isEqualTo("ACTIVE");
+        assertThat(data.path("items").get(0).hasNonNull("createdAt")).isTrue();
+        assertThat(result.getBody().toString()).doesNotContain("password", "tokenVersion", "token_version");
+        assertThat(get("/admin/users?keyword="+prefix+"&page=2&pageSize=1", token).getBody()
+                .path("data").path("items").get(0).path("account").asText()).isEqualTo(prefix+"a");
+        assertThat(get("/admin/users?keyword=%25", token).getBody().path("data").path("total").asInt()).isZero();
+        for (String query : new String[]{"page=0", "pageSize=51", "pageSize=0", "page=abc",
+                "page=2147483647&pageSize=50", "keyword="+"x".repeat(65)}) {
+            expect(get("/admin/users?"+query, token), HttpStatus.BAD_REQUEST, "VALIDATION_ERROR");
+        }
+    }
+
+    @Test
+    void adminDisableIsAtomicAuditedIdempotentAndRevokesTokens() {
+        String admin = account(); authService.initializeAdmin(admin, PASSWORD, "管理员");
+        String adminToken = token(admin);
+        long adminId = get("/users/me", adminToken).getBody().path("data").path("id").asLong();
+        String account = account(); long id = register(account).getBody().path("data").path("id").asLong();
+        String token = token(account);
+        expect(delete(id, token), HttpStatus.FORBIDDEN, "FORBIDDEN");
+        expect(delete(id, null), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        expect(delete(adminId, adminToken), HttpStatus.FORBIDDEN, "FORBIDDEN");
+        String other = account(); authService.initializeAdmin(other, PASSWORD, "另一个管理员");
+        long otherId = get("/users/me", token(other)).getBody().path("data").path("id").asLong();
+        expect(delete(otherId, adminToken), HttpStatus.FORBIDDEN, "FORBIDDEN");
+        expect(delete(Long.MAX_VALUE, adminToken), HttpStatus.NOT_FOUND, "NOT_FOUND");
+        expect(delete(id, adminToken), HttpStatus.OK, "OK");
+        expect(delete(id, adminToken), HttpStatus.OK, "OK");
+        expect(get("/users/me", token), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        expect(login(account, PASSWORD), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+        assertThat(db.queryForObject("SELECT token_version FROM users WHERE id=?", Integer.class, id)).isEqualTo(1);
+        assertThat(db.queryForObject("SELECT COUNT(*) FROM admin_operation_logs WHERE target_id=? AND admin_id=?",
+                Integer.class, id, adminId)).isEqualTo(1);
+        assertThat(get("/admin/users?keyword="+account, adminToken).getBody().path("data").path("items")
+                .get(0).path("status").asText()).isEqualTo("DISABLED");
+    }
+
+    @Test
+    void synchronousDisableFailureRollsBackUserAndAudit() {
+        String admin = account(); authService.initializeAdmin(admin, PASSWORD, "管理员");
+        long adminId = get("/users/me", token(admin)).getBody().path("data").path("id").asLong();
+        String account = account(); long id = register(account).getBody().path("data").path("id").asLong();
+        var multicaster = context.getBean("applicationEventMulticaster",
+                org.springframework.context.event.ApplicationEventMulticaster.class);
+        org.springframework.context.ApplicationListener<org.springframework.context.PayloadApplicationEvent<?>> listener = event -> {
+            if (event.getPayload() instanceof UserDisabled disabled && disabled.userId() == id) {
+                db.update("UPDATE users SET nickname='listener update' WHERE id=?", id);
+                throw new IllegalStateException("simulated module failure");
+            }
+        };
+        multicaster.addApplicationListener(listener);
+        try {
+            org.assertj.core.api.Assertions.assertThatThrownBy(() -> adminUsers.disable(adminId, 0, id))
+                    .isInstanceOf(IllegalStateException.class);
+        } finally { multicaster.removeApplicationListener(listener); }
+        assertThat(db.queryForObject("SELECT status FROM users WHERE id=?", String.class, id)).isEqualTo("ACTIVE");
+        assertThat(db.queryForObject("SELECT token_version FROM users WHERE id=?", Integer.class, id)).isZero();
+        assertThat(db.queryForObject("SELECT nickname FROM users WHERE id=?", String.class, id)).isEqualTo("测试用户");
+        assertThat(db.queryForObject("SELECT COUNT(*) FROM admin_operation_logs WHERE target_id=?", Integer.class, id)).isZero();
+    }
+
+    private ResponseEntity<JsonNode> change(String token, String oldPassword, String newPassword) {
+        return authenticated("/users/me/password", HttpMethod.PUT, token,
+                Map.of("oldPassword", oldPassword, "newPassword", newPassword));
+    }
+
+    private ResponseEntity<JsonNode> delete(long id, String token) {
+        return authenticated("/admin/users/"+id, HttpMethod.DELETE, token, null);
+    }
+
+    private ResponseEntity<JsonNode> authenticated(String path, HttpMethod method, String token, Object body) {
+        var headers = new HttpHeaders(); headers.setContentType(MediaType.APPLICATION_JSON);
+        if (token != null) headers.setBearerAuth(token);
+        return http.exchange(API+path, method, new HttpEntity<>(body, headers), JsonNode.class);
+    }
 
     @Test
     void diagnosticsRequireAdminAndCorrelateActualHttpRequests() {

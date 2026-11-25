@@ -119,8 +119,11 @@ class SecurityConfiguration {
         if (!user.active() || user.tokenVersion() != ((Number) version).longValue()) {
             throw new InvalidBearerTokenException("Inactive token");
         }
-        return UsernamePasswordAuthenticationToken.authenticated(user.profile(), jwt,
+        var authentication = UsernamePasswordAuthenticationToken.authenticated(user.profile(), null,
                 List.of(new SimpleGrantedAuthority("ROLE_" + user.role().name())));
+        // ProviderManager erases credentials; retain only the verified version for transactional rechecks.
+        authentication.setDetails(user.tokenVersion());
+        return authentication;
     }
 
     private static void unauthenticated(ObjectMapper mapper, HttpServletResponse response) throws IOException {

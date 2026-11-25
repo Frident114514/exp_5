@@ -47,7 +47,15 @@ M02 动态接口的部分编辑规则、完整样例、内部依赖和事务边�
 - 注册密码至少 8 个 Unicode 字符，UTF-8 编码最多 72 字节，不能全为空白；密码首尾空白会保留。昵称去除首尾空白后须为 1–32 个 Unicode 字符。
 - 注册返回 HTTP 201；公开注册固定为 `USER`。登录返回 HTTP 200；凭据错误、账号不存在或账号已禁用，均返回 401 `UNAUTHENTICATED`。账号重复返回 409 `CONFLICT`。
 - 注册和 `GET /users/me` 返回的 `data` 均为 `{ "id": 7, "account": "demo_m01", "nickname": "演示用户", "role": "USER" }`；登录将同一对象置于 `data.user` 中。
-- 启动与完整请求样例见 [后端运行说明](../../src/backend/README.md)。改密、管理员初始化和用户管理在后续周次实现。
+- 启动与完整请求样例见 [后端运行说明](../../src/backend/README.md)。
+
+## 改密与管理员用户管理（M01）
+
+- `PUT /users/me/password` 请求为 `{ "oldPassword": "原密码", "newPassword": "新密码" }`。新密码沿用注册校验，不能与原密码相同；成功返回 HTTP 200、`data: null`，当前及其他旧令牌均立即失效，客户端清除登录态并重新登录。原密码错误返回 401，参数错误返回 400。与注册/登录共用密码工作限流预算。
+- `GET /admin/users?keyword=...&page=1&pageSize=10`：按账号或昵称的字面子串搜索，关键词去除首尾空白、最多 64 个字符；页码从 1 开始，每页 1–50，越界返回 400。按 ID 倒序返回 `items/page/pageSize/total`，每项为 `id/account/nickname/role/status/createdAt`；包含禁用用户，不返回密码哈希和 tokenVersion。
+- `DELETE /admin/users/{userId}`：逻辑禁用普通用户，状态改为 DISABLED、tokenVersion 加 1，并在同一事务写管理日志；成功返回 HTTP 200、`data: null`。重复禁用不重复递增或记日志；用户不存在返回 404。禁止删除本人或任何 ADMIN（403），避免误删管理账号。操作者身份与令牌版本在事务内再次核验。
+- 用户禁用在持有用户行锁的事务中同步发布 `UserDisabled` 事件。M02/M04 接入时须用同步监听器、同一数据源和事务清理动态/评论/评分，异常须向上抛出以整体回滚。当前主工程尚无这些模块，不能将账号禁用验收等同跨模块清理已完成。
+- 管理员通过 `MOMENTS_ADMIN_ACCOUNT`、`MOMENTS_ADMIN_PASSWORD`、可选 `MOMENTS_ADMIN_NICKNAME` 在启动时初始化；前两项须同时提供。已有同名管理员不重设密码、不自动启用；同名普通账号导致启动失败。默认不创建管理员，无内置密码。
 
 ## 关键对象示例
 

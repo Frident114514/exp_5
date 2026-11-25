@@ -14,7 +14,8 @@ $initFile = Join-Path $runDir 'init.sql'
 $mysqlLog = Join-Path $runDir 'mysql.log'
 $testPassword = [guid]::NewGuid().ToString('N')
 $rootPassword = [guid]::NewGuid().ToString('N')
-$envNames = @('MOMENTS_DB_URL', 'MOMENTS_DB_USER', 'MOMENTS_DB_PASSWORD', 'MOMENTS_JWT_SECRET')
+$envNames = @('MOMENTS_DB_URL', 'MOMENTS_DB_USER', 'MOMENTS_DB_PASSWORD', 'MOMENTS_JWT_SECRET',
+    'MOMENTS_ADMIN_ACCOUNT', 'MOMENTS_ADMIN_PASSWORD', 'MOMENTS_ADMIN_NICKNAME')
 $previousEnv = @{}
 foreach ($name in $envNames) { $previousEnv[$name] = [Environment]::GetEnvironmentVariable($name, 'Process') }
 $instance = $null
@@ -52,6 +53,10 @@ try {
     $env:MOMENTS_DB_USER = 'm01_test'
     $env:MOMENTS_DB_PASSWORD = $testPassword
     $env:MOMENTS_JWT_SECRET = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+    # Exercise startup initialization using synthetic credentials, isolated from the caller's admin settings.
+    $env:MOMENTS_ADMIN_ACCOUNT = 'verify_admin'
+    $env:MOMENTS_ADMIN_PASSWORD = [guid]::NewGuid().ToString('N')
+    $env:MOMENTS_ADMIN_NICKNAME = 'Verification admin'
     & .\mvnw.cmd -B -ntp verify
     $exitCode = $LASTEXITCODE
 } finally {

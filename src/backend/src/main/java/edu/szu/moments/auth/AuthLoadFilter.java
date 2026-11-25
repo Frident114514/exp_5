@@ -35,6 +35,7 @@ final class AuthLoadFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
         return !(request.getMethod().equals("POST") && passwordPath(path)
+                || request.getMethod().equals("PUT") && passwordPath(path)
                 || request.getMethod().equals("GET") && path.equals("/api/v1/users/me"));
     }
 
@@ -72,7 +73,8 @@ final class AuthLoadFilter extends OncePerRequestFilter {
     private static boolean passwordPath(String path) {
         // A trailing slash must not bypass admission before a later MVC mapping change.
         return path.equals("/api/v1/auth/login") || path.equals("/api/v1/auth/register")
-                || path.equals("/api/v1/auth/login/") || path.equals("/api/v1/auth/register/");
+                || path.equals("/api/v1/auth/login/") || path.equals("/api/v1/auth/register/")
+                || path.equals("/api/v1/users/me/password") || path.equals("/api/v1/users/me/password/");
     }
 
     private void reject(HttpServletResponse response, int status, String code, String message) throws IOException {

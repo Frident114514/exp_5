@@ -46,3 +46,5 @@ erDiagram
 ## 数据库迁移规则
 
 每次改表新增一个 Flyway 迁移文件，文件名使用 `V序号__说明.sql`。不要直接修改已被组员使用的旧迁移文件；需要变更时创建新版本并同步本文件。
+
+2026-11-26：主工程正式迁移 V2 已用于 `admin_operation_logs`，登记为 DISABLE_USER / USER 审计记录。M02 候选 posts.sql 尚未进入主迁移目录，合入时分配 V3 或后续未占用编号。账号禁用、token_version 递增和日志同事务；M02/M04 内容清理由 UserDisabled 同步事件接入，当前未完成跨模块验收。
