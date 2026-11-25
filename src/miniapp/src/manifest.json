@@ -1,0 +1,26 @@
+{
+  "name": "多媒体朋友圈",
+  "appid": "",
+  "description": "M07 动态广场与详情页（第一周）",
+  "versionName": "0.1.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "minified": true,
+      "postcss": true
+    },
+    "usingComponents": true,
+    "lazyCodeLoading": "requiredComponents"
+  },
+  "h5": {
+    "router": {
+      "mode": "hash"
+    },
+    "title": "动态广场"
+  },
+  "vueVersion": "3"
+}

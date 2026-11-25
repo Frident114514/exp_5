@@ -1,0 +1,31 @@
+{
+  "name": "miniapp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "多媒体朋友圈展示系统 · 用户小程序（uni-app + Vue 3 + TypeScript）",
+  "scripts": {
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:mp-weixin": "uni build -p mp-weixin",
+    "dev:h5": "uni",
+    "build:h5": "uni build",
+    "mock": "node mock/mock-server.mjs",
+    "test": "node tests/index.ts",
+    "type-check": "vue-tsc --noEmit",
+    "test:integration": "node tests/integration.ts"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "latest",
+    "@dcloudio/uni-components": "latest",
+    "@dcloudio/uni-h5": "latest",
+    "@dcloudio/uni-mp-weixin": "latest",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "latest",
+    "@dcloudio/vite-plugin-uni": "latest",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8",
+    "vue-tsc": "^2.0.13"
+  },
+  "type": "module"
+}
