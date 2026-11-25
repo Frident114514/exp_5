@@ -65,10 +65,10 @@
    ```sh
    python src/backend/modules/media/scripts/run_media_tests.py
    ```
-3. **启动服务端主工程**（待 M01 合入主启动类后）：
+3. **启动服务端主工程**（M01 首周主工程已提供；环境变量及认证调用示例见 [后端说明](backend/README.md)，与动态、媒体模块的主工程集成仍待联调）：
    ```sh
    cd src/backend
-   mvn spring-boot:run
+   .\mvnw.cmd spring-boot:run
    ```
    确认服务监听 `http://127.0.0.1:8080`，且本地媒体目录 `MEDIA_STORAGE_DIR` 可读写。
 
