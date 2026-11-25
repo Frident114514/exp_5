@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$MysqlBin,[int]$MaxBurst=10000,[switch]$BurstOnly,[int]$MeConcurrency=64,[int]$WarmupSeconds=20,[int]$WarmupRate=1000,[switch]$Profile,[switch]$Calibrate)
+param([Parameter(Mandatory)][string]$MysqlBin,[int]$MaxBurst=10000,[switch]$BurstOnly,[int]$MeConcurrency=64,[int]$WarmupSeconds=20,[int]$WarmupRate=1000,[int]$MeWaiters=1024,[int]$MeWaitMs=200,[int[]]$BurstSizes=@(10000),[switch]$Profile,[switch]$Calibrate,[switch]$DiagnosticsOff,[switch]$KeepAlive,[ValidateRange(1,5)][int]$Repetitions=1)
 $ErrorActionPreference='Stop'
 $repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $evidence=Join-Path $repo ("tests/evidence/M01/performance-"+(Get-Date -Format 'yyyy-MM-dd-HHmmss'))
@@ -14,7 +14,7 @@ $password=[guid]::NewGuid().ToString('N')
 $jwtKey=[Security.Cryptography.RandomNumberGenerator]::GetBytes(32)
 $db=$null; $app=$null; $load=$null
 Add-Type -Path (Join-Path $PSScriptRoot 'M01Load.cs')
-$names=@('MOMENTS_DB_URL','MOMENTS_DB_USER','MOMENTS_DB_PASSWORD','MOMENTS_JWT_SECRET','MOMENTS_ME_CONCURRENCY','MOMENTS_DIAGNOSTICS_ENABLED','SERVER_TOMCAT_CONNECTION_TIMEOUT','SPRING_PROFILES_ACTIVE','SERVER_PORT','SERVER_ADDRESS','MYSQL_PWD','M01_USERS_FILE','BASE_URL','MODE','RATE','DURATION','BURST_VUS','VUS','MAX_VUS','K6_SUMMARY_TREND_STATS')
+$names=@('MOMENTS_DB_URL','MOMENTS_DB_USER','MOMENTS_DB_PASSWORD','MOMENTS_JWT_SECRET','MOMENTS_ME_CONCURRENCY','MOMENTS_ME_WAITERS','MOMENTS_ME_WAIT_MS','MOMENTS_DIAGNOSTICS_ENABLED','SERVER_TOMCAT_CONNECTION_TIMEOUT','SPRING_PROFILES_ACTIVE','SERVER_PORT','SERVER_ADDRESS','MYSQL_PWD','M01_USERS_FILE','BASE_URL','MODE','RATE','DURATION','BURST_VUS','VUS','MAX_VUS','K6_SUMMARY_TREND_STATS')
 $previous=@{}
 foreach($name in $names){$previous[$name]=[Environment]::GetEnvironmentVariable($name,'Process')}
 function Free-Port {
@@ -44,7 +44,8 @@ try {
  $env:MOMENTS_DB_USER='m01_load';$env:MOMENTS_DB_PASSWORD=$dbPassword;$env:MYSQL_PWD=$dbPassword
  $env:MOMENTS_JWT_SECRET=[Convert]::ToBase64String($jwtKey)
  $env:MOMENTS_ME_CONCURRENCY=[string]$MeConcurrency
- $env:MOMENTS_DIAGNOSTICS_ENABLED='true'
+ $env:MOMENTS_ME_WAITERS=[string]$MeWaiters;$env:MOMENTS_ME_WAIT_MS=[string]$MeWaitMs
+ $env:MOMENTS_DIAGNOSTICS_ENABLED=if($DiagnosticsOff){'false'}else{'true'}
  if($BurstOnly){$env:SERVER_TOMCAT_CONNECTION_TIMEOUT='60s'}
  $env:SPRING_PROFILES_ACTIVE='high-concurrency';$env:SERVER_ADDRESS='127.0.0.1';$env:SERVER_PORT=[string](Free-Port)
  $env:BASE_URL="http://127.0.0.1:$env:SERVER_PORT/api/v1"
@@ -116,11 +117,16 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
  $trials+=@{Name='recovery-100rps';Mode='me';Rate=100;Duration='20s'}
  if($BurstOnly){
   [Threading.ThreadPool]::SetMinThreads(128,128) | Out-Null
-  $trials=@(@{Name='warmup';Mode='me';Rate=$WarmupRate;Duration="${WarmupSeconds}s"},
-    @{Name='preconnected-10000';Mode='me';Burst=10000;Duration='30s';Preconnect=$true},
-    @{Name='recovery-100rps';Mode='me';Rate=100;Duration='10s'})
+  $trials=@(for($repeat=1;$repeat -le $Repetitions;$repeat++){
+   @{Name="warmup-$repeat";Mode='me';Rate=$WarmupRate;Duration="${WarmupSeconds}s"}
+   foreach($size in $BurstSizes){
+    if($size -lt 1 -or $size -gt 10000){throw 'BurstSizes must be between 1 and 10000'}
+    @{Name="preconnected-$size-$repeat";Mode='me';Burst=$size;Duration='30s';Preconnect=$true}
+   }
+  })
+  $trials+=@{Name='recovery-100rps';Mode='me';Rate=100;Duration='10s'}
  }
- @{meConcurrency=$MeConcurrency;warmupSeconds=$WarmupSeconds;warmupRate=$WarmupRate;serverConnectionTimeoutSeconds=if($BurstOnly){60}else{5};serverConnectionTimeoutScope='entire Java service process, including all measured requests';dispatch='10000 asynchronous tasks released by one gate';burstOnly=[bool]$BurstOnly;preconnectedClients=if($BurstOnly){10000}else{0};responseReading='immediate, no artificial delay in business test';requestTimeoutSeconds=15;diagnosticsEnabled=$true;calibration=[bool]$Calibrate;threadPoolMinimum=if($BurstOnly){128}else{'runtime default'};jfr=[bool]$Profile} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'experiment.json') -Encoding utf8
+ @{meConcurrency=$MeConcurrency;meWaiters=$MeWaiters;meWaitMs=$MeWaitMs;burstSizes=$BurstSizes;warmupSeconds=$WarmupSeconds;warmupRate=$WarmupRate;serverConnectionTimeoutSeconds=if($BurstOnly){60}else{5};serverConnectionTimeoutScope='entire Java service process, including all measured requests';dispatch='configured burst tasks released by one gate';burstOnly=[bool]$BurstOnly;preconnectedClients=if($BurstOnly){$BurstSizes}else{@()};responseReading='immediate, no artificial delay in business test';requestTimeoutSeconds=15;diagnosticsEnabled=(-not $DiagnosticsOff);connectionPolicy=if($KeepAlive){'keep-alive, one request, cleanup excluded'}else{'close'};repetitions=$Repetitions;calibration=[bool]$Calibrate;threadPoolMinimum=if($BurstOnly){128}else{'runtime default'};jfr=[bool]$Profile} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'experiment.json') -Encoding utf8
  $samples=[Collections.Generic.List[object]]::new();$runs=[Collections.Generic.List[object]]::new()
  foreach($trial in $trials){
   $env:MODE=$trial.Mode;$env:RATE=[string]$trial.Rate;$env:DURATION=$trial.Duration;$env:BURST_VUS=[string]$trial.Burst
@@ -133,7 +139,7 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
    & (Join-Path $env:JAVA_HOME 'bin/jcmd.exe') $app.Id JFR.start name=m01 settings=profile | Out-Null
    if($LASTEXITCODE -ne 0){throw 'JFR start failed'}
   }
-  $load=[M01Load.Runner]::Run($env:M01_USERS_FILE,$env:BASE_URL,$trial.Mode,[int]$trial.Rate,$seconds,[int]$trial.Burst,[bool]$trial.Preconnect,$trial.Name,(Join-Path $evidence "$($trial.Name)-client-traces.json"))
+  $load=[M01Load.Runner]::Run($env:M01_USERS_FILE,$env:BASE_URL,$trial.Mode,[int]$trial.Rate,$seconds,[int]$trial.Burst,[bool]$trial.Preconnect,$trial.Name,(Join-Path $evidence "$($trial.Name)-client-traces.json"),[bool]$KeepAlive)
   while(-not $load.IsCompleted){
    $app.Refresh();$dbWorker.Refresh();$self=Get-Process -Id $PID;$os=Get-CimInstance Win32_OperatingSystem
    $samples.Add(@{trial=$trial.Name;phase=[M01Load.Runner]::Phase;requestPhaseElapsedMs=[M01Load.Runner]::PhaseElapsedMs;time=(Get-Date -Format o);appCpuSeconds=$app.TotalProcessorTime.TotalSeconds;appWorkingSet=$app.WorkingSet64;appPrivate=$app.PrivateMemorySize64;dbCpuSeconds=$dbWorker.TotalProcessorTime.TotalSeconds;dbWorkingSet=$dbWorker.WorkingSet64;loadCpuSeconds=$self.TotalProcessorTime.TotalSeconds;loadWorkingSet=$self.WorkingSet64;freeMemoryKB=$os.FreePhysicalMemory;loadGcCollections=@([GC]::CollectionCount(0),[GC]::CollectionCount(1),[GC]::CollectionCount(2));loadThreadPoolPending=[Threading.ThreadPool]::PendingWorkItemCount})
@@ -143,13 +149,15 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
   $result=$load.GetAwaiter().GetResult()
   $result | Set-Content -LiteralPath $summary -Encoding utf8
   $metrics=$result | ConvertFrom-Json
-  $snapshot=Invoke-RestMethod "$env:BASE_URL/internal/m01-diagnostics?trial=$($trial.Name)" -Headers $diagnosticHeaders
+  if(-not $DiagnosticsOff){
+   $snapshot=Invoke-RestMethod "$env:BASE_URL/internal/m01-diagnostics?trial=$($trial.Name)" -Headers $diagnosticHeaders
   # A response can reach the client just before the server filter finally runs.
   for($attempt=0;$attempt -lt 50 -and $snapshot.active -ne 0;$attempt++){
    Start-Sleep -Milliseconds 20
    $snapshot=Invoke-RestMethod "$env:BASE_URL/internal/m01-diagnostics?trial=$($trial.Name)" -Headers $diagnosticHeaders
   }
   $snapshot | ConvertTo-Json -Depth 12 -Compress | Set-Content -LiteralPath (Join-Path $evidence "$($trial.Name)-server-traces.json") -Encoding utf8
+  }
   if($Profile -and $trial.Preconnect){
    $profilePath=Join-Path $evidence 'spike.local.jfr'
    & (Join-Path $env:JAVA_HOME 'bin/jcmd.exe') $app.Id JFR.dump name=m01 "filename=$profilePath" | Out-Null
@@ -161,8 +169,14 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
   $samples | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'resources.json') -Encoding utf8
   Write-Output "END $($trial.Name) pass=$($metrics.pass) success=$($metrics.success)/$($metrics.requests) P95=$($metrics.successP95Ms) ms"
  }
- & (Join-Path $PSScriptRoot 'analyze_m01.ps1') -Evidence $evidence
+ if(-not $DiagnosticsOff){& (Join-Path $PSScriptRoot 'analyze_m01.ps1') -Evidence $evidence}
  Write-Output "Evidence: $evidence"
+}catch{
+ # Keep failed preparation visible without logging credentials or arbitrary exception text.
+ $failure=$_.Exception
+ while($failure.InnerException){$failure=$failure.InnerException}
+ @{trial=if($trial){$trial.Name}else{'preparation'};phase=[M01Load.Runner]::Phase;exceptionType=$failure.GetType().FullName;socketError=if($failure -is [Net.Sockets.SocketException]){$failure.SocketErrorCode.ToString()}else{$null};completedBusinessResult=$false;utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'failure.json') -Encoding utf8
+ throw
 }finally{
  if($load -and -not $load.IsCompleted){[M01Load.Runner]::Cancel()}
  if($db){

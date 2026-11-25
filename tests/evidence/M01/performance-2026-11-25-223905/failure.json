@@ -1,0 +1,8 @@
+{
+  "socketError": "AddressAlreadyInUse",
+  "source": "recorded after observed run failure; no second burst business requests were dispatched",
+  "trial": "preconnected-10000-2",
+  "phase": "preconnect",
+  "exceptionType": "System.Net.Sockets.SocketException",
+  "completedBusinessResult": false
+}

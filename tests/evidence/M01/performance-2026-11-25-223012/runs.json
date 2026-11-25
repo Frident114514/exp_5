@@ -1,0 +1,37 @@
+[
+  {
+    "name": "warmup-1",
+    "pass": true,
+    "elapsedSeconds": 21.3121579
+  },
+  {
+    "name": "preconnected-10000-1",
+    "pass": false,
+    "elapsedSeconds": 8.2477207
+  },
+  {
+    "name": "warmup-2",
+    "pass": true,
+    "elapsedSeconds": 20.9737924
+  },
+  {
+    "name": "preconnected-10000-2",
+    "pass": false,
+    "elapsedSeconds": 11.4712664
+  },
+  {
+    "name": "warmup-3",
+    "pass": true,
+    "elapsedSeconds": 20.7578728
+  },
+  {
+    "name": "preconnected-10000-3",
+    "pass": false,
+    "elapsedSeconds": 17.2949817
+  },
+  {
+    "name": "recovery-100rps",
+    "pass": true,
+    "elapsedSeconds": 10.178441
+  }
+]

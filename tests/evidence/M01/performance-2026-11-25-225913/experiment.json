@@ -1,0 +1,29 @@
+{
+  "burstOnly": true,
+  "jfr": false,
+  "threadPoolMinimum": 128,
+  "dispatch": "configured burst tasks released by one gate",
+  "burstSizes": [
+    1000,
+    5000,
+    10000
+  ],
+  "warmupRate": 1000,
+  "warmupSeconds": 20,
+  "serverConnectionTimeoutSeconds": 60,
+  "calibration": false,
+  "serverConnectionTimeoutScope": "entire Java service process, including all measured requests",
+  "meWaiters": 4096,
+  "meConcurrency": 64,
+  "preconnectedClients": [
+    1000,
+    5000,
+    10000
+  ],
+  "responseReading": "immediate, no artificial delay in business test",
+  "diagnosticsEnabled": false,
+  "requestTimeoutSeconds": 15,
+  "connectionPolicy": "close",
+  "repetitions": 2,
+  "meWaitMs": 400
+}

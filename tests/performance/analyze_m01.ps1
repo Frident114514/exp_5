@@ -39,7 +39,9 @@ $report=foreach($run in $runs){
   }
  }
  $clientIds=@($clients.id | Sort-Object -Unique)
- $serverOnly=@($server.traces | Where-Object { $_.id -notin $clientIds } | ForEach-Object id)
+ $clientIdSet=[Collections.Generic.HashSet[int]]::new()
+ foreach($id in $clientIds){[void]$clientIdSet.Add([int]$id)}
+ $serverOnly=@($server.traces | Where-Object {-not $clientIdSet.Contains([int]$_.id)} | ForEach-Object id)
  $classifiedTotal=($classified.Values | Measure-Object -Sum).Sum
  $filterMs=@($server.traces | ForEach-Object {($_.filterExitNs-$_.filterEnterNs)/1000000.0})
  $dbMs=@($server.traces | Where-Object databaseStartNs -ge 0 | ForEach-Object {($_.databaseEndNs-$_.databaseStartNs)/1000000.0})

@@ -121,7 +121,7 @@ public static class Runner {
         }
     }
     public static async Task<string> Run(string file,string api,string mode,int rate,int seconds,int burst,
-            bool preconnect=false,string trial="trial",string detailsFile=null) {
+            bool preconnect=false,string trial="trial",string detailsFile=null,bool keepAlive=false) {
         if(preconnect && mode!="me")throw new ArgumentException("Preconnected mode supports me only");
         var users=JsonSerializer.Deserialize<User[]>(File.ReadAllText(file));
         var records=new ConcurrentBag<Sample>();
@@ -154,7 +154,8 @@ public static class Runner {
                         using var timeout=CancellationTokenSource.CreateLinkedTokenSource(Stop.Token);
                         timeout.CancelAfter(TimeSpan.FromSeconds(15));
                         var uri=new Uri(api+"/users/me");
-                        var bytes=Encoding.ASCII.GetBytes($"GET {uri.PathAndQuery} HTTP/1.1\r\nHost: {uri.Authority}\r\nAuthorization: Bearer {user.accessToken}\r\nX-M01-Trial: {trial}\r\nX-M01-Request-Id: {index}\r\nConnection: close\r\n\r\n");
+                        string connection=keepAlive?"keep-alive":"close";
+                        var bytes=Encoding.ASCII.GetBytes($"GET {uri.PathAndQuery} HTTP/1.1\r\nHost: {uri.Authority}\r\nAuthorization: Bearer {user.accessToken}\r\nX-M01-Trial: {trial}\r\nX-M01-Request-Id: {index}\r\nConnection: {connection}\r\n\r\n");
                         var stream=sockets[index].GetStream();
                         s.writeStartMs=elapsed.Elapsed.TotalMilliseconds;
                         await stream.WriteAsync(bytes,timeout.Token).ConfigureAwait(false);
@@ -204,6 +205,8 @@ public static class Runner {
                 }
             }
             await Task.WhenAll(tasks).ConfigureAwait(false);
+            // End measured request phase before closing kept connections in a separate cleanup phase.
+            elapsed.Stop();Phase="connection_cleanup";
         } finally {foreach(var socket in sockets)socket?.Dispose();Phase="complete";}
         var all=records.OrderBy(s=>s.id).ToArray();
         var good=all.Where(s=>s.status==200&&s.valid&&s.failure=="none").ToArray();
@@ -218,10 +221,11 @@ public static class Runner {
             .OrderBy(e=>e.time).ThenBy(e=>e.delta);
         int overlap=0,peakOverlap=0;foreach(var e in events){overlap+=e.delta;peakOverlap=Math.Max(peakOverlap,overlap);}
         var statusTimes=all.GroupBy(s=>s.status).ToDictionary(g=>g.Key.ToString(),g=>new{count=g.Count(),p95Ms=P(g.Select(Latency),.95),p99Ms=P(g.Select(Latency),.99)});
-        if(detailsFile!=null)File.WriteAllText(detailsFile,JsonSerializer.Serialize(all));
+        if(!string.IsNullOrEmpty(detailsFile))File.WriteAllText(detailsFile,JsonSerializer.Serialize(all));
         double duration=elapsed.Elapsed.TotalSeconds;
         return JsonSerializer.Serialize(new{
             engine=preconnect?"dotnet-preconnected-http11-v2":"dotnet-httpclient-v2",trial,mode,scheduled=burst>0?burst:rate*seconds,
+            connectionPolicy=keepAlive?"keep-alive, one request per connection, cleanup excluded":"close",connectionReuse=false,
             requests=all.Length,success=good.Length,successRate,rejected429=all.Count(s=>s.status==429),rejected503=all.Count(s=>s.status==503),
             transportErrors=all.Count(s=>s.status==0),failures=all.Where(s=>s.failure!="none").GroupBy(s=>s.failure).ToDictionary(g=>g.Key,g=>g.Count()),
             invalid200=all.Count(s=>s.status==200&&!s.valid),dropped,connectionsEstablished,fullyWritten=all.Count(s=>s.writeCompletedMs>=0),
@@ -235,12 +239,13 @@ public static class Runner {
             pass=successRate>.99&&P(good.Select(Latency),.95)>=0&&P(good.Select(Latency),.95)<1000&&dropped==0
         },JsonOptions);
     }
-    public static async Task<string> Calibrate(string file,int count,string detailsFile=null) {
+    public static async Task<string> Calibrate(string file,int count,string detailsFile=null,bool keepAlive=false) {
         var users=JsonSerializer.Deserialize<User[]>(File.ReadAllText(file));
         var listener=new TcpListener(IPAddress.Loopback,0);listener.Start(1024);
         using var timeout=new CancellationTokenSource(TimeSpan.FromSeconds(60));
         int port=((IPEndPoint)listener.LocalEndpoint).Port;
         var gate=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var releaseConnections=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         var ids=new ConcurrentDictionary<int,bool>();int arrived=0,duplicate=0,active=0,peak=0,responded=0;
         var received=new ConcurrentBag<(int id,long enter,long exit)>();
         var clock=Stopwatch.StartNew();
@@ -258,9 +263,10 @@ public static class Runner {
                 if(Interlocked.Increment(ref arrived)==count)gate.TrySetResult(true);
                 await gate.Task.WaitAsync(timeout.Token).ConfigureAwait(false);
                 var body=Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new{code="OK",data=new{account=users[id%users.Length].account}}));
-                var header=Encoding.ASCII.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {body.Length}\r\nConnection: close\r\n\r\n");
+                var header=Encoding.ASCII.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {body.Length}\r\nConnection: {(keepAlive?"keep-alive":"close")}\r\n\r\n");
                 await stream.WriteAsync(header,timeout.Token).ConfigureAwait(false);await stream.WriteAsync(body,timeout.Token).ConfigureAwait(false);
                 received.Add((id,enter,clock.ElapsedTicks));Interlocked.Decrement(ref active);Interlocked.Increment(ref responded);
+                if(keepAlive)await releaseConnections.Task.WaitAsync(timeout.Token).ConfigureAwait(false);
             }
         }
         async Task Serve() {
@@ -270,7 +276,8 @@ public static class Runner {
         }
         var server=Serve();
         try {
-            string clientResult=await Run(file,$"http://127.0.0.1:{port}/api/v1","me",0,0,count,true,"calibration",detailsFile).ConfigureAwait(false);
+            string clientResult=await Run(file,$"http://127.0.0.1:{port}/api/v1","me",0,0,count,true,"calibration",detailsFile,keepAlive).ConfigureAwait(false);
+            releaseConnections.TrySetResult(true);
             await server.ConfigureAwait(false);
             return JsonSerializer.Serialize(new{purpose="load generator calibration only; responses intentionally held, not business capacity",
                 received=arrived,uniqueIds=ids.Count,duplicates=duplicate,responded,peakCompleteHeadersAwaitingRelease=peak,

@@ -1,0 +1,67 @@
+[
+  {
+    "name": "warmup-1",
+    "elapsedSeconds": 20.700729,
+    "pass": true
+  },
+  {
+    "name": "preconnected-500-1",
+    "elapsedSeconds": 0.9085011,
+    "pass": true
+  },
+  {
+    "name": "preconnected-1000-1",
+    "elapsedSeconds": 1.9314158,
+    "pass": true
+  },
+  {
+    "name": "preconnected-2000-1",
+    "elapsedSeconds": 5.3121491,
+    "pass": false
+  },
+  {
+    "name": "preconnected-5000-1",
+    "elapsedSeconds": 8.3701403,
+    "pass": false
+  },
+  {
+    "name": "preconnected-10000-1",
+    "elapsedSeconds": 8.7969387,
+    "pass": false
+  },
+  {
+    "name": "warmup-2",
+    "elapsedSeconds": 20.8142048,
+    "pass": true
+  },
+  {
+    "name": "preconnected-500-2",
+    "elapsedSeconds": 0.9730046,
+    "pass": true
+  },
+  {
+    "name": "preconnected-1000-2",
+    "elapsedSeconds": 2.0474248,
+    "pass": true
+  },
+  {
+    "name": "preconnected-2000-2",
+    "elapsedSeconds": 5.7416934,
+    "pass": true
+  },
+  {
+    "name": "preconnected-5000-2",
+    "elapsedSeconds": 7.7226519,
+    "pass": true
+  },
+  {
+    "name": "preconnected-10000-2",
+    "elapsedSeconds": 20.0958063,
+    "pass": true
+  },
+  {
+    "name": "recovery-100rps",
+    "elapsedSeconds": 10.3353995,
+    "pass": true
+  }
+]

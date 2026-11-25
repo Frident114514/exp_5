@@ -15,3 +15,7 @@ server:
   tomcat:
     max-connections: ${MOMENTS_HTTP_CONNECTIONS:16384}
     accept-count: ${MOMENTS_HTTP_BACKLOG:512}
+moments:
+  auth:
+    me-max-waiters: ${MOMENTS_ME_WAITERS:1024}
+    me-wait-ms: ${MOMENTS_ME_WAIT_MS:200}

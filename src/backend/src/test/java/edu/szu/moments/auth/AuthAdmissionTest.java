@@ -21,6 +21,41 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AuthAdmissionTest {
     @Test
+    void boundedIdentityWaitingTimesOutAndRecoversAfterRelease() throws Exception {
+        var gate = new AuthAdmission(1, 1, 100, 100, System::nanoTime, 1, 50);
+        try (var occupied = gate.admit(false)) {
+            assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class);
+            // A timed-out waiter must return its waiting budget.
+            assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class);
+            try (var password = gate.admit(true)) { assertThat(password).isNotNull(); }
+        }
+        try (var recovered = gate.admit(false)) { assertThat(recovered).isNotNull(); }
+    }
+
+    @Test
+    void identityWaiterCanAcquireReleasedSlotAndInterruptDoesNotLeakBudget() throws Exception {
+        var gate = new AuthAdmission(1, 1, 100, 100, System::nanoTime, 1, 2000);
+        var occupied = gate.admit(false);
+        try (var pool = Executors.newSingleThreadExecutor()) {
+            var started = new CountDownLatch(1);
+            var result = pool.submit(() -> {
+                started.countDown();
+                try (var permit = gate.admit(false)) { return true; }
+            });
+            assertThat(started.await(1, TimeUnit.SECONDS)).isTrue();
+            occupied.close();
+            assertThat(result.get(3, TimeUnit.SECONDS)).isTrue();
+        }
+        try (var busy = gate.admit(false)) {
+            Thread.currentThread().interrupt();
+            try { assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class); }
+            finally { assertThat(Thread.interrupted()).isTrue(); }
+            assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class);
+        }
+        try (var recovered = gate.admit(false)) { assertThat(recovered).isNotNull(); }
+    }
+
+    @Test
     void diagnosticsSeparateRejectionsDatabaseErrorsAndAbortWithoutLeakingPermits() throws Exception {
         var gate = new AuthAdmission(1, 1, 100, 100);
         var diagnostics = new M01Diagnostics(true);
