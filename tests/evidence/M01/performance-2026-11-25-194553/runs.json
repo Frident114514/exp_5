@@ -1,0 +1,17 @@
+[
+  {
+    "pass": true,
+    "name": "warmup",
+    "elapsedSeconds": 5.3681688
+  },
+  {
+    "pass": false,
+    "name": "preconnected-10000",
+    "elapsedSeconds": 15.2720612
+  },
+  {
+    "pass": true,
+    "name": "recovery-100rps",
+    "elapsedSeconds": 10.5782933
+  }
+]

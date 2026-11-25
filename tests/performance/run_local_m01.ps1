@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$MysqlBin,[int]$MaxBurst=10000)
+param([Parameter(Mandatory)][string]$MysqlBin,[int]$MaxBurst=10000,[switch]$BurstOnly,[int]$MeConcurrency=64,[int]$WarmupSeconds=20,[int]$WarmupRate=1000,[switch]$Profile)
 $ErrorActionPreference='Stop'
 $repo=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $evidence=Join-Path $repo ("tests/evidence/M01/performance-"+(Get-Date -Format 'yyyy-MM-dd-HHmmss'))
@@ -14,7 +14,7 @@ $password=[guid]::NewGuid().ToString('N')
 $jwtKey=[Security.Cryptography.RandomNumberGenerator]::GetBytes(32)
 $db=$null; $app=$null; $load=$null
 Add-Type -Path (Join-Path $PSScriptRoot 'M01Load.cs')
-$names=@('MOMENTS_DB_URL','MOMENTS_DB_USER','MOMENTS_DB_PASSWORD','MOMENTS_JWT_SECRET','SPRING_PROFILES_ACTIVE','SERVER_PORT','SERVER_ADDRESS','MYSQL_PWD','M01_USERS_FILE','BASE_URL','MODE','RATE','DURATION','BURST_VUS','VUS','MAX_VUS','K6_SUMMARY_TREND_STATS')
+$names=@('MOMENTS_DB_URL','MOMENTS_DB_USER','MOMENTS_DB_PASSWORD','MOMENTS_JWT_SECRET','MOMENTS_ME_CONCURRENCY','SERVER_TOMCAT_CONNECTION_TIMEOUT','SPRING_PROFILES_ACTIVE','SERVER_PORT','SERVER_ADDRESS','MYSQL_PWD','M01_USERS_FILE','BASE_URL','MODE','RATE','DURATION','BURST_VUS','VUS','MAX_VUS','K6_SUMMARY_TREND_STATS')
 $previous=@{}
 foreach($name in $names){$previous[$name]=[Environment]::GetEnvironmentVariable($name,'Process')}
 function Free-Port {
@@ -43,6 +43,8 @@ try {
  $env:MOMENTS_DB_URL="jdbc:mysql://127.0.0.1:${dbPort}/m01_load"
  $env:MOMENTS_DB_USER='m01_load';$env:MOMENTS_DB_PASSWORD=$dbPassword;$env:MYSQL_PWD=$dbPassword
  $env:MOMENTS_JWT_SECRET=[Convert]::ToBase64String($jwtKey)
+ $env:MOMENTS_ME_CONCURRENCY=[string]$MeConcurrency
+ if($BurstOnly){$env:SERVER_TOMCAT_CONNECTION_TIMEOUT='60s'}
  $env:SPRING_PROFILES_ACTIVE='high-concurrency';$env:SERVER_ADDRESS='127.0.0.1';$env:SERVER_PORT=[string](Free-Port)
  $env:BASE_URL="http://127.0.0.1:$env:SERVER_PORT/api/v1"
  $java=Join-Path $env:JAVA_HOME 'bin/java.exe'
@@ -86,7 +88,7 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
  $first=Invoke-RestMethod "$env:BASE_URL/users/me" -Headers @{Authorization="Bearer $($fixtures[0].accessToken)"}
  if($first.data.account -ne $fixtures[0].account){throw 'Token fixture validation failed'}
  $computer=Get-CimInstance Win32_ComputerSystem
- @{date=(Get-Date -Format o);cpu=(Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name);logicalProcessors=$computer.NumberOfLogicalProcessors;memoryBytes=$computer.TotalPhysicalMemory;profile='high-concurrency';javaHeapMax='2g';users=10000;database='MySQL 8.4.13';topology='dotnet load client Java MySQL on same Windows machine';authConcurrency=4;authRate=10;authBurst=20;meConcurrency=64;dbPool=20;httpConnections=16384;engine='dotnet-async-http';dotnet=[Environment]::Version.ToString()} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'environment.json') -Encoding utf8
+ @{date=(Get-Date -Format o);cpu=(Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name);logicalProcessors=$computer.NumberOfLogicalProcessors;memoryBytes=$computer.TotalPhysicalMemory;profile='high-concurrency';javaHeapMax='2g';users=10000;database='MySQL 8.4.13';topology='dotnet load client Java MySQL on same Windows machine';authConcurrency=4;authRate=10;authBurst=20;meConcurrency=$MeConcurrency;dbPool=20;httpConnections=16384;engine='dotnet-async-http';dotnet=[Environment]::Version.ToString()} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'environment.json') -Encoding utf8
  $trials=@(
   @{Name='warmup';Mode='me';Rate=20;Duration='10s'},
   @{Name='me-100rps';Mode='me';Rate=100;Duration='20s'},
@@ -99,6 +101,13 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
  )
  if($MaxBurst -ge 10000){$trials+=@{Name='burst-10000';Mode='me';Burst=10000;Duration='30s'}}
  $trials+=@{Name='recovery-100rps';Mode='me';Rate=100;Duration='20s'}
+ if($BurstOnly){
+  [Threading.ThreadPool]::SetMinThreads(128,128) | Out-Null
+  $trials=@(@{Name='warmup';Mode='me';Rate=$WarmupRate;Duration="${WarmupSeconds}s"},
+    @{Name='preconnected-10000';Mode='me';Burst=10000;Duration='30s';Preconnect=$true},
+    @{Name='recovery-100rps';Mode='me';Rate=100;Duration='10s'})
+ }
+ @{meConcurrency=$MeConcurrency;warmupSeconds=$WarmupSeconds;warmupRate=$WarmupRate;connectionPreparationTimeoutSeconds=if($BurstOnly){60}else{5};dispatch='10000 asynchronous tasks released by one gate';burstOnly=[bool]$BurstOnly;preconnectedClients=if($BurstOnly){10000}else{0};responseReading='immediate, no artificial delay';threadPoolMinimum=if($BurstOnly){128}else{'runtime default'};jfr=[bool]$Profile} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'experiment.json') -Encoding utf8
  $samples=[Collections.Generic.List[object]]::new();$runs=[Collections.Generic.List[object]]::new()
  foreach($trial in $trials){
   $env:MODE=$trial.Mode;$env:RATE=[string]$trial.Rate;$env:DURATION=$trial.Duration;$env:BURST_VUS=[string]$trial.Burst
@@ -107,7 +116,11 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
   Write-Output "START $($trial.Name)"
   $started=Get-Date
   $seconds=[int]$trial.Duration.TrimEnd('s')
-  $load=[M01Load.Runner]::Run($env:M01_USERS_FILE,$env:BASE_URL,$trial.Mode,[int]$trial.Rate,$seconds,[int]$trial.Burst)
+  if($Profile -and $trial.Preconnect){
+   & (Join-Path $env:JAVA_HOME 'bin/jcmd.exe') $app.Id JFR.start name=m01 settings=profile | Out-Null
+   if($LASTEXITCODE -ne 0){throw 'JFR start failed'}
+  }
+  $load=[M01Load.Runner]::Run($env:M01_USERS_FILE,$env:BASE_URL,$trial.Mode,[int]$trial.Rate,$seconds,[int]$trial.Burst,[bool]$trial.Preconnect)
   while(-not $load.IsCompleted){
    $app.Refresh();$dbWorker.Refresh();$self=Get-Process -Id $PID;$os=Get-CimInstance Win32_OperatingSystem
    $samples.Add(@{trial=$trial.Name;time=(Get-Date -Format o);appCpuSeconds=$app.TotalProcessorTime.TotalSeconds;appWorkingSet=$app.WorkingSet64;appPrivate=$app.PrivateMemorySize64;dbCpuSeconds=$dbWorker.TotalProcessorTime.TotalSeconds;dbWorkingSet=$dbWorker.WorkingSet64;loadCpuSeconds=$self.TotalProcessorTime.TotalSeconds;loadWorkingSet=$self.WorkingSet64;freeMemoryKB=$os.FreePhysicalMemory})
@@ -117,6 +130,12 @@ SELECT id,account FROM users WHERE account LIKE 'load_%' ORDER BY id;
   $result=$load.GetAwaiter().GetResult()
   $result | Set-Content -LiteralPath $summary -Encoding utf8
   $metrics=$result | ConvertFrom-Json
+  if($Profile -and $trial.Preconnect){
+   $profilePath=Join-Path $evidence 'spike.local.jfr'
+   & (Join-Path $env:JAVA_HOME 'bin/jcmd.exe') $app.Id JFR.dump name=m01 "filename=$profilePath" | Out-Null
+   & (Join-Path $env:JAVA_HOME 'bin/jcmd.exe') $app.Id JFR.stop name=m01 | Out-Null
+   @{path=$profilePath;burstEndUtc=[DateTime]::UtcNow.ToString('o');burstSeconds=$metrics.elapsedSeconds} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'profile-location.local.json') -Encoding utf8
+  }
   $runs.Add(@{name=$trial.Name;pass=$metrics.pass;elapsedSeconds=((Get-Date)-$started).TotalSeconds})
   $runs | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'runs.json') -Encoding utf8
   $samples | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $evidence 'resources.json') -Encoding utf8

@@ -1,0 +1,125 @@
+{
+  "jdk.JavaMonitorEnter": {
+    "count": 38,
+    "sumDurationMs": 2877.3151,
+    "maxDurationMs": 103.7003,
+    "topFrames": [
+      [
+        "sun/nio/ch/SelectorImpl.cancel",
+        36
+      ],
+      [
+        "jdk/jfr/internal/PlatformRecorder.periodicTask",
+        1
+      ],
+      [
+        "org/apache/catalina/core/StandardContext.findFilterConfig",
+        1
+      ]
+    ],
+    "firstRelevantFrames": [
+      [
+        "org/apache/tomcat/util/net/NioChannel.close",
+        36
+      ],
+      [
+        "org/apache/coyote/http11/Http11Processor.service",
+        1
+      ]
+    ]
+  },
+  "jdk.ThreadPark": {
+    "count": 160,
+    "sumDurationMs": 83885.7813,
+    "maxDurationMs": 8052.087200000001,
+    "topFrames": [
+      [
+        "jdk/internal/misc/Unsafe.park",
+        160
+      ]
+    ],
+    "firstRelevantFrames": [
+      [
+        "org/apache/tomcat/util/threads/TaskThread$WrappingRunnable.run",
+        45
+      ],
+      [
+        "com/mysql/cj/jdbc/AbandonedConnectionCleanupThread.run",
+        3
+      ]
+    ]
+  },
+  "jdk.ExecutionSample": {
+    "count": 392,
+    "sumDurationMs": 0.0,
+    "maxDurationMs": 0.0,
+    "topFrames": [
+      [
+        "com/sun/crypto/provider/GHASH.blockMult",
+        42
+      ],
+      [
+        "org/apache/coyote/http11/Http11OutputBuffer.write",
+        17
+      ],
+      [
+        "java/util/regex/Pattern.lambda$union$4",
+        10
+      ],
+      [
+        "java/nio/HeapByteBuffer.put",
+        8
+      ],
+      [
+        "java/util/regex/Pattern.lambda$and$2",
+        7
+      ],
+      [
+        "com/sun/crypto/provider/CounterMode.implCrypt",
+        6
+      ],
+      [
+        "java/nio/Buffer.checkIndex",
+        5
+      ],
+      [
+        "sun/security/provider/SHA2.implCompress0",
+        4
+      ]
+    ],
+    "firstRelevantFrames": [
+      [
+        "com/mysql/cj/protocol/FullReadInputStream.readFully",
+        46
+      ],
+      [
+        "org/springframework/security/web/firewall/StrictHttpFirewall.lambda$static$2",
+        25
+      ],
+      [
+        "org/springframework/security/oauth2/jwt/NimbusJwtDecoder.createJwt",
+        18
+      ],
+      [
+        "org/apache/coyote/http11/Http11OutputBuffer.write",
+        18
+      ],
+      [
+        "org/apache/coyote/http11/Http11InputBuffer.parseHeader",
+        16
+      ],
+      [
+        "org/apache/coyote/http11/Http11Processor.service",
+        16
+      ],
+      [
+        "com/mysql/cj/protocol/a/SimplePacketSender.send",
+        15
+      ],
+      [
+        "com/mysql/cj/util/StringInspector.indexOfNextChar",
+        9
+      ]
+    ]
+  }
+}

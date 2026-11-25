@@ -1,0 +1,13 @@
+{
+  "meWaitMs": 0,
+  "responseReading": "immediate, no artificial delay",
+  "connectionPreparationTimeoutSeconds": 60,
+  "preconnectedClients": 10000,
+  "warmupRate": 1000,
+  "burstOnly": true,
+  "threadPoolMinimum": 128,
+  "meMaxWaiting": 0,
+  "meConcurrency": 64,
+  "warmupSeconds": 20,
+  "dispatch": "10000 asynchronous tasks released by one gate"
+}

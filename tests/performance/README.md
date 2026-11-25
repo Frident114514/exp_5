@@ -1,5 +1,15 @@
 # M01 容量压测
 
+## 万连接突发复验
+
+最新 [优化对比报告](../evidence/M01/spike-2026-11-25/README.md)：预建 10000 条 TCP 连接，统一放行 10000 个不同账号的本人查询，立即读取响应。最终预编译语句缓存配置成功 4520/10000，503 为 5480、成功 P95 398.96 ms，仍未通过。客户端活动峰值 4287、发出跨度 847.08 ms，未证实万人同时在途。
+
+```powershell
+./tests/performance/run_local_m01.ps1 -MysqlBin 'C:/MySQL84/bin' -BurstOnly
+```
+
+该模式默认先 1000 QPS 预热 20 s，再预建 10000 条连接、统一放行、100 QPS 恢复检查 10 s。连接准备阶段超时设为 60 s；请求超时仍为 10 s。`-MeConcurrency` 可比较处理名额；`-WarmupSeconds`、`-WarmupRate` 控制预热。`-Profile` 可附加 JFR 诊断，JFR 与路径文件均为 local 文件，应留本地，不作为常规性能对照。业务请求不重试，连接准备重试单独处理。
+
 ## 已执行的本机初测
 
 2026-11-25 已使用 .NET 10 异步 HttpClient 对独立 MySQL 8.4.13 和真实 HTTP 服务施压。k6 下载中断，本轮未执行 k6。完整计数、成功请求 P95/P99、资源采样及限制见 [实测记录](../evidence/M01/performance-2026-11-25-182730/README.md)。

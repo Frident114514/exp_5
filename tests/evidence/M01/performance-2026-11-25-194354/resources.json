@@ -1,0 +1,38 @@
+[
+  {
+    "appPrivate": 602726400,
+    "appWorkingSet": 451117056,
+    "time": "2026-11-25T19:44:28.3975358+08:00",
+    "appCpuSeconds": 57.578125,
+    "dbCpuSeconds": 2.359375,
+    "dbWorkingSet": 507838464,
+    "loadWorkingSet": 265424896,
+    "freeMemoryKB": 10431036,
+    "loadCpuSeconds": 15.859375,
+    "trial": "warmup"
+  },
+  {
+    "appPrivate": 584765440,
+    "appWorkingSet": 439906304,
+    "time": "2026-11-25T19:44:30.1734811+08:00",
+    "appCpuSeconds": 60.6875,
+    "dbCpuSeconds": 2.4375,
+    "dbWorkingSet": 501936128,
+    "loadWorkingSet": 270442496,
+    "freeMemoryKB": 10431716,
+    "loadCpuSeconds": 16.78125,
+    "trial": "warmup"
+  },
+  {
+    "appPrivate": 603475968,
+    "appWorkingSet": 459272192,
+    "time": "2026-11-25T19:44:31.9129099+08:00",
+    "appCpuSeconds": 64.28125,
+    "dbCpuSeconds": 2.609375,
+    "dbWorkingSet": 501956608,
+    "loadWorkingSet": 270848000,
+    "freeMemoryKB": 10407868,
+    "loadCpuSeconds": 17.71875,
+    "trial": "warmup"
+  }
+]
