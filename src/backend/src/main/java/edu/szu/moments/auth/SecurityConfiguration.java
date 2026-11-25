@@ -3,6 +3,7 @@ package edu.szu.moments.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import edu.szu.moments.api.ApiResponse;
+import edu.szu.moments.api.M01Diagnostics;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,14 +83,15 @@ class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain apiSecurity(HttpSecurity http, UserRepository users, ObjectMapper mapper,
-                                    AuthAdmission admission) throws Exception {
+                                    AuthAdmission admission, M01Diagnostics diagnostics) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(new AuthLoadFilter(admission, mapper), BearerTokenAuthenticationFilter.class)
+                .addFilterBefore(new AuthLoadFilter(admission, mapper, diagnostics), BearerTokenAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/internal/m01-diagnostics").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint((request, response, failure) -> unauthenticated(mapper, response))
@@ -97,11 +99,11 @@ class SecurityConfiguration {
                                 error(mapper, response, 403, "FORBIDDEN", "权限不足")))
                 .oauth2ResourceServer(resource -> resource
                         .authenticationEntryPoint((request, response, failure) -> unauthenticated(mapper, response))
-                        .jwt(jwt -> jwt.jwtAuthenticationConverter(token -> authenticate(token, users))))
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(token -> authenticate(token, users, diagnostics))))
                 .build();
     }
 
-    private static AbstractAuthenticationToken authenticate(Jwt jwt, UserRepository users) {
+    private static AbstractAuthenticationToken authenticate(Jwt jwt, UserRepository users, M01Diagnostics diagnostics) {
         Object version = jwt.getClaims().get("ver");
         if (!(version instanceof Integer || version instanceof Long)) {
             throw new InvalidBearerTokenException("Invalid token version");
@@ -112,7 +114,8 @@ class SecurityConfiguration {
         } catch (NumberFormatException failure) {
             throw new InvalidBearerTokenException("Invalid token subject");
         }
-        UserAuthState user = users.findAuthState(id).orElseThrow(() -> new InvalidBearerTokenException("Unknown user"));
+        UserAuthState user = diagnostics.databaseLookup(() -> users.findAuthState(id))
+                .orElseThrow(() -> new InvalidBearerTokenException("Unknown user"));
         if (!user.active() || user.tokenVersion() != ((Number) version).longValue()) {
             throw new InvalidBearerTokenException("Inactive token");
         }

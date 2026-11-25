@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {"moments.auth.requests-per-second=1000", "moments.auth.burst=1000",
-                "moments.auth.max-concurrent=4", "moments.auth.me-max-concurrent=64"})
+                "moments.auth.max-concurrent=4", "moments.auth.me-max-concurrent=64", "moments.diagnostics.enabled=true"})
 class AuthIntegrationTest {
     private static final String API = "/api/v1";
     private static final String PASSWORD = "M01-example-01";
@@ -39,6 +39,26 @@ class AuthIntegrationTest {
     @Autowired JwtEncoder encoder;
     @Autowired PasswordEncoder passwords;
     @Autowired AuthAdmission admission;
+
+    @Test
+    void diagnosticsRequireAdminAndCorrelateActualHttpRequests() {
+        String account = account();
+        long id = register(account).getBody().path("data").path("id").asLong();
+        String token = token(account);
+        expect(get("/internal/m01-diagnostics?trial=http-observation", token), HttpStatus.FORBIDDEN, "FORBIDDEN");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);headers.set("X-M01-Trial", "http-observation");headers.set("X-M01-Request-Id", "0");
+        expect(http.exchange(API + "/users/me", HttpMethod.GET, new HttpEntity<>(headers), JsonNode.class), HttpStatus.OK, "OK");
+        db.update("UPDATE users SET role='ADMIN' WHERE id=?", id);
+        var observed = get("/internal/m01-diagnostics?trial=http-observation", token);
+        assertThat(observed.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(observed.getBody().path("entered").asInt()).isEqualTo(1);
+        var trace = observed.getBody().path("traces").get(0);
+        assertThat(trace.path("id").asInt()).isZero();
+        assertThat(trace.path("databaseEndNs").asLong()).isGreaterThanOrEqualTo(trace.path("databaseStartNs").asLong());
+        assertThat(trace.path("databaseStartNs").asLong()).isGreaterThanOrEqualTo(trace.path("admittedNs").asLong());
+        assertThat(observed.getBody().toString()).doesNotContain(token, account, "password");
+    }
 
     @Test
     void httpRejectsOverloadAndRecoversWithoutAffectingOtherIdentityTraffic() throws Exception {

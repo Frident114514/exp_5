@@ -2,6 +2,7 @@ package edu.szu.moments.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.szu.moments.api.ApiFailure;
+import edu.szu.moments.api.M01Diagnostics;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -19,6 +20,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AuthAdmissionTest {
+    @Test
+    void diagnosticsSeparateRejectionsDatabaseErrorsAndAbortWithoutLeakingPermits() throws Exception {
+        var gate = new AuthAdmission(1, 1, 100, 100);
+        var diagnostics = new M01Diagnostics(true);
+        var filter = new AuthLoadFilter(gate, new ObjectMapper(), diagnostics);
+        var request = new MockHttpServletRequest("GET", "/api/v1/users/me");
+        request.setServletPath("/api/v1/users/me");
+        request.addHeader("X-M01-Trial", "reason-test");
+        request.addHeader("X-M01-Request-Id", "0");
+        try (var occupied = gate.admit(false)) {
+            filter.doFilter(request, new MockHttpServletResponse(), (req, res) -> { throw new AssertionError("Admitted"); });
+        }
+        request.removeHeader("X-M01-Request-Id");request.addHeader("X-M01-Request-Id", "1");
+        filter.doFilter(request, new MockHttpServletResponse(), (req, res) -> {
+            diagnostics.databaseLookup(() -> { throw new org.springframework.dao.DataAccessResourceFailureException("private SQL"); });
+        });
+        request.removeHeader("X-M01-Request-Id");request.addHeader("X-M01-Request-Id", "2");
+        assertThatThrownBy(() -> filter.doFilter(request, new MockHttpServletResponse(),
+                (req, res) -> { throw new IOException("disconnected"); })).isInstanceOf(IOException.class);
+        request.removeHeader("X-M01-Request-Id");request.addHeader("X-M01-Request-Id", "3");
+        filter.doFilter(request, new MockHttpServletResponse(), (req, res) -> {});
+        var snapshot = diagnostics.snapshot("reason-test");
+        assertThat(snapshot.get("entered")).isEqualTo(4L);
+        assertThat(snapshot.get("completed")).isEqualTo(4L);
+        assertThat(snapshot.get("admitted")).isEqualTo(3L);
+        assertThat(snapshot.get("active")).isEqualTo(0);
+        assertThat(snapshot.get("reasons503")).isEqualTo(java.util.Map.of("admission_rejected", 1L, "database_filter", 1L));
+        assertThat(new ObjectMapper().writeValueAsString(snapshot)).doesNotContain("private SQL", "disconnected");
+        try (var permit = gate.admit(false)) { assertThat(permit).isNotNull(); }
+    }
+
     @Test
     void concurrentPasswordWorkIsBoundedAndCapacityRecovers() throws Exception {
         var gate = new AuthAdmission(2, 4, 1000, 1000);

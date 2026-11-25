@@ -3,6 +3,7 @@ package edu.szu.moments.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.szu.moments.api.ApiFailure;
 import edu.szu.moments.api.ApiResponse;
+import edu.szu.moments.api.M01Diagnostics;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +19,16 @@ import java.io.IOException;
 final class AuthLoadFilter extends OncePerRequestFilter {
     private final AuthAdmission admission;
     private final ObjectMapper mapper;
+    private final M01Diagnostics diagnostics;
 
     AuthLoadFilter(AuthAdmission admission, ObjectMapper mapper) {
+        this(admission, mapper, new M01Diagnostics(false));
+    }
+
+    AuthLoadFilter(AuthAdmission admission, ObjectMapper mapper, M01Diagnostics diagnostics) {
         this.admission = admission;
         this.mapper = mapper;
+        this.diagnostics = diagnostics;
     }
 
     @Override
@@ -34,16 +41,31 @@ final class AuthLoadFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+        var observation = diagnostics.begin(request);
+        boolean admitted = false;
+        boolean aborted = true;
         try (var permit = admission.admit(passwordPath(request.getServletPath()))) {
-            chain.doFilter(request, response);
+            admitted = true;
+            diagnostics.admitted(observation);
+            try { chain.doFilter(request, response); }
+            finally { diagnostics.released(observation); }
+            aborted = false;
         } catch (ApiFailure failure) {
+            if (!admitted && failure.status().value() == 503) diagnostics.reason(request, "admission_rejected");
             reject(response, failure.status().value(), failure.code(), failure.getMessage());
+            aborted = false;
         } catch (DataAccessResourceFailureException | TransientDataAccessException | CannotCreateTransactionException failure) {
+            diagnostics.reason(request, "database_filter");
             reject(response, 503, "SERVICE_BUSY", "服务繁忙，请稍后重试");
+            aborted = false;
         } catch (IOException | ServletException | RuntimeException failure) {
+            aborted = true;
             throw failure;
         } catch (Exception failure) {
+            aborted = true;
             throw new ServletException(failure);
+        } finally {
+            diagnostics.finish(observation, response.getStatus(), aborted);
         }
     }
 
