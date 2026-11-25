@@ -4,6 +4,8 @@
 
 第一周前端已完成工程搭建、管理员登录与会话、路由保护、用户查询、动态组合查询、分页和请求反馈。自动化测试使用独立测试数据或明确的 demo 请求，不连接数据库。真实 Spring Boot 登录、用户接口、服务端越权测试和浏览器视觉检查仍待完成。
 
+后续更新：本文保留第一轮前端自测的历史状态；同日真实认证与 Vite 转发结果见 [本地联调记录](../integration/README.md)。
+
 ## 已执行检查
 
 | 检查 | 实际结果 | 证据与范围 |
@@ -12,7 +14,7 @@
 | `npm run format:check` | 通过 | Prettier 输出全部匹配文件符合格式 |
 | `npm run lint` | 通过 | ESLint 零告警要求满足 |
 | `npm run build` | 通过 | 包含 Vue 应用和 Vite 配置的严格 TypeScript 检查；成功生成 `dist/` |
-| `npm test` | 25/25 通过，4 个测试文件 | [Vitest 原始 JSON](./test-results.json)，测试开始于北京时间 15:14:03 |
+| `npm test` | 25/25 通过，4 个测试文件 | [Vitest JSON](./test-results.json)（仅将本机文件路径替换为仓库路径），测试开始于北京时间 15:14:03 |
 | `npm run dev:demo` | 已启动 | 本机 `http://127.0.0.1:5173/login` 返回 Vite 页面入口 |
 | `git diff --check` | 通过 | 已跟踪文件无空白错误；新增前端代码另由格式与 lint 检查覆盖 |
 
@@ -45,16 +47,15 @@
 
 ## 复现与页面检查
 
-在仓库根目录执行以下命令；本机默认 Node 12 时先切换到已安装的 Node 22：
+先切换到 Node.js 22.12+；使用 nvm 的环境可在 `src/admin-web/` 通过 `.nvmrc` 执行 `nvm use`。在仓库根目录执行：
 
 ```sh
-export PATH=/Users/yth/.nvm/versions/node/v22.23.1/bin:$PATH
 cd src/admin-web
 npm ci
 npm run format:check
 npm run lint
 npm run build
-npm test -- --reporter=default --reporter=json --outputFile.json=../../tests/evidence/M08/week1/test-results.json
+npm test -- --reporter=default --reporter=json --outputFile=../../tests/evidence/M08/week1/test-results.json
 npm run dev:demo
 ```
 

@@ -37,18 +37,18 @@ ADMIN_API_PROXY_TARGET=http://127.0.0.1:8080
 
 也可将 `VITE_ADMIN_API_BASE_URL` 配置为完整服务地址，此时需要服务端允许浏览器来源的 CORS；配置改变后重启 Vite。`ADMIN_API_PROXY_TARGET` 只在开发服务器使用，不注入页面。前端环境变量不能存放 JWT 签名密钥或数据库密码。
 
-| 接口                      | 本前端采用的字段                                                                    | 状态                                              |
-| ------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------- |
-| `POST /api/v1/auth/login` | 输入 `account`、`password`；输出 `accessToken`、ISO 时间 `expiresAt`、`user`        | 路径和顶层字段已约定，M01 完整样例待确认          |
-| `GET /api/v1/users/me`    | `id`、`account`、`nickname`、`role`；可选 `status`、`createdAt`                     | M01 需允许管理员访问并确认字段                    |
-| `GET /api/v1/admin/users` | `keyword`、`page`、`pageSize`；每项含上述基本资料及必填 `status`、`createdAt`       | 参数名、匹配账号或昵称的规则和完整样例待 M01 确认 |
-| `GET /api/v1/admin/posts` | `keyword`、`authorId`、`from`、`to`、`tag`、`page`、`pageSize`；返回 M02 `PostView` | 已对齐 M02 现有代码，生产认证与摘要适配待联调     |
+| 接口                      | 本前端采用的字段                                                                    | 状态                                                      |
+| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `POST /api/v1/auth/login` | 输入 `account`、`password`；输出 `accessToken`、ISO 时间 `expiresAt`、`user`        | 本地 M01 真实响应已联调，普通用户和测试管理员均为 200     |
+| `GET /api/v1/users/me`    | `id`、`account`、`nickname`、`role`；可选 `status`、`createdAt`                     | 本地真实身份复核通过，M01 当前返回四个基本字段            |
+| `GET /api/v1/admin/users` | `keyword`、`page`、`pageSize`；每项含上述基本资料及必填 `status`、`createdAt`       | 当前主工程未实现，管理员请求返回 404；完整样例待 M01 提供 |
+| `GET /api/v1/admin/posts` | `keyword`、`authorId`、`from`、`to`、`tag`、`page`、`pageSize`；返回 M02 `PostView` | 主工程尚未接入 M02 模块，管理员请求返回 404               |
 
 所有接口使用 `{ code, data, message }`；列表 `data` 为 `{ items, page, pageSize, total }`，页码从 1 开始、每页 10/20/50 条。网络响应在数据入口校验，字段不一致会显示错误，不会回退成成功或样例。日期按北京时间自然日发送，界面时间按 Asia/Shanghai 展示。
 
 前端保存登录令牌，公开登录不附加旧令牌；刷新后先向 `/users/me` 复核管理员身份，再挂载管理页面。401 撤销当前会话并回登录；403 清空本页管理数据并提示无权限。退出只清当前标签页会话，当前契约没有服务端退出端点。服务端须自行验证 JWT、角色、账号状态与令牌版本，前端角色判断仅控制页面访问。
 
-当前仓库没有 M01 主工程，`npm run dev` 已具备真实 API 请求入口，但真实登录、用户列表和服务端越权测试尚未执行。前端演示与自动化测试不构成服务端验收结论。
+Web 工程已与 M01 主工程完成本地联调，真实登录、本人信息与普通用户越权拒绝已验证；管理员初始化和两类管理列表仍待后台实现或接入。具体版本、测试数据准备和未完成项见 [本地联调记录](../../tests/evidence/M08/integration/README.md)。前端演示不构成真实服务验收结论。
 
 ## 文件与代码规范
 

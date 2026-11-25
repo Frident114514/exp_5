@@ -9,7 +9,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCE = ROOT / "deliverables/M08_第一周后台实施方案.md"
-SHELL = Path("/Users/yth/.tcodex/skills/writing-technical-docs-blueprint/assets/document-shell.html")
+SHELL = Path(__file__).with_name("document-shell.html")
 COMMIT = "8c399d44894e3bd922657f244b31ae1a1237513c"
 BASELINE_PATHS = set(subprocess.check_output(["git", "ls-tree", "-r", "--name-only", COMMIT], cwd=ROOT, text=True).splitlines())
 

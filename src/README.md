@@ -10,7 +10,7 @@
 - `backend/`：服务端 API、业务逻辑、媒体存储与数据库访问（Java 21 + Spring Boot 3.5.16 + Flyway + MySQL 8.4）。
   - [`backend/modules/posts/`](backend/modules/posts/README.md)：**M02（锡汉唐）动态、标签与检索模块**，已完成独立 Maven 工程与 48 项测试。
   - [`backend/modules/media/`](backend/modules/media/README.md)：**M03（潘铭伟）媒体上传、视频 Range 读取、绑定与清理模块**，已完成独立 Maven 工程、实现 M02 `MediaPort` 并接入 `PostAccess`，通过 26 项单元与跨模块（M02+M03）集成测试。
-- [`admin-web/`](admin-web/README.md)：M08 管理员 Web 后台第一周工程已实现，可运行演示模式和构建；真实登录及查询待 M01/M02 联调。
+- [`admin-web/`](admin-web/README.md)：M08 管理员 Web 后台第一周工程已实现，要求 Node.js 22.12+；演示模式、构建及 Vite 真实登录/身份复核已验证，两类管理查询待 M01/M02 实现或接入。详见 [联调记录](../tests/evidence/M08/integration/README.md)。
 - [`.env.example`](.env.example)：三端统一环境变量样例（仅含变量名与占位示例值，不含任何真实密钥）。
 
 ---

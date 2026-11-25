@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-25T18:31:08.952085+08:00",
+  "branch": "merge/m08-admin-web",
+  "target": "origin/main",
+  "base": "cf5ce59f4c96f4ad402ebf0dbacafa4a0f8c4874",
+  "frontendTests": {
+    "passed": 25,
+    "failed": 0,
+    "files": 4,
+    "report": "merge-frontend-tests.json"
+  },
+  "buildAndTypecheck": "passed",
+  "lint": "passed",
+  "formatCheck": "passed",
+  "documentation": {
+    "markdownHtmlSynchronized": true,
+    "uniqueAnchors": true,
+    "portableLocalLinks": 7,
+    "verifiedPinnedSourceLinks": 30,
+    "repositoryLocalTemplate": true
+  },
+  "backendSourceUnchanged": true,
+  "frontendSourceUnchangedSinceIntegration": true,
+  "credentialScan": "passed",
+  "retestNote": "首次串联 lint/format 命令中的 PATH 仅作用于 lint，format 回退系统旧 Node 而失败；已单独指定 Node 22.23.1 重跑 format:check，退出码 0。",
+  "limitations": [
+    "管理员初始化、用户列表及动态模块接入待后台完成",
+    "未执行浏览器视觉与同伴验收",
+    "合入源码不等于部署网站"
+  ]
+}
