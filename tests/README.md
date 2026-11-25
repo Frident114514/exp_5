@@ -21,3 +21,19 @@ python3 src/backend/modules/posts/scripts/run_mysql_tests.py
 ```
 
 需事先准备 JDK 21、Maven、MySQL 8.4 和 Python 3；路径配置见模块运行说明。M01 身份认证、M03 媒体、M04 评分及管理员审计使用测试适配器，以上结果不能替代真实服务和前端的联调验收。
+
+## 已有测试：M05 小程序公共层
+
+- [测试源代码](../src/miniapp/tests/)：表单校验规则、服务端地址拼接、路由表与 `pages.json` 一致性、认证契约常量，共 41 项 Vitest 用例。
+- [测试运行说明](../src/miniapp/README.md)：依赖安装、构建与微信开发者工具导入步骤。
+- [测试证据与用例映射](evidence/M05/README.md)：2026-11-25 41 项全部通过，类型检查与 mp-weixin/H5 构建退出码 0。
+
+在 `src/miniapp/` 执行：
+
+```sh
+npm install
+npm run test
+npm run type-check
+```
+
+以上覆盖纯逻辑；小程序页面行为需在微信开发者工具中手工验证，账号相关用例（M05-C01～C06）待 M05-S2 实现后执行。

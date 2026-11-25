@@ -5,6 +5,7 @@
 - [0001 技术栈选择](0001-tech-stack.md)：项目技术方案与选型原因。
 - [0002 M02 独立模块组织](0002-m02-independent-module.md)：在主工程未提供时如何构建、测试和交接动态模块；正式集成仍待相关成员确认。
 - [0003 M03 媒体模块组织与跨模块对接](0003-m03-media-storage-and-module.md)：媒体安全存储、Range 读取、异常清理及与 M02 端口直接联调的模块组织方案。
+- [0004 M05 小程序工程组织、公共层与状态管理](0004-m05-miniapp-engineering-and-shared-layer.md)：uni-app CLI 工程、轻量登录态 store、`uni.scss` 设计令牌与路由双重登记的原因与影响。
 
 ## 记录方式
 

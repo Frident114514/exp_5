@@ -7,6 +7,7 @@
 ## 1. 目录结构与当前模块状态
 
 - `miniapp/`：用户小程序（uni-app + Vue 3 + TypeScript，由 M05/M06/M07 负责）。
+  - [`miniapp/`](miniapp/README.md)：**M05（成员 05）小程序工程与公共层**，2026-11-25 完成 S1：工程可构建、设计令牌与公共组件就绪、9 个页面路由已登记；账号页面与 M06/M07 页面仍为占位页。
 - `backend/`：服务端 API、业务逻辑、媒体存储与数据库访问（Java 21 + Spring Boot 3.5.16 + Flyway + MySQL 8.4）。
   - [`backend/modules/posts/`](backend/modules/posts/README.md)：**M02（锡汉唐）动态、标签与检索模块**，已完成独立 Maven 工程与 48 项测试。
   - [`backend/modules/media/`](backend/modules/media/README.md)：**M03（潘铭伟）媒体上传、视频 Range 读取、绑定与清理模块**，已完成独立 Maven 工程、实现 M02 `MediaPort` 并接入 `PostAccess`，通过 26 项单元与跨模块（M02+M03）集成测试。
@@ -42,7 +43,7 @@
 | `MEDIA_MAX_IMAGE_BYTES` | `10485760` | **M03** | 单张图片大小上限（10 MB，支持 JPEG/PNG/WebP） |
 | `MEDIA_MAX_VIDEO_BYTES` | `52428800` | **M03** | 单个 MP4 视频大小上限（50 MB，支持 Range 206） |
 | `MEDIA_PENDING_EXPIRE_HOURS` | `24` | **M03** | 未绑定或编辑移除解绑后 `PENDING` 媒体的过期清理小时数 |
-| `VITE_MINIAPP_API_BASE_URL` | `http://127.0.0.1:8080/api/v1` | M05–M07 | 小程序请求的后端 API 基础路径 |
+| `VITE_MINIAPP_API_BASE_URL` | `http://127.0.0.1:8080/api/v1` | M05–M07 | 小程序请求的后端 API 基础路径（复制到 `src/miniapp/.env.local`，编译期注入，改后需重启） |
 | `VITE_ADMIN_API_BASE_URL` | `http://127.0.0.1:8080/api/v1` | M08 | Web 管理后台请求的后端 API 基础路径 |
 
 ---
@@ -80,10 +81,11 @@ npm run dev
 ```
 浏览器打开 `http://127.0.0.1:5173` 进入管理后台登录页。
 
-### 第四步：启动用户小程序（`src/miniapp`，待 M05/M06/M07 合入后）
+### 第四步：启动用户小程序（`src/miniapp`，M05 已建立工程，页面待 M05/M06/M07 实现）
+工程与公共层已就绪（见 [小程序说明](miniapp/README.md)），当前可直接构建并在微信开发者工具中打开示例页：
 ```sh
 cd src/miniapp
 npm install
 npm run dev:mp-weixin
 ```
-使用**微信开发者工具**导入编译产物目录，在“详情 → 本地设置”中勾选“不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书”，即可连接本机 `http://127.0.0.1:8080/api/v1` 进行图文视频上传、动态发布与 MP4 视频拖动播放。
+使用**微信开发者工具**导入编译产物目录 `src/miniapp/dist/dev/mp-weixin`，在“详情 → 本地设置”中勾选“不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书”，即可连接本机 `http://127.0.0.1:8080/api/v1` 进行图文视频上传、动态发布与 MP4 视频拖动播放。`npm run test` 执行 41 项公共层单元测试，`npm run type-check` 做类型检查。

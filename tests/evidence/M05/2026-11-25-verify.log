@@ -1,0 +1,45 @@
+﻿# M05-S1 验证记录
+# 时间：2026-11-25 16:17:58 +08:00
+# 环境：Windows 11 / Node v24.21.0 / npm 11.19.0
+# 工作目录：src/miniapp
+
+
+===== 单元测试 (Vitest) =====
+$ node node_modules\vitest\vitest.mjs run --reporter=default --reporter=junit --outputFile="D:\project-softweare\exp_5\tests\evidence\M05\junit-results.xml"
+[33mThe CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 D:/project-softweare/exp_5/src/miniapp
+
+ ✓ tests/env.spec.ts (9 tests) 3ms
+ ✓ tests/validate.spec.ts (12 tests) 3ms
+ ✓ tests/auth-contract.spec.ts (8 tests) 2ms
+ ✓ tests/routes.spec.ts (12 tests) 3ms
+
+ Test Files  4 passed (4)
+      Tests  41 passed (41)
+   Start at  16:17:59
+   Duration  250ms (transform 96ms, setup 0ms, collect 181ms, tests 11ms, environment 0ms, prepare 240ms)
+
+JUNIT report written to D:/project-softweare/exp_5/tests/evidence/M05/junit-results.xml
+[exit code: 0]
+
+===== 类型检查 (vue-tsc --noEmit) =====
+$ node node_modules\vue-tsc\bin\vue-tsc.js --noEmit
+[exit code: 0]
+
+===== 微信小程序构建 (build:mp-weixin) =====
+$ node node_modules\@dcloudio\vite-plugin-uni\bin\uni.js build -p mp-weixin
+编译器版本：5.34（vue3）
+正在编译中...
+DONE  Build complete.
+运行方式：打开 微信开发者工具, 导入 dist\build\mp-weixin 运行。
+[exit code: 0]
+
+===== H5 构建 (build:h5) =====
+$ node node_modules\@dcloudio\vite-plugin-uni\bin\uni.js build
+编译器版本：5.34（vue3）
+正在编译中...
+
+欢迎将web站点部署到uniCloud前端网页托管平台，高速、免费、安全、省心，详见：https://uniapp.dcloud.io/uniCloud/hosting
+DONE  Build complete.
+[exit code: 0]

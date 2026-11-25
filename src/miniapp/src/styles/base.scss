@@ -1,0 +1,106 @@
+/**
+ * 全局基础样式 · 维护人：M05
+ *
+ * 只放跨页面共用的元素级样式和少量布局工具类；
+ * 组件自身样式写在组件内部，页面私有样式写在页面 <style scoped>。
+ * 颜色、字号、间距一律使用 uni.scss 中的令牌。
+ */
+
+page {
+  min-height: 100%;
+  font-family: $font-family-base;
+  font-size: $font-size-body;
+  line-height: $line-height-base;
+  color: $text-primary;
+  background-color: $bg-page;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+
+/* ---------- 页面骨架 ---------- */
+
+.page {
+  min-height: 100vh;
+  padding: $space-md;
+  background-color: $bg-page;
+}
+
+.page--plain {
+  background-color: $bg-card;
+}
+
+.section {
+  @include card;
+  margin-bottom: $space-md;
+
+  &--flush {
+    padding: 0;
+  }
+}
+
+.section__title {
+  margin-bottom: $space-sm;
+  font-size: $font-size-subtitle;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+}
+
+.section__desc {
+  font-size: $font-size-body;
+  line-height: $line-height-base;
+  color: $text-secondary;
+}
+
+/* ---------- 文字工具类 ---------- */
+
+.text-caption {
+  font-size: $font-size-caption;
+  color: $text-tertiary;
+}
+
+.text-secondary {
+  color: $text-secondary;
+}
+
+.text-strong {
+  font-weight: $font-weight-bold;
+}
+
+.text-ellipsis {
+  @include ellipsis;
+}
+
+/* ---------- 分隔线 ---------- */
+
+.divider {
+  height: 1px;
+  margin: $space-md 0;
+  background-color: $divider-color;
+}
+
+/* ---------- 布局工具类 ---------- */
+
+.row {
+  @include flex-between;
+  gap: $space-sm;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+/* ---------- 安全区 ---------- */
+
+.safe-bottom {
+  padding-bottom: calc(#{$space-md} + constant(safe-area-inset-bottom));
+  padding-bottom: calc(#{$space-md} + env(safe-area-inset-bottom));
+}

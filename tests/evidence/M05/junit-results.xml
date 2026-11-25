@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="41" failures="0" errors="0" time="0.251">
+    <testsuite name="tests/auth-contract.spec.ts" timestamp="2026-11-25T08:17:59.497Z" hostname="HCZHX-ANFRYCNO" tests="8" failures="0" errors="0" skipped="0" time="0.0023851">
+        <testcase classname="tests/auth-contract.spec.ts" name="账号认证端点与 api.md 一致 &gt; 路径与 U01 行一致（相对 /api/v1 基础地址）" time="0.0006713">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="账号认证端点与 api.md 一致 &gt; 方法与权限标记一致" time="0.0005745">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="账号认证端点与 api.md 一致 &gt; 拼出的完整地址符合 /api/v1 前缀约定" time="0.0001216">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="账号认证端点与 api.md 一致 &gt; 令牌有效期 12 小时，本地缓存键有版本后缀便于失效" time="0.000096">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="通用响应与错误码与 api.md 一致 &gt; 成功 code 固定为 OK" time="0.0000528">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="通用响应与错误码与 api.md 一致 &gt; 错误码覆盖 api.md「错误与权限边界」的七种情况" time="0.000148">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="通用响应与错误码与 api.md 一致 &gt; 分页默认值与上限与 api.md 一致" time="0.000077">
+        </testcase>
+        <testcase classname="tests/auth-contract.spec.ts" name="通用响应与错误码与 api.md 一致 &gt; 只有 ADMIN 角色被识别为管理员" time="0.0000673">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/env.spec.ts" timestamp="2026-11-25T08:17:59.500Z" hostname="HCZHX-ANFRYCNO" tests="9" failures="0" errors="0" skipped="0" time="0.0028302">
+        <testcase classname="tests/env.spec.ts" name="normalizeBaseUrl &gt; 去掉末尾斜杠，避免拼出双斜杠路径" time="0.0008309">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="normalizeBaseUrl &gt; 去掉首尾空白" time="0.0001161">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="normalizeBaseUrl &gt; 空值、纯空白与 undefined 回退到默认地址" time="0.0001161">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="resolveApiBaseUrl / resolveMediaOrigin &gt; 未配置 .env 时返回本机演示地址" time="0.0002061">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="buildApiUrl &gt; 拼接相对与绝对形式的接口路径" time="0.0001055">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="buildMediaUrl &gt; 按契约生成 /media/{id}/content" time="0.0000815">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="buildMediaUrl &gt; 媒体 ID 非正整数时直接报错" time="0.0004978">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="absoluteMediaUrl &gt; 服务端 url 已含 /api/v1，只补协议与主机，不重复拼接" time="0.0001257">
+        </testcase>
+        <testcase classname="tests/env.spec.ts" name="absoluteMediaUrl &gt; 已是绝对地址时原样返回" time="0.0000585">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/routes.spec.ts" timestamp="2026-11-25T08:17:59.501Z" hostname="HCZHX-ANFRYCNO" tests="12" failures="0" errors="0" skipped="0" time="0.0033112">
+        <testcase classname="tests/routes.spec.ts" name="路由表与 pages.json 一致性 &gt; 每个登记路由都在 pages.json 中注册，否则跳转会失败" time="0.0007347">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="路由表与 pages.json 一致性 &gt; pages.json 中没有未登记的路由，避免出现无人维护的页面" time="0.0001615">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="路由表与 pages.json 一致性 &gt; 导航栏标题与路由表标题一致" time="0.0001563">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="路由表与 pages.json 一致性 &gt; 页面负责人只能是 M05、M06、M07" time="0.0005512">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="登录要求 &gt; 公开浏览页面不要求登录" time="0.0000958">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="登录要求 &gt; 账号设置与作者操作页面要求登录" time="0.0000786">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="buildRouteUrl &gt; 无参数时返回纯路径" time="0.0001002">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="buildRouteUrl &gt; 拼接并编码查询参数" time="0.0000848">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="buildRouteUrl &gt; 可选参数为空时不拼接到 URL" time="0.0000675">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="buildRouteUrl &gt; 缺少必填参数时直接报错，避免带着错误参数进入页面" time="0.0004324">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="findRouteByPath / isRouteName &gt; 按路径反查路由，兼容带不带前导斜杠" time="0.0000972">
+        </testcase>
+        <testcase classname="tests/routes.spec.ts" name="findRouteByPath / isRouteName &gt; 未知路由名不被误判" time="0.0000528">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/validate.spec.ts" timestamp="2026-11-25T08:17:59.502Z" hostname="HCZHX-ANFRYCNO" tests="12" failures="0" errors="0" skipped="0" time="0.0026132">
+        <testcase classname="tests/validate.spec.ts" name="countChars &gt; 按 Unicode 码点计数，emoji 只算 1 个字符" time="0.0006905">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateRequired &gt; 空白字符串视为未填写" time="0.000144">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateAccount &gt; 接受 4–20 位字母、数字和下划线" time="0.00014">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateAccount &gt; 拒绝空值、过短、过长和非法字符" time="0.0001742">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateLoginPassword &gt; 登录只校验必填与长度上限，不拦截历史弱密码" time="0.0000892">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validatePasswordStrength &gt; 接受 8–32 位且含字母和数字的密码" time="0.0001281">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validatePasswordStrength &gt; 拒绝过短、过长、纯字母、纯数字和含空格的密码" time="0.0001053">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validatePasswordConfirm &gt; 两次输入必须一致" time="0.0000728">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateNickname &gt; 长度按码点计算，允许 emoji" time="0.0000835">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateNickname &gt; 拒绝空值、纯空白和超长昵称" time="0.0000709">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="validateNewPassword &gt; 仍要满足强度要求，且不能与原密码相同" time="0.0000639">
+        </testcase>
+        <testcase classname="tests/validate.spec.ts" name="firstError &gt; 返回第一条错误，全部通过返回 null" time="0.000068">
+        </testcase>
+    </testsuite>
+</testsuites>
