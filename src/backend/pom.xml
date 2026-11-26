@@ -18,6 +18,7 @@
   <dependencies>
     <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-web</artifactId></dependency>
     <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-data-jpa</artifactId></dependency>
+    <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-validation</artifactId></dependency>
     <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-oauth2-resource-server</artifactId></dependency>
     <dependency><groupId>org.flywaydb</groupId><artifactId>flyway-core</artifactId></dependency>
     <dependency><groupId>org.flywaydb</groupId><artifactId>flyway-mysql</artifactId></dependency>
@@ -26,6 +27,26 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId><artifactId>build-helper-maven-plugin</artifactId><version>3.6.1</version>
+        <executions><execution><id>module-sources</id><phase>generate-sources</phase><goals><goal>add-source</goal></goals>
+          <configuration><sources>
+            <source>${project.basedir}/modules/posts/src/main/java</source>
+            <source>${project.basedir}/modules/media/src/main/java</source>
+            <source>${project.basedir}/modules/interaction/src/main/java</source>
+          </sources></configuration>
+        </execution></executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.3.1</version>
+        <executions><execution><id>module-resources</id><phase>process-resources</phase><goals><goal>copy-resources</goal></goals>
+          <configuration><outputDirectory>${project.build.outputDirectory}</outputDirectory><resources>
+            <resource><directory>${project.basedir}/modules/posts/src/main/resources</directory></resource>
+            <resource><directory>${project.basedir}/modules/media/src/main/resources</directory></resource>
+            <resource><directory>${project.basedir}/modules/interaction/src/main/resources</directory></resource>
+          </resources></configuration>
+        </execution></executions>
+      </plugin>
       <plugin><groupId>org.springframework.boot</groupId><artifactId>spring-boot-maven-plugin</artifactId></plugin>
     </plugins>
   </build>

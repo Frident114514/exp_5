@@ -54,7 +54,7 @@ M02 动态接口的部分编辑规则、完整样例、内部依赖和事务边�
 - `PUT /users/me/password` 请求为 `{ "oldPassword": "原密码", "newPassword": "新密码" }`。新密码沿用注册校验，不能与原密码相同；成功返回 HTTP 200、`data: null`，当前及其他旧令牌均立即失效，客户端清除登录态并重新登录。原密码错误返回 401，参数错误返回 400。与注册/登录共用密码工作限流预算。
 - `GET /admin/users?keyword=...&page=1&pageSize=10`：按账号或昵称的字面子串搜索，关键词去除首尾空白、最多 64 个字符；页码从 1 开始，每页 1–50，越界返回 400。按 ID 倒序返回 `items/page/pageSize/total`，每项为 `id/account/nickname/role/status/createdAt`；包含禁用用户，不返回密码哈希和 tokenVersion。
 - `DELETE /admin/users/{userId}`：逻辑禁用普通用户，状态改为 DISABLED、tokenVersion 加 1，并在同一事务写管理日志；成功返回 HTTP 200、`data: null`。重复禁用不重复递增或记日志；用户不存在返回 404。禁止删除本人或任何 ADMIN（403），避免误删管理账号。操作者身份与令牌版本在事务内再次核验。
-- 用户禁用在持有用户行锁的事务中同步发布 `UserDisabled` 事件。M02/M04 接入时须用同步监听器、同一数据源和事务清理动态/评论/评分，异常须向上抛出以整体回滚。当前主工程尚无这些模块，不能将账号禁用验收等同跨模块清理已完成。
+- 用户禁用在持有用户行锁的事务中同步发布 `UserDisabled` 事件。M01 的 `UserDisabledCleanup` 已接入 M02 动态隐藏及 M04 评论/评分清理，使用同一数据源和事务，异常整体回滚；不得重复注册清理监听器。2026-11-26 的真实 MySQL 验证通过，见 [主工程证据](../../tests/evidence/M01/integration-2026-11-26/README.md)。
 - 管理员通过 `MOMENTS_ADMIN_ACCOUNT`、`MOMENTS_ADMIN_PASSWORD`、可选 `MOMENTS_ADMIN_NICKNAME` 在启动时初始化；前两项须同时提供。已有同名管理员不重设密码、不自动启用；同名普通账号导致启动失败。默认不创建管理员，无内置密码。
 
 ## 关键对象示例

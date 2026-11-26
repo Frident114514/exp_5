@@ -90,6 +90,8 @@ class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/posts", "/api/v1/posts/*",
+                                "/api/v1/posts/*/comments", "/api/v1/media/*/content").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/v1/internal/m01-diagnostics").hasRole("ADMIN")
                         .anyRequest().authenticated())

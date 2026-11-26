@@ -174,14 +174,62 @@ class AuthIntegrationTest {
     }
 
     @Test
+    void disablingUserHidesPostsAndRemovesTheirInteractionsInOneTransaction() {
+        String ownerAccount = account();
+        long ownerId = register(ownerAccount).getBody().path("data").path("id").asLong();
+        String ownerToken = token(ownerAccount);
+        var created = authenticated("/posts", HttpMethod.POST, ownerToken,
+                Map.of("text", "集成验收动态", "mediaIds", java.util.List.of(), "tags", java.util.List.of("联调")));
+        expect(created, HttpStatus.OK, "OK");
+        long postId = created.getBody().path("data").path("id").asLong();
+        expect(get("/posts", null), HttpStatus.OK, "OK");
+        expect(get("/posts/" + postId, null), HttpStatus.OK, "OK");
+
+        String commenterAccount = account();
+        long commenterId = register(commenterAccount).getBody().path("data").path("id").asLong();
+        String commenterToken = token(commenterAccount);
+        expect(authenticated("/posts/" + postId + "/rating", HttpMethod.PUT, commenterToken,
+                Map.of("score", 5)), HttpStatus.OK, "OK");
+        expect(authenticated("/posts/" + postId + "/comments", HttpMethod.POST, commenterToken,
+                Map.of("content", "真实接口联调评论")), HttpStatus.OK, "OK");
+        expect(get("/posts/" + postId + "/comments", null), HttpStatus.OK, "OK");
+
+        String adminAccount = account();
+        authService.initializeAdmin(adminAccount, PASSWORD, "集成验收管理员");
+        String adminToken = token(adminAccount);
+        expect(authenticated("/admin/users/" + commenterId, HttpMethod.DELETE, adminToken, null),
+                HttpStatus.OK, "OK");
+        assertThat(db.queryForObject("SELECT COUNT(*) FROM ratings WHERE user_id=?", Integer.class, commenterId))
+                .isZero();
+        assertThat(db.queryForObject("SELECT COUNT(*) FROM comments WHERE user_id=? AND status='ACTIVE'",
+                Integer.class, commenterId)).isZero();
+        expect(get("/users/me", commenterToken), HttpStatus.UNAUTHORIZED, "UNAUTHENTICATED");
+
+        expect(authenticated("/admin/users/" + ownerId, HttpMethod.DELETE, adminToken, null),
+                HttpStatus.OK, "OK");
+        assertThat(db.queryForObject("SELECT status FROM posts WHERE id=?", String.class, postId)).isEqualTo("DELETED");
+        expect(get("/posts/" + postId, null), HttpStatus.NOT_FOUND, "NOT_FOUND");
+    }
+
+    @Test
     void synchronousDisableFailureRollsBackUserAndAudit() {
         String admin = account(); authService.initializeAdmin(admin, PASSWORD, "管理员");
         long adminId = get("/users/me", token(admin)).getBody().path("data").path("id").asLong();
         String account = account(); long id = register(account).getBody().path("data").path("id").asLong();
+        var created = authenticated("/posts", HttpMethod.POST, token(account),
+                Map.of("text", "回滚验收动态", "mediaIds", java.util.List.of(), "tags", java.util.List.of()));
+        expect(created, HttpStatus.OK, "OK");
+        long postId = created.getBody().path("data").path("id").asLong();
+        db.update("INSERT INTO ratings(post_id,user_id,score,created_at,updated_at) VALUES (?,?,5,UTC_TIMESTAMP(6),UTC_TIMESTAMP(6))", postId, id);
+        db.update("INSERT INTO comments(post_id,user_id,content,status,created_at) VALUES (?,?,'rollback','ACTIVE',UTC_TIMESTAMP(6))", postId, id);
         var multicaster = context.getBean("applicationEventMulticaster",
                 org.springframework.context.event.ApplicationEventMulticaster.class);
         org.springframework.context.ApplicationListener<org.springframework.context.PayloadApplicationEvent<?>> listener = event -> {
             if (event.getPayload() instanceof UserDisabled disabled && disabled.userId() == id) {
+                // Cleanup runs at order 0; this listener fails only after all real module changes are flushed.
+                assertThat(db.queryForObject("SELECT status FROM posts WHERE id=?", String.class, postId)).isEqualTo("DELETED");
+                assertThat(db.queryForObject("SELECT COUNT(*) FROM ratings WHERE user_id=?", Integer.class, id)).isZero();
+                assertThat(db.queryForObject("SELECT status FROM comments WHERE user_id=?", String.class, id)).isEqualTo("DELETED");
                 db.update("UPDATE users SET nickname='listener update' WHERE id=?", id);
                 throw new IllegalStateException("simulated module failure");
             }
@@ -195,6 +243,9 @@ class AuthIntegrationTest {
         assertThat(db.queryForObject("SELECT token_version FROM users WHERE id=?", Integer.class, id)).isZero();
         assertThat(db.queryForObject("SELECT nickname FROM users WHERE id=?", String.class, id)).isEqualTo("测试用户");
         assertThat(db.queryForObject("SELECT COUNT(*) FROM admin_operation_logs WHERE target_id=?", Integer.class, id)).isZero();
+        assertThat(db.queryForObject("SELECT status FROM posts WHERE id=?", String.class, postId)).isEqualTo("ACTIVE");
+        assertThat(db.queryForObject("SELECT COUNT(*) FROM ratings WHERE user_id=?", Integer.class, id)).isEqualTo(1);
+        assertThat(db.queryForObject("SELECT status FROM comments WHERE user_id=?", String.class, id)).isEqualTo("ACTIVE");
     }
 
     private ResponseEntity<JsonNode> change(String token, String oldPassword, String newPassword) {
