@@ -25,7 +25,7 @@ public class PostAccess {
 
     @Transactional(propagation = Propagation.MANDATORY)
     public PostState lockVisibleForInteraction(long id) {
-        PostEntity post = lockVisibleEntity(id);
+        PostEntity post = check(posts.lockByIdForInteraction(id).orElseThrow(PostFailure::missing));
         return new PostState(post.getId(), post.getAuthorId());
     }
 

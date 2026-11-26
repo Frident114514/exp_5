@@ -12,6 +12,11 @@ public interface PostRepository extends JpaRepository<PostEntity, Long>, JpaSpec
     @Query("select p from MomentPost p where p.id = :id")
     Optional<PostEntity> lockById(@Param("id") long id);
 
+    /** Shared visibility lock for interactions; status-changing writes use lockById. */
+    @Lock(LockModeType.PESSIMISTIC_READ)
+    @Query("select p from MomentPost p where p.id = :id")
+    Optional<PostEntity> lockByIdForInteraction(@Param("id") long id);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select p from MomentPost p where p.authorId = :authorId and p.status = edu.szu.moments.posts.PostEntity$Status.ACTIVE order by p.id")
     List<PostEntity> lockActiveByAuthor(@Param("authorId") long authorId);
