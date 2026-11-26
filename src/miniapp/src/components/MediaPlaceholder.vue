@@ -2,8 +2,9 @@
   <view class="media" :class="'media--' + variant">
     <view class="media__grid" :class="gridClass">
       <view v-for="(item, index) in visible" :key="item.id" class="media__tile">
-        <text class="media__kind">{{ isVideoType(item.type) ? '视频' : '图片' }}</text>
-        <text v-if="isVideoType(item.type)" class="media__play">▶</text>
+        <text v-if="!isVideoType(item.type)" class="media__kind">图片</text>
+        <text v-else class="media__play">▶</text>
+        <text v-if="isVideoType(item.type)" class="media__kind media__kind--video">视频</text>
         <text class="media__index">{{ index + 1 }}/{{ total }}</text>
       </view>
       <view v-if="extraCount > 0" class="media__tile media__tile--more">
@@ -119,6 +120,13 @@ const gridClass = computed(() => {
   background-color: rgba(23, 30, 45, 0.55);
   color: #ffffff;
   font-size: 34rpx;
+}
+
+.media__kind--video {
+  position: absolute;
+  left: 10rpx;
+  bottom: 8rpx;
+  font-size: 20rpx;
 }
 
 .media__index {
