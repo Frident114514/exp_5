@@ -1,22 +1,25 @@
 /**
- * 账号认证接口登记 · 维护人：M05
+ * 账号认证接口 · 维护人：M05
  *
- * 路径相对 `VITE_MINIAPP_API_BASE_URL`（已包含 `/api/v1`），完整地址由
- * `config/env.ts` 的 `buildApiUrl` 拼接。请求执行封装（token 携带、401 处理）
- * 在 M05-S2 的 `api/http.ts` 中实现，本文件只登记"方法与路径 + 出入参类型"。
- *
- * 对接人：M01（实现认证接口）。任何路径或字段变更需先改
- * specs/contracts/api.md 与 miniapp-module.md，再同步这里。
+ * 路径相对 `VITE_MINIAPP_API_BASE_URL`（已包含 `/api/v1`），请求执行统一走 `api/http.ts`：
+ * 自动附加令牌、解析统一响应外壳、401 清理登录态。
+ * 对接人：M01（实现认证接口）。任何路径或字段变更需先改 specs/contracts/api.md
+ * 与 miniapp-module.md，再同步这里和调用页面。
  */
 
-import type {
-  AuthUser,
-  ChangePasswordRequest,
-  LoginRequest,
-  LoginResult,
-  RegisterRequest,
-  RegisterResult,
+import { get, post, put } from './http'
+import {
+  AUTH_STORAGE_KEY,
+  TOKEN_EXPIRE_HOURS,
+  type AuthUser,
+  type ChangePasswordRequest,
+  type LoginRequest,
+  type LoginResult,
+  type RegisterRequest,
+  type RegisterResult,
 } from './types'
+
+export { AUTH_STORAGE_KEY, TOKEN_EXPIRE_HOURS }
 
 export interface AuthEndpoint {
   /** HTTP 方法。 */
@@ -37,7 +40,7 @@ export const AUTH_ENDPOINTS = {
 
 export type AuthEndpointName = keyof typeof AUTH_ENDPOINTS
 
-/** 端点 → 出入参类型，供 M05-S2 的请求封装与 M06/M07 复用。 */
+/** 端点 → 出入参类型，供请求封装与调用方复用。 */
 export interface AuthEndpointTypes {
   register: { request: RegisterRequest; response: RegisterResult }
   login: { request: LoginRequest; response: LoginResult }
@@ -45,8 +48,22 @@ export interface AuthEndpointTypes {
   changePassword: { request: ChangePasswordRequest; response: null }
 }
 
-/** 登录令牌有效期（小时），与 api.md 一致，用于本地过期判断。 */
-export const TOKEN_EXPIRE_HOURS = 12
+/** `POST /auth/register`：角色由服务端固定为 USER。 */
+export function register(payload: RegisterRequest): Promise<RegisterResult> {
+  return post<RegisterResult>(AUTH_ENDPOINTS.register.path, payload, { withAuth: false })
+}
 
-/** 本地缓存的登录态键名，统一由 auth store 读写。 */
-export const AUTH_STORAGE_KEY = 'moments.auth.v1'
+/** `POST /auth/login`：成功返回令牌、过期时间与用户资料。 */
+export function login(payload: LoginRequest): Promise<LoginResult> {
+  return post<LoginResult>(AUTH_ENDPOINTS.login.path, payload, { withAuth: false })
+}
+
+/** `GET /users/me`：需要登录，用于进入个人资料页时刷新资料。 */
+export function fetchMe(): Promise<AuthUser> {
+  return get<AuthUser>(AUTH_ENDPOINTS.me.path)
+}
+
+/** `PUT /users/me/password`：改密成功后服务端使旧令牌失效。 */
+export function changePassword(payload: ChangePasswordRequest): Promise<null> {
+  return put<null>(AUTH_ENDPOINTS.changePassword.path, payload)
+}

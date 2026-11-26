@@ -85,6 +85,17 @@ button {
   background-color: $divider-color;
 }
 
+/* ---------- 表单错误提示 ---------- */
+
+.form-error {
+  padding: $space-sm $space-md;
+  font-size: $font-size-body;
+  line-height: $line-height-base;
+  color: $color-danger;
+  background-color: $color-danger-light;
+  border-radius: $radius-sm;
+}
+
 /* ---------- 输入框占位文字 ----------
  * 微信小程序的 placeholder-class 作用于 input 内部节点，不携带 scoped 的 data-v 属性，
  * 写在组件 scoped 样式里不会命中，因此统一放在全局（由 FormField 使用）。

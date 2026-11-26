@@ -13,6 +13,13 @@
 export const DEFAULT_API_BASE_URL = 'http://127.0.0.1:8080/api/v1'
 export const DEFAULT_MEDIA_ORIGIN = 'http://127.0.0.1:8080'
 
+/**
+ * 是否启用本地模拟接口（默认关闭）。
+ * 开启后 `api/http.ts` 会优先命中 `api/mock.ts` 的假数据，
+ * 用于服务端未就绪时开发页面；**模拟结果不能作为联调已完成的证据**。
+ */
+export const DEFAULT_USE_MOCK = false
+
 /** 去掉首尾空白和末尾多余的 `/`，空值回退到 fallback。 */
 export function normalizeBaseUrl(raw: string | undefined | null, fallback: string): string {
   const trimmed = (raw ?? '').trim()
@@ -20,7 +27,9 @@ export function normalizeBaseUrl(raw: string | undefined | null, fallback: strin
   return value.replace(/\/+$/, '')
 }
 
-function readEnv(key: 'VITE_MINIAPP_API_BASE_URL' | 'VITE_MINIAPP_MEDIA_ORIGIN'): string | undefined {
+function readEnv(
+  key: 'VITE_MINIAPP_API_BASE_URL' | 'VITE_MINIAPP_MEDIA_ORIGIN' | 'VITE_MINIAPP_USE_MOCK'
+): string | undefined {
   const env = import.meta.env
   return env ? env[key] : undefined
 }
@@ -28,6 +37,12 @@ function readEnv(key: 'VITE_MINIAPP_API_BASE_URL' | 'VITE_MINIAPP_MEDIA_ORIGIN')
 /** 生效的 API 基础地址（已归一化，不带末尾 `/`）。 */
 export function resolveApiBaseUrl(): string {
   return normalizeBaseUrl(readEnv('VITE_MINIAPP_API_BASE_URL'), DEFAULT_API_BASE_URL)
+}
+
+/** 是否启用本地模拟接口：`.env.local` 中 `VITE_MINIAPP_USE_MOCK=true` 时开启。 */
+export function resolveUseMock(): boolean {
+  const raw = (readEnv('VITE_MINIAPP_USE_MOCK') ?? '').trim().toLowerCase()
+  return raw === 'true' || raw === '1'
 }
 
 /** 生效的媒体源地址（已归一化，不带末尾 `/`）。 */

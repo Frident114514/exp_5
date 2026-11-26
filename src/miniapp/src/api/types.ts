@@ -112,3 +112,102 @@ export function isAdmin(user: AuthUser | null | undefined): boolean {
 
 /** 服务端成功响应的固定 code。 */
 export const SUCCESS_CODE = 'OK'
+
+/** 登录令牌有效期（小时），与 api.md 一致，用于本地过期判断。 */
+export const TOKEN_EXPIRE_HOURS = 12
+
+/** 本地缓存的登录态键名，统一由 stores/auth.ts 读写；改版时递增版本号使旧缓存失效。 */
+export const AUTH_STORAGE_KEY = 'moments.auth.v1'
+
+/* ==========================================================================
+ * 动态、媒体、互动对象（M06/M07 直接使用，字段以 specs/contracts/api.md 为准）
+ * ========================================================================== */
+
+/** 动态作者摘要。 */
+export interface Author {
+  id: number
+  nickname: string
+}
+
+/** 媒体类型：图片 / MP4 视频。 */
+export type MediaType = 'IMAGE' | 'VIDEO'
+
+/** 动态中的媒体项，`url` 为相对地址，展示前用 config/env 的 absoluteMediaUrl 补全。 */
+export interface MediaItem {
+  id: number
+  type: MediaType
+  url: string
+}
+
+/** 评分摘要：无评分时 average 为 null、count 为 0，页面不得显示伪造的 0 分。 */
+export interface RatingSummary {
+  average: number | null
+  count: number
+}
+
+/** 动态（列表与详情共用）。 */
+export interface Post {
+  id: number
+  author: Author
+  text: string
+  media: MediaItem[]
+  tags: string[]
+  createdAt: string
+  rating: RatingSummary
+}
+
+/** 发布 / 编辑动态的请求体：文本与媒体至少一项，标签最多 5 个。 */
+export interface PostPayload {
+  text?: string
+  mediaIds?: number[]
+  tags?: string[]
+}
+
+/** PATCH 语义：只提交需要修改的字段，省略的字段保持不变。 */
+export type PostPatchPayload = Partial<PostPayload>
+
+/** 公开列表查询：日期按北京时间自然日筛选，`from` 不得晚于 `to`。 */
+export interface PostListQuery extends PageQuery {
+  from?: string
+  to?: string
+  tag?: string
+}
+
+/** 评论。 */
+export interface Comment {
+  id: number
+  author: Author
+  content: string
+  createdAt: string
+}
+
+/** 提交评论：1–500 字符。 */
+export interface CommentPayload {
+  content: string
+}
+
+/** 提交评分：1–5 的整数，再次提交会更新原评分。 */
+export interface RatingPayload {
+  score: number
+}
+
+/** 评分提交后的返回：最新摘要与本人评分。 */
+export interface RatingResult {
+  rating: RatingSummary
+  myScore: number | null
+}
+
+/** 媒体上传成功后的返回，`mediaId` 用于发布动态时的 `mediaIds`。 */
+export interface MediaUploadResult {
+  mediaId: number
+  type: MediaType
+  url: string
+}
+
+/** 统一判断任意错误对象是否为接口错误（用于页面区分网络/业务错误）。 */
+export interface ApiErrorLike {
+  status: number
+  code: string
+  message: string
+}
+

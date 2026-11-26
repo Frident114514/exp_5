@@ -10,14 +10,15 @@
  *   - 全队路由登记表，点按可跳到对应占位页。
  * 复制本页的写法即可保证三个成员界面一致。
  */
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import AppButton from '@/components/AppButton.vue'
 import FormField from '@/components/FormField.vue'
 import StateView from '@/components/StateView.vue'
-import { resolveApiBaseUrl, resolveMediaOrigin } from '@/config/env'
-import { ROUTES, type RouteDefinition, type RouteName } from '@/config/routes'
-import { toastInfo, toastSuccess } from '@/utils/feedback'
-import { openRoute } from '@/utils/navigate'
+import { resolveApiBaseUrl, resolveMediaOrigin, resolveUseMock } from '@/config/env'
+import { ROUTES, buildRouteUrl, type RouteDefinition, type RouteName } from '@/config/routes'
+import { authStore } from '@/stores/auth'
+import { confirmAction, toastInfo, toastSuccess } from '@/utils/feedback'
+import { openRoute, requireLogin } from '@/utils/navigate'
 import {
   validateAccount,
   validateNickname,
@@ -29,6 +30,34 @@ import {
 /* ---------- 环境信息 ---------- */
 const apiBaseUrl = resolveApiBaseUrl()
 const mediaOrigin = resolveMediaOrigin()
+const useMock = resolveUseMock()
+
+/* ---------- 登录状态 ---------- */
+const isLoggedIn = computed(() => authStore.isLoggedIn)
+const currentUser = computed(() => authStore.user)
+const roleText = computed(() => (authStore.isAdmin ? '管理员' : '普通用户'))
+
+function goLogin(): void {
+  openRoute('login')
+}
+
+function goProfile(): void {
+  if (requireLogin()) {
+    openRoute('profile')
+  }
+}
+
+async function logout(): Promise<void> {
+  if (!authStore.isLoggedIn) {
+    return
+  }
+  const confirmed = await confirmAction('退出后需要重新登录才能发布或互动。', '退出登录')
+  if (!confirmed) {
+    return
+  }
+  authStore.clear()
+  toastInfo('已退出登录')
+}
 
 /* ---------- 设计令牌 ---------- */
 const colorTokens = [
@@ -170,12 +199,12 @@ const routeEntries = (Object.keys(ROUTES) as RouteName[])
   .map((name) => ({ name, route: ROUTES[name] as RouteDefinition }))
 
 function openDemoRoute(name: RouteName): void {
-  if (name === 'postDetail') {
-    // 详情页必须带 postId，示例固定为 1。
-    openRoute('postDetail', { postId: 1 })
+  const params = name === 'postDetail' ? { postId: 1 } : {}
+  // 需要登录的页面先做守卫：未登录会跳到登录页并把目标页作为 redirect，登录后回到目标页。
+  if (ROUTES[name].requiresAuth && !requireLogin(buildRouteUrl(name, params))) {
     return
   }
-  openRoute(name)
+  openRoute(name, params)
 }
 </script>
 
@@ -197,6 +226,33 @@ function openDemoRoute(name: RouteName): void {
         <text class="env-row__label">媒体源</text>
         <text class="env-row__value">{{ mediaOrigin }}</text>
       </view>
+      <view class="env-row">
+        <text class="env-row__label">模拟接口</text>
+        <text class="env-row__value">{{ useMock ? '已开启（本地样例数据）' : '关闭（走真实服务端）' }}</text>
+      </view>
+    </view>
+
+    <!-- 登录与账号入口 -->
+    <view class="section">
+      <text class="section__title">当前登录状态</text>
+      <template v-if="isLoggedIn">
+        <text class="section__desc">
+          已登录：{{ currentUser?.nickname }}（{{ roleText }}），账号 {{ currentUser?.account }}。
+        </text>
+        <view class="session-actions">
+          <AppButton type="secondary" :block="false" @click="goProfile">个人资料</AppButton>
+          <AppButton type="ghost" :block="false" @click="logout">退出登录</AppButton>
+        </view>
+      </template>
+      <template v-else>
+        <text class="section__desc">
+          未登录。广场与详情可以直接浏览；发布、评分、评论会先引导登录，并在登录后回到原页面。
+        </text>
+        <view class="session-actions">
+          <AppButton type="primary" :block="false" @click="goLogin">去登录</AppButton>
+          <AppButton type="ghost" :block="false" @click="openDemoRoute('plaza')">先看广场</AppButton>
+        </view>
+      </template>
     </view>
 
     <!-- 2. 颜色 -->
@@ -386,6 +442,13 @@ function openDemoRoute(name: RouteName): void {
     text-align: right;
     word-break: break-all;
   }
+}
+
+/* ---------- 登录状态 ---------- */
+.session-actions {
+  display: flex;
+  gap: $space-sm;
+  margin-top: $space-md;
 }
 
 /* ---------- 颜色 ---------- */

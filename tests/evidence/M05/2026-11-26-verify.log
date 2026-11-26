@@ -1,0 +1,50 @@
+﻿# M05-S2 验证记录
+# 时间：2026-11-26 13:06:38 +08:00
+# 环境：Windows 11 / Node v24.21.0 / npm 11.19.0
+# 工作目录：src/miniapp
+
+
+===== 单元测试 (Vitest, 额外输出 JUnit) =====
+$ node node_modules\vitest\vitest.mjs run --reporter=default --reporter=junit --outputFile="D:\project-softweare\exp_5\tests\evidence\M05\junit-results-s2.xml"
+[33mThe CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 D:/project-softweare/exp_5/src/miniapp
+
+ ✓ tests/routes.spec.ts (12 tests) 4ms
+ ✓ tests/validate.spec.ts (12 tests) 3ms
+ ✓ tests/env.spec.ts (9 tests) 4ms
+ ✓ tests/auth-store.spec.ts (10 tests) 4ms
+ ✓ tests/auth-contract.spec.ts (8 tests) 4ms
+ ✓ tests/navigate.spec.ts (12 tests) 6ms
+ ✓ tests/http.spec.ts (13 tests) 8ms
+ ✓ tests/api-endpoints.spec.ts (4 tests) 3ms
+ ✓ tests/mock.spec.ts (11 tests) 1452ms
+
+ Test Files  9 passed (9)
+      Tests  91 passed (91)
+   Start at  13:06:38
+   Duration  1.76s (transform 320ms, setup 0ms, collect 907ms, tests 1.49s, environment 1ms, prepare 713ms)
+
+JUNIT report written to D:/project-softweare/exp_5/tests/evidence/M05/junit-results-s2.xml
+[exit code: 0]
+
+===== 类型检查 (vue-tsc --noEmit) =====
+$ node node_modules\vue-tsc\bin\vue-tsc.js --noEmit
+[exit code: 0]
+
+===== 微信小程序构建 (build:mp-weixin) =====
+$ node node_modules\@dcloudio\vite-plugin-uni\bin\uni.js build -p mp-weixin
+编译器版本：5.34（vue3）
+正在编译中...
+DONE  Build complete.
+运行方式：打开 微信开发者工具, 导入 dist\build\mp-weixin 运行。
+[exit code: 0]
+
+===== H5 构建 (build:h5) =====
+$ node node_modules\@dcloudio\vite-plugin-uni\bin\uni.js build
+编译器版本：5.34（vue3）
+正在编译中...
+
+欢迎将web站点部署到uniCloud前端网页托管平台，高速、免费、安全、省心，详见：https://uniapp.dcloud.io/uniCloud/hosting
+DONE  Build complete.
+[exit code: 0]

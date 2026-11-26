@@ -11,6 +11,8 @@ interface ImportMetaEnv {
   readonly VITE_MINIAPP_API_BASE_URL?: string
   /** 媒体文件源地址（用于拼接 `/api/v1/media/{id}/content`）。 */
   readonly VITE_MINIAPP_MEDIA_ORIGIN?: string
+  /** 是否启用本地模拟接口，'true' / '1' 开启；只能在开发期使用。 */
+  readonly VITE_MINIAPP_USE_MOCK?: string
 }
 
 interface ImportMeta {
