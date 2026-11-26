@@ -36,8 +36,17 @@ export interface RouteDefinition {
 export const ROUTES = {
   home: {
     path: '/pages/home/index',
-    title: '界面与组件基线',
+    title: '多媒体朋友圈',
     owner: 'M05',
+    requiresAuth: false,
+    requiredParams: [],
+    optionalParams: [],
+  },
+  devkit: {
+    path: '/pages/devkit/index',
+    title: '组件与样式基线',
+    owner: 'M05',
+    // 开发参考页：设计令牌、按钮、表单校验、页面四态的示例，不属于产品流程。
     requiresAuth: false,
     requiredParams: [],
     optionalParams: [],

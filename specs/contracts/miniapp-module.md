@@ -124,6 +124,7 @@ Mixin：`card($padding)`、`ellipsis`、`ellipsis-lines($lines)`、`flex-center`
 | 路由名 | 页面路径 | 负责人 | 参数 | 登录 | 依赖接口 |
 | --- | --- | --- | --- | --- | --- |
 | `home` | `/pages/home/index` | M05 | — | 否 | — |
+| `devkit` | `/pages/devkit/index` | M05 | — | 否 | — |
 | `login` | `/pages/login/index` | M05 | 可选 `redirect`（登录后返回的完整路径，需 `encodeURIComponent`） | 否 | `POST /auth/login` |
 | `register` | `/pages/register/index` | M05 | 可选 `redirect` | 否 | `POST /auth/register` |
 | `profile` | `/pages/profile/index` | M05 | — | 是 | `GET /users/me` |
@@ -134,6 +135,8 @@ Mixin：`card($padding)`、`ellipsis`、`ellipsis-lines($lines)`、`flex-center`
 | `myPosts` | `/pages/my-posts/index` | M06 | — | 是 | `GET /users/me/posts` |
 
 参数约定：
+
+- `home` 是产品首页（登录状态 + 广场/发布/我的动态/个人资料入口）；`devkit` 是开发参考页（设计令牌、组件、校验、页面四态、路由表），不属于产品流程，上线前可隐藏。
 
 - 必填参数缺失时 `buildRouteUrl` 直接抛错，页面也用 `onLoad` 校验，缺失时显示错误状态而不是静默空白。
 - 可选参数为空字符串或 `undefined` 时不拼接到 URL。

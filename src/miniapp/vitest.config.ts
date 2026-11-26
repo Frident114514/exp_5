@@ -13,5 +13,9 @@ export default defineConfig({
     environment: 'node',
     include: ['tests/**/*.spec.ts'],
     reporters: 'default',
+    // 单元测试永远走真实请求分支：断言请求细节；本地 .env.local 打开模拟接口也不影响测试。
+    env: {
+      VITE_MINIAPP_USE_MOCK: 'false',
+    },
   },
 })

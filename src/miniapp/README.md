@@ -53,7 +53,8 @@ miniapp/
 │   │   └── navigate.ts              # 跳转、登录守卫、回跳安全校验
 │   ├── components/                  # AppButton / FormField / StateView / PlaceholderPage
 │   └── pages/
-│       ├── home/index.vue           # 示例与控制台：令牌、组件、校验、状态、登录入口、路由表
+│       ├── home/index.vue           # 产品首页：登录状态 + 广场/发布/我的动态/个人资料入口
+│       ├── devkit/index.vue         # 开发参考：设计令牌、组件、校验、页面四态、路由表
 │       ├── login|register|profile|password/   # M05 账号页（已实现）
 │       ├── plaza|post-detail/       # M07 浏览与互动（占位）
 │       └── publish|my-posts/        # M06 发布与我的动态（占位）
@@ -78,6 +79,8 @@ npm install
 | `npm run test` | Vitest 单元测试（91 项） |
 
 ### 演示账号（仅模拟接口模式）
+
+本机 `src/miniapp/.env.local`（已在 `.gitignore` 中，不会提交）已把 `VITE_MINIAPP_USE_MOCK` 设为 `true`，重新编译即可直接用下面账号登录；换真实服务端时改为 `false` 后重新编译。
 
 `VITE_MINIAPP_USE_MOCK=true` 时可用：
 
@@ -131,7 +134,7 @@ try {
 2. 微信开发者工具 → 导入项目 → 目录选择 `src/miniapp/dist/dev/mp-weixin`（构建产物用 `dist/build/mp-weixin`）。
 3. AppID 填自己的小程序 AppID；没有时选「无 AppID」或「测试号」。仓库里 `manifest.json` 的 `mp-weixin.appid` 为空，构建产物会回退为 `touristappid`，**CLI 导入会被工具以"不存在此 AppID"拒绝，无 AppID 模式只能在图形界面选择**。
 4. 在"详情 → 本地设置"勾选**不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书**，否则无法访问本机 `http://127.0.0.1:8080`。
-5. 首屏为 `pages/home/index`，可看到登录状态卡片、设计令牌、按钮、表单校验、四种页面状态和全部路由；点"去登录"可走完整登录流程。
+5. 首屏是产品首页（`pages/home/index`）：上方显示登录状态，下面是广场、发布动态、我的动态、个人资料四个入口；组件与样式基线示例在 `pages/devkit/index`（首页底部"组件与样式基线"入口）。点「登录」用 `demo / demo1234` 可走完整登录 → 个人资料 → 修改密码流程。
 
 `dist/` 已被 `.gitignore` 忽略，不提交构建产物。
 

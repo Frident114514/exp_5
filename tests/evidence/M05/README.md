@@ -83,6 +83,14 @@ npm run build:h5
 
 工程依赖 `npm` 缓存可写；本机首次安装时 `postinstall` 无法在受限沙箱内 spawn，使用 `npm install --ignore-scripts` 完成安装（esbuild 的平台二进制由可选依赖提供，不受影响）。正常开发机直接 `npm install` 即可。
 
+## 页面结构调整（2026-11-26 13:14 重建）
+
+按组员反馈：S1 的"组件与样式基线"示例页原来就是首页，容易让人误以为工程还停在 S1。已把该示例页移到 `pages/devkit/index`（开发参考，不属于产品流程），首页改为产品首页（登录状态 + 广场/发布/我的动态/个人资料四个入口）。
+
+- 重新构建后 `app.json` 注册 **10 个页面**（新增 `pages/devkit/index`）；首页产物含"多媒体朋友圈""开始使用"与四个入口文案。
+- 同时在本机 `src/miniapp/.env.local`（不提交）打开模拟接口，便于工具内用 `demo/demo1234` 验证登录流程；`vitest.config.ts` 已强制 `VITE_MINIAPP_USE_MOCK=false`，本地开关不影响测试结论。
+- 本次重建后单元测试仍为 **91 项全部通过**，类型检查与构建退出码 0。
+
 ## 工具内运行记录（微信开发者工具，2026-11-25）
 
 S1 期间尝试用 CLI 导入被工具以"不存在此 AppID"拒绝（无 AppID 模式只能走图形界面），随后**由组员在图形界面手动导入** `src/miniapp/dist/build/mp-weixin` 并成功运行。工具日志可证：

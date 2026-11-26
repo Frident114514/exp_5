@@ -3,7 +3,7 @@
     {
       "path": "pages/home/index",
       "style": {
-        "navigationBarTitleText": "界面与组件基线"
+        "navigationBarTitleText": "多媒体朋友圈"
       }
     },
     {
@@ -53,6 +53,12 @@
       "path": "pages/my-posts/index",
       "style": {
         "navigationBarTitleText": "我的动态"
+      }
+    },
+    {
+      "path": "pages/devkit/index",
+      "style": {
+        "navigationBarTitleText": "组件与样式基线"
       }
     }
   ],
