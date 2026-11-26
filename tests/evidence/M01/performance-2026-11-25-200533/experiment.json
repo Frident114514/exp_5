@@ -1,0 +1,12 @@
+{
+  "responseReading": "immediate, no artificial delay",
+  "burstOnly": true,
+  "dispatch": "10000 asynchronous tasks released by one gate",
+  "connectionPreparationTimeoutSeconds": 60,
+  "warmupSeconds": 20,
+  "warmupRate": 1000,
+  "meConcurrency": 64,
+  "jfr": true,
+  "threadPoolMinimum": 128,
+  "preconnectedClients": 10000
+}

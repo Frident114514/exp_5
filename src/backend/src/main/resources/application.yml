@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: moments-backend
+  datasource:
+    url: ${MOMENTS_DB_URL:jdbc:mysql://127.0.0.1:3306/moments}
+    username: ${MOMENTS_DB_USER:moments}
+    password: ${MOMENTS_DB_PASSWORD}
+    hikari:
+      maximum-pool-size: ${MOMENTS_DB_POOL_SIZE:20}
+      minimum-idle: ${MOMENTS_DB_MIN_IDLE:5}
+      connection-timeout: ${MOMENTS_DB_WAIT_MS:2000}
+      validation-timeout: 1000
+      data-source-properties:
+        connectTimeout: 3000
+        socketTimeout: 10000
+  flyway:
+    enabled: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+      hibernate.type.preferred_instant_jdbc_type: TIMESTAMP
+      jakarta.persistence.query.timeout: 5000
+server:
+  shutdown: graceful
+  tomcat:
+    threads:
+      max: ${MOMENTS_HTTP_THREADS:100}
+      min-spare: 10
+      max-queue-capacity: ${MOMENTS_HTTP_QUEUE:100}
+    max-connections: ${MOMENTS_HTTP_CONNECTIONS:2048}
+    accept-count: ${MOMENTS_HTTP_BACKLOG:100}
+    connection-timeout: 5s
+    keep-alive-timeout: 15s
+moments:
+  jwt:
+    secret: ${MOMENTS_JWT_SECRET}
+  auth:
+    max-concurrent: ${MOMENTS_AUTH_CONCURRENCY:4}
+    me-max-concurrent: ${MOMENTS_ME_CONCURRENCY:64}
+    requests-per-second: ${MOMENTS_AUTH_RATE:10}
+    burst: ${MOMENTS_AUTH_BURST:20}

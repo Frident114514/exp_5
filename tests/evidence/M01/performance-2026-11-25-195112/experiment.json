@@ -1,0 +1,7 @@
+{
+  "preconnectedClients": 10000,
+  "burstOnly": true,
+  "meConcurrency": 256,
+  "threadPoolMinimum": 128,
+  "responseReading": "immediate, no artificial delay"
+}

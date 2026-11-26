@@ -1,0 +1,30 @@
+{
+  "engine": "dotnet-async-http",
+  "mode": "me",
+  "offeredRate": 0,
+  "scheduled": 10000,
+  "requests": 10000,
+  "success": 6474,
+  "successRate": 0.6474,
+  "rejected429": 0,
+  "rejected503": 3526,
+  "transportErrors": 0,
+  "otherResponses": 0,
+  "invalid200": 0,
+  "dropped": 0,
+  "maxInFlight": 3476,
+  "elapsedSeconds": 1.3247181,
+  "completedRps": 7548.775848990062,
+  "successfulRps": 4887.0774846361655,
+  "p95Ms": 429.959,
+  "p99Ms": 510.5679,
+  "maxMs": 898.8051,
+  "successP95Ms": 441.5918,
+  "successP99Ms": 510.162,
+  "dispatchSpreadMs": 1001.8969000000001,
+  "pass": false,
+  "statuses": {
+    "200": 6474,
+    "503": 3526
+  }
+}

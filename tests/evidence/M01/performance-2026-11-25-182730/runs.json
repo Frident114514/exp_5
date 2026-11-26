@@ -1,0 +1,52 @@
+[
+  {
+    "elapsedSeconds": 11.7798711,
+    "name": "warmup",
+    "pass": true
+  },
+  {
+    "elapsedSeconds": 20.452955,
+    "name": "me-100rps",
+    "pass": true
+  },
+  {
+    "elapsedSeconds": 20.8341857,
+    "name": "me-500rps",
+    "pass": true
+  },
+  {
+    "elapsedSeconds": 20.8903047,
+    "name": "me-1000rps",
+    "pass": true
+  },
+  {
+    "elapsedSeconds": 20.0320364,
+    "name": "login-2rps",
+    "pass": true
+  },
+  {
+    "elapsedSeconds": 21.3056676,
+    "name": "login-20rps",
+    "pass": false
+  },
+  {
+    "elapsedSeconds": 1.7175423,
+    "name": "burst-100",
+    "pass": true
+  },
+  {
+    "elapsedSeconds": 1.8156014,
+    "name": "burst-1000",
+    "pass": false
+  },
+  {
+    "elapsedSeconds": 2.320781,
+    "name": "burst-10000",
+    "pass": false
+  },
+  {
+    "elapsedSeconds": 21.5054836,
+    "name": "recovery-100rps",
+    "pass": true
+  }
+]

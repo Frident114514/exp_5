@@ -1,0 +1,157 @@
+diff --git a/src/backend/src/main/java/edu/szu/moments/auth/AuthAdmission.java b/src/backend/src/main/java/edu/szu/moments/auth/AuthAdmission.java
+index 9a05a42..da4766f 100644
+--- a/src/backend/src/main/java/edu/szu/moments/auth/AuthAdmission.java
++++ b/src/backend/src/main/java/edu/szu/moments/auth/AuthAdmission.java
+@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
+ import org.springframework.stereotype.Component;
+
+ import java.util.concurrent.Semaphore;
++import java.util.concurrent.TimeUnit;
+ import java.util.function.LongSupplier;
+
+ /** Instance-local bounds: password work cannot occupy the identity-read capacity. */
+@@ -14,6 +15,8 @@ import java.util.function.LongSupplier;
+ final class AuthAdmission {
+     private final Semaphore passwordSlots;
+     private final Semaphore identitySlots;
++    private final Semaphore identityWaiters;
++    private final long identityWaitMs;
+     private final double rate;
+     private final int burst;
+     private final LongSupplier ticker;
+@@ -24,16 +27,32 @@ final class AuthAdmission {
+     AuthAdmission(@Value("${moments.auth.max-concurrent:4}") int passwordCapacity,
+                   @Value("${moments.auth.me-max-concurrent:64}") int identityCapacity,
+                   @Value("${moments.auth.requests-per-second:10}") double rate,
+-                  @Value("${moments.auth.burst:20}") int burst) {
++                  @Value("${moments.auth.burst:20}") int burst,
++                  @Value("${moments.auth.me-max-waiting:0}") int identityWaiting,
++                  @Value("${moments.auth.me-wait-ms:0}") long identityWaitMs) {
++        this(passwordCapacity, identityCapacity, rate, burst, System::nanoTime, identityWaiting, identityWaitMs);
++    }
++
++    AuthAdmission(int passwordCapacity, int identityCapacity, double rate, int burst) {
+         this(passwordCapacity, identityCapacity, rate, burst, System::nanoTime);
+     }
+
+     AuthAdmission(int passwordCapacity, int identityCapacity, double rate, int burst, LongSupplier ticker) {
++        this(passwordCapacity, identityCapacity, rate, burst, ticker, 0, 0);
++    }
++
++    AuthAdmission(int passwordCapacity, int identityCapacity, double rate, int burst, LongSupplier ticker,
++                  int identityWaiting, long identityWaitMs) {
+         if (passwordCapacity < 1 || identityCapacity < 1 || !Double.isFinite(rate) || rate <= 0 || burst < 1) {
+             throw new IllegalArgumentException("Authentication capacity and rate must be positive and finite");
+         }
++        if (identityWaiting < 0 || identityWaitMs < 0 || (identityWaiting == 0) != (identityWaitMs == 0)) {
++            throw new IllegalArgumentException("Identity waiting capacity and timeout must both be zero or positive");
++        }
+         this.passwordSlots = new Semaphore(passwordCapacity);
+-        this.identitySlots = new Semaphore(identityCapacity);
++        this.identitySlots = new Semaphore(identityCapacity, identityWaitMs > 0);
++        this.identityWaiters = new Semaphore(identityWaiting);
++        this.identityWaitMs = identityWaitMs;
+         this.rate = rate;
+         this.burst = burst;
+         this.tokens = burst;
+@@ -43,7 +62,7 @@ final class AuthAdmission {
+
+     AutoCloseable admit(boolean passwordRequest) {
+         Semaphore slots = passwordRequest ? passwordSlots : identitySlots;
+-        if (!slots.tryAcquire()) {
++        if (!(passwordRequest ? slots.tryAcquire() : acquireIdentity())) {
+             throw overloaded(passwordRequest);
+         }
+         if (passwordRequest && !takeToken()) {
+@@ -53,6 +72,19 @@ final class AuthAdmission {
+         return slots::release;
+     }
+
++    private boolean acquireIdentity() {
++        if (identitySlots.tryAcquire()) return true;
++        if (identityWaitMs == 0 || !identityWaiters.tryAcquire()) return false;
++        try {
++            return identitySlots.tryAcquire(identityWaitMs, TimeUnit.MILLISECONDS);
++        } catch (InterruptedException interrupted) {
++            Thread.currentThread().interrupt();
++            return false;
++        } finally {
++            identityWaiters.release();
++        }
++    }
++
+     private synchronized boolean takeToken() {
+         long now = ticker.getAsLong();
+         tokens = Math.min(burst, tokens + Math.max(0, now - lastRefill) / 1_000_000_000.0 * rate);
+diff --git a/src/backend/src/main/resources/application-high-concurrency.yml b/src/backend/src/main/resources/application-high-concurrency.yml
+index e9aa0a6..7b5bea1 100644
+--- a/src/backend/src/main/resources/application-high-concurrency.yml
++++ b/src/backend/src/main/resources/application-high-concurrency.yml
+@@ -4,6 +4,11 @@ spring:
+   threads:
+     virtual:
+       enabled: true
++moments:
++  auth:
++    # Buffer a short spike on virtual threads while keeping SQL concurrency bounded.
++    me-max-waiting: ${MOMENTS_ME_MAX_WAITING:10000}
++    me-wait-ms: ${MOMENTS_ME_WAIT_MS:750}
+ server:
+   tomcat:
+     max-connections: ${MOMENTS_HTTP_CONNECTIONS:16384}
+diff --git a/src/backend/src/test/java/edu/szu/moments/auth/AuthAdmissionTest.java b/src/backend/src/test/java/edu/szu/moments/auth/AuthAdmissionTest.java
+index 73ebd6d..d1b3310 100644
+--- a/src/backend/src/test/java/edu/szu/moments/auth/AuthAdmissionTest.java
++++ b/src/backend/src/test/java/edu/szu/moments/auth/AuthAdmissionTest.java
+@@ -19,6 +19,51 @@ import static org.assertj.core.api.Assertions.assertThat;
+ import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+ class AuthAdmissionTest {
++    @Test
++    void boundedIdentityWaitRecoversWhenProcessingSlotIsReleased() throws Exception {
++        var gate = new AuthAdmission(1, 1, 100, 100, System::nanoTime, 1, 2000);
++        var occupied = gate.admit(false);
++        var entered = new CountDownLatch(1);
++        try (var pool = Executors.newVirtualThreadPerTaskExecutor()) {
++            var waiter = pool.submit(() -> {
++                entered.countDown();
++                try (var permit = gate.admit(false)) { return true; }
++            });
++            assertThat(entered.await(1, TimeUnit.SECONDS)).isTrue();
++            try {
++                assertThatThrownBy(() -> waiter.get(50, TimeUnit.MILLISECONDS))
++                        .isInstanceOf(java.util.concurrent.TimeoutException.class);
++                // The only waiting place is occupied; another request must fail promptly.
++                assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class);
++                // Password work remains isolated while identity work waits.
++                try (var password = gate.admit(true)) { assertThat(password).isNotNull(); }
++            } finally { occupied.close(); }
++            assertThat(waiter.get(1, TimeUnit.SECONDS)).isTrue();
++        }
++        try (var permit = gate.admit(false)) { assertThat(permit).isNotNull(); }
++    }
++
++    @Test
++    void identityWaitTimeoutAndInterruptionReleaseWaitingPlaces() throws Exception {
++        var gate = new AuthAdmission(1, 1, 100, 100, System::nanoTime, 1, 20);
++        try (var occupied = gate.admit(false)) {
++            assertThatThrownBy(() -> gate.admit(false)).isInstanceOfSatisfying(ApiFailure.class,
++                    failure -> assertThat(failure.status().value()).isEqualTo(503));
++            Thread.currentThread().interrupt();
++            try {
++                assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class);
++                assertThat(Thread.currentThread().isInterrupted()).isTrue();
++            } finally { Thread.interrupted(); }
++            // A second timeout proves neither the timeout nor interruption leaked the waiting place.
++            long started = System.nanoTime();
++            assertThatThrownBy(() -> gate.admit(false)).isInstanceOf(ApiFailure.class);
++            assertThat(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - started)).isGreaterThanOrEqualTo(10);
++        }
++        try (var permit = gate.admit(false)) { assertThat(permit).isNotNull(); }
++        assertThatThrownBy(() -> new AuthAdmission(1, 1, 1, 1, System::nanoTime, 0, 1))
++                .isInstanceOf(IllegalArgumentException.class);
++    }
++
+     @Test
+     void concurrentPasswordWorkIsBoundedAndCapacityRecovers() throws Exception {
+         var gate = new AuthAdmission(2, 4, 1000, 1000);

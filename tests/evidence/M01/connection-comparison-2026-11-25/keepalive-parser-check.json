@@ -1,0 +1,49 @@
+{
+  "purpose": "load generator calibration only; responses intentionally held, not business capacity",
+  "received": 128,
+  "uniqueIds": 128,
+  "duplicates": 0,
+  "responded": 128,
+  "peakCompleteHeadersAwaitingRelease": 128,
+  "allArrivedBeforeResponses": true,
+  "client": {
+    "engine": "dotnet-preconnected-http11-v2",
+    "trial": "calibration",
+    "mode": "me",
+    "scheduled": 128,
+    "connectionPolicy": "keep-alive, one request per connection, cleanup excluded",
+    "connectionReuse": false,
+    "requests": 128,
+    "success": 128,
+    "successRate": 1,
+    "rejected429": 0,
+    "rejected503": 0,
+    "transportErrors": 0,
+    "failures": {},
+    "invalid200": 0,
+    "dropped": 0,
+    "connectionsEstablished": 128,
+    "fullyWritten": 128,
+    "maxActiveTasks": 128,
+    "maxWrittenAwaitingObservedComplete": 128,
+    "clientWrittenResponseIntervalPeak": 128,
+    "intervalMeaning": "client observed socket write completion to HTTP message read completion; not server execution or wire timestamps",
+    "writeStartSpreadMs": 7.1159,
+    "writeCompletedSpreadMs": 6.703399999999999,
+    "firstObservedResponseByteMs": 37.2956,
+    "firstCompleteResponseMs": 38.7365,
+    "elapsedSeconds": 0.0428189,
+    "successfulRps": 2989.334149172445,
+    "successP95Ms": 34.0609,
+    "successP99Ms": 36.136199999999995,
+    "successIncludingParseP95Ms": 35.8664,
+    "latencyByStatus": {
+      "200": {
+        "count": 128,
+        "p95Ms": 34.0609,
+        "p99Ms": 36.136199999999995
+      }
+    },
+    "pass": true
+  }
+}

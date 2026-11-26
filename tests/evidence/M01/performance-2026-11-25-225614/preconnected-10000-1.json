@@ -1,0 +1,45 @@
+{
+  "engine": "dotnet-preconnected-http11-v2",
+  "trial": "preconnected-10000-1",
+  "mode": "me",
+  "scheduled": 10000,
+  "connectionPolicy": "close",
+  "connectionReuse": false,
+  "requests": 10000,
+  "success": 8785,
+  "successRate": 0.8785,
+  "rejected429": 0,
+  "rejected503": 1215,
+  "transportErrors": 0,
+  "failures": {},
+  "invalid200": 0,
+  "dropped": 0,
+  "connectionsEstablished": 10000,
+  "fullyWritten": 10000,
+  "maxActiveTasks": 2374,
+  "maxWrittenAwaitingObservedComplete": 2355,
+  "clientWrittenResponseIntervalPeak": 2355,
+  "intervalMeaning": "client observed socket write completion to HTTP message read completion; not server execution or wire timestamps",
+  "writeStartSpreadMs": 1017.5311,
+  "writeCompletedSpreadMs": 1018.6666,
+  "firstObservedResponseByteMs": 4.0881,
+  "firstCompleteResponseMs": 4.2924,
+  "elapsedSeconds": 1.1446486,
+  "successfulRps": 7674.844489391766,
+  "successP95Ms": 277.75699999999995,
+  "successP99Ms": 486.6615,
+  "successIncludingParseP95Ms": 277.7676,
+  "latencyByStatus": {
+    "200": {
+      "count": 8785,
+      "p95Ms": 277.75699999999995,
+      "p99Ms": 486.6615
+    },
+    "503": {
+      "count": 1215,
+      "p95Ms": 390.72369999999995,
+      "p99Ms": 391.61199999999997
+    }
+  },
+  "pass": false
+}

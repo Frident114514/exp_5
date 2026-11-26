@@ -1,0 +1,19 @@
+{
+  "authBurst": 20,
+  "javaHeapMax": "2g",
+  "engine": "dotnet-async-http",
+  "topology": "dotnet load client Java MySQL on same Windows machine",
+  "meConcurrency": 64,
+  "dotnet": "10.0.14",
+  "dbPool": 20,
+  "profile": "high-concurrency",
+  "users": 10000,
+  "httpConnections": 16384,
+  "memoryBytes": 33605316608,
+  "database": "MySQL 8.4.13",
+  "authRate": 10,
+  "date": "2026-11-25T22:39:32.9647468+08:00",
+  "logicalProcessors": 32,
+  "cpu": "AMD Ryzen 9 8945HX with Radeon Graphics        ",
+  "authConcurrency": 4
+}

@@ -1,0 +1,3002 @@
+[
+  {
+    "time": "2026-11-25T22:34:04.0119288+08:00",
+    "loadCpuSeconds": 16.765625,
+    "loadGcCollections": [
+      33,
+      10,
+      4
+    ],
+    "dbWorkingSet": 557178880,
+    "requestPhaseElapsedMs": 927.8641,
+    "appPrivate": 617426944,
+    "dbCpuSeconds": 2.609375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 61.0,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8710224,
+    "appWorkingSet": 469766144,
+    "loadWorkingSet": 279609344,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:05.0839383+08:00",
+    "loadCpuSeconds": 17.8125,
+    "loadGcCollections": [
+      33,
+      10,
+      4
+    ],
+    "dbWorkingSet": 557359104,
+    "requestPhaseElapsedMs": 1985.3196,
+    "appPrivate": 637251584,
+    "dbCpuSeconds": 2.75,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 68.671875,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8642848,
+    "appWorkingSet": 499671040,
+    "loadWorkingSet": 283402240,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:06.1383485+08:00",
+    "loadCpuSeconds": 18.78125,
+    "loadGcCollections": [
+      34,
+      10,
+      4
+    ],
+    "dbWorkingSet": 557383680,
+    "requestPhaseElapsedMs": 3041.6131,
+    "appPrivate": 638341120,
+    "dbCpuSeconds": 3.25,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 79.03125,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8662536,
+    "appWorkingSet": 511041536,
+    "loadWorkingSet": 284078080,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:07.2025448+08:00",
+    "loadCpuSeconds": 19.8125,
+    "loadGcCollections": [
+      34,
+      10,
+      4
+    ],
+    "dbWorkingSet": 557383680,
+    "requestPhaseElapsedMs": 4116.2764,
+    "appPrivate": 645767168,
+    "dbCpuSeconds": 3.25,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 83.109375,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8653676,
+    "appWorkingSet": 518914048,
+    "loadWorkingSet": 284573696,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:08.1973585+08:00",
+    "loadCpuSeconds": 20.140625,
+    "loadGcCollections": [
+      34,
+      10,
+      4
+    ],
+    "dbWorkingSet": 557490176,
+    "requestPhaseElapsedMs": 5099.5579,
+    "appPrivate": 654807040,
+    "dbCpuSeconds": 3.25,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 85.78125,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8622832,
+    "appWorkingSet": 527884288,
+    "loadWorkingSet": 285069312,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:09.2235855+08:00",
+    "loadCpuSeconds": 20.21875,
+    "loadGcCollections": [
+      35,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557490176,
+    "requestPhaseElapsedMs": 6131.9598,
+    "appPrivate": 659763200,
+    "dbCpuSeconds": 3.25,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 89.203125,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8621216,
+    "appWorkingSet": 533352448,
+    "loadWorkingSet": 287105024,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:10.2559730+08:00",
+    "loadCpuSeconds": 21.0,
+    "loadGcCollections": [
+      35,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557510656,
+    "requestPhaseElapsedMs": 7170.5817,
+    "appPrivate": 693682176,
+    "dbCpuSeconds": 3.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 95.0625,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8592920,
+    "appWorkingSet": 565575680,
+    "loadWorkingSet": 287182848,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:11.2836488+08:00",
+    "loadCpuSeconds": 21.5625,
+    "loadGcCollections": [
+      35,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557510656,
+    "requestPhaseElapsedMs": 8184.9786,
+    "appPrivate": 700280832,
+    "dbCpuSeconds": 3.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 100.375,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8606528,
+    "appWorkingSet": 573726720,
+    "loadWorkingSet": 287252480,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:12.3873707+08:00",
+    "loadCpuSeconds": 21.796875,
+    "loadGcCollections": [
+      36,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557510656,
+    "requestPhaseElapsedMs": 9303.2025,
+    "appPrivate": 700592128,
+    "dbCpuSeconds": 3.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 105.1875,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8609904,
+    "appWorkingSet": 572960768,
+    "loadWorkingSet": 285433856,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:13.4085235+08:00",
+    "loadCpuSeconds": 22.234375,
+    "loadGcCollections": [
+      36,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 10322.724,
+    "appPrivate": 707661824,
+    "dbCpuSeconds": 3.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 109.34375,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8589044,
+    "appWorkingSet": 581005312,
+    "loadWorkingSet": 285667328,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:14.4125012+08:00",
+    "loadCpuSeconds": 22.875,
+    "loadGcCollections": [
+      36,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 11327.3897,
+    "appPrivate": 712884224,
+    "dbCpuSeconds": 3.796875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 116.15625,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8598116,
+    "appWorkingSet": 586739712,
+    "loadWorkingSet": 285700096,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:15.4394326+08:00",
+    "loadCpuSeconds": 23.859375,
+    "loadGcCollections": [
+      37,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 12352.0824,
+    "appPrivate": 714571776,
+    "dbCpuSeconds": 5.359375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 126.46875,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8598276,
+    "appWorkingSet": 587313152,
+    "loadWorkingSet": 284598272,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:16.4658746+08:00",
+    "loadCpuSeconds": 23.984375,
+    "loadGcCollections": [
+      37,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 13367.5415,
+    "appPrivate": 714817536,
+    "dbCpuSeconds": 5.359375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 130.890625,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8601708,
+    "appWorkingSet": 585048064,
+    "loadWorkingSet": 284659712,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:17.5184730+08:00",
+    "loadCpuSeconds": 24.84375,
+    "loadGcCollections": [
+      37,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 14421.7344,
+    "appPrivate": 695791616,
+    "dbCpuSeconds": 6.1875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 139.109375,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8612516,
+    "appWorkingSet": 568070144,
+    "loadWorkingSet": 284704768,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:18.5069041+08:00",
+    "loadCpuSeconds": 26.140625,
+    "loadGcCollections": [
+      38,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 15417.0656,
+    "appPrivate": 711852032,
+    "dbCpuSeconds": 8.09375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 149.5,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8583296,
+    "appWorkingSet": 583569408,
+    "loadWorkingSet": 284889088,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:19.5422272+08:00",
+    "loadCpuSeconds": 26.234375,
+    "loadGcCollections": [
+      38,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 16450.7765,
+    "appPrivate": 720498688,
+    "dbCpuSeconds": 8.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 154.265625,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8582360,
+    "appWorkingSet": 593272832,
+    "loadWorkingSet": 284884992,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:20.4633233+08:00",
+    "loadCpuSeconds": 26.921875,
+    "loadGcCollections": [
+      38,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 17372.6216,
+    "appPrivate": 673644544,
+    "dbCpuSeconds": 8.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 156.21875,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8620952,
+    "appWorkingSet": 546779136,
+    "loadWorkingSet": 288743424,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:21.3744970+08:00",
+    "loadCpuSeconds": 27.8125,
+    "loadGcCollections": [
+      38,
+      11,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 18285.5988,
+    "appPrivate": 595779584,
+    "dbCpuSeconds": 9.046875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 158.75,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8721208,
+    "appWorkingSet": 468414464,
+    "loadWorkingSet": 288755712,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:22.2709907+08:00",
+    "loadCpuSeconds": 27.90625,
+    "loadGcCollections": [
+      39,
+      12,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 19180.8979,
+    "appPrivate": 599252992,
+    "dbCpuSeconds": 9.046875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 158.78125,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8721292,
+    "appWorkingSet": 471793664,
+    "loadWorkingSet": 288780288,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:23.1921384+08:00",
+    "loadCpuSeconds": 28.296875,
+    "loadGcCollections": [
+      39,
+      12,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 20010.95,
+    "appPrivate": 599252992,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 159.0,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8683260,
+    "appWorkingSet": 471793664,
+    "loadWorkingSet": 295309312,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:34:24.0840762+08:00",
+    "loadCpuSeconds": 28.71875,
+    "loadGcCollections": [
+      39,
+      12,
+      4
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 20010.95,
+    "appPrivate": 599252992,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 159.0,
+    "trial": "warmup-1",
+    "freeMemoryKB": 8730596,
+    "appWorkingSet": 471793664,
+    "loadWorkingSet": 312442880,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:34:27.9362577+08:00",
+    "loadCpuSeconds": 33.09375,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648859648,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.25,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8521172,
+    "appWorkingSet": 519659520,
+    "loadWorkingSet": 496459776,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:28.7886226+08:00",
+    "loadCpuSeconds": 33.890625,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648720384,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.3125,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8518872,
+    "appWorkingSet": 519618560,
+    "loadWorkingSet": 497147904,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:29.6090228+08:00",
+    "loadCpuSeconds": 33.953125,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648749056,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.34375,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8519492,
+    "appWorkingSet": 519634944,
+    "loadWorkingSet": 497504256,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:30.4611298+08:00",
+    "loadCpuSeconds": 34.90625,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648818688,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.375,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8518628,
+    "appWorkingSet": 519704576,
+    "loadWorkingSet": 498909184,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:31.3081482+08:00",
+    "loadCpuSeconds": 35.796875,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648847360,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.40625,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8517972,
+    "appWorkingSet": 519741440,
+    "loadWorkingSet": 499417088,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:32.1274753+08:00",
+    "loadCpuSeconds": 36.109375,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648847360,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.46875,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8517220,
+    "appWorkingSet": 519741440,
+    "loadWorkingSet": 499544064,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:33.0465544+08:00",
+    "loadCpuSeconds": 37.09375,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648732672,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.546875,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8511460,
+    "appWorkingSet": 519696384,
+    "loadWorkingSet": 500670464,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:33.8619883+08:00",
+    "loadCpuSeconds": 38.140625,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648732672,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.578125,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8503180,
+    "appWorkingSet": 519696384,
+    "loadWorkingSet": 501248000,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:34.7494101+08:00",
+    "loadCpuSeconds": 38.6875,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648859648,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.65625,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8524352,
+    "appWorkingSet": 519892992,
+    "loadWorkingSet": 501600256,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:35.7144242+08:00",
+    "loadCpuSeconds": 39.28125,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 648859648,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.71875,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8479616,
+    "appWorkingSet": 519970816,
+    "loadWorkingSet": 502005760,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:36.6024719+08:00",
+    "loadCpuSeconds": 40.015625,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557535232,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 649150464,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.765625,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8464632,
+    "appWorkingSet": 520237056,
+    "loadWorkingSet": 502235136,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:37.4459514+08:00",
+    "loadCpuSeconds": 40.46875,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557465600,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 649150464,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.78125,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8520940,
+    "appWorkingSet": 520237056,
+    "loadWorkingSet": 502538240,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:38.3400337+08:00",
+    "loadCpuSeconds": 41.6875,
+    "loadGcCollections": [
+      62,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557465600,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 649695232,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 160.953125,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8513192,
+    "appWorkingSet": 520867840,
+    "loadWorkingSet": 503742464,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:39.2149975+08:00",
+    "loadCpuSeconds": 43.359375,
+    "loadGcCollections": [
+      63,
+      30,
+      7
+    ],
+    "dbWorkingSet": 557465600,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 696844288,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 161.78125,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8423116,
+    "appWorkingSet": 619515904,
+    "loadWorkingSet": 504406016,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:34:40.1749481+08:00",
+    "loadCpuSeconds": 48.203125,
+    "loadGcCollections": [
+      68,
+      34,
+      7
+    ],
+    "dbWorkingSet": 557465600,
+    "requestPhaseElapsedMs": 93.2104,
+    "appPrivate": 715341824,
+    "dbCpuSeconds": 9.078125,
+    "loadThreadPoolPending": 5846,
+    "appCpuSeconds": 163.65625,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8402484,
+    "appWorkingSet": 636170240,
+    "loadWorkingSet": 561643520,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:41.3854114+08:00",
+    "loadCpuSeconds": 53.6875,
+    "loadGcCollections": [
+      80,
+      42,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 934.124,
+    "appPrivate": 904593408,
+    "dbCpuSeconds": 10.0625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 176.9375,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8047540,
+    "appWorkingSet": 817786880,
+    "loadWorkingSet": 684773376,
+    "phase": "connection_cleanup"
+  },
+  {
+    "time": "2026-11-25T22:34:42.4587318+08:00",
+    "loadCpuSeconds": 54.828125,
+    "loadGcCollections": [
+      81,
+      42,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 934.124,
+    "appPrivate": 901836800,
+    "dbCpuSeconds": 10.0625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 181.1875,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 7990056,
+    "appWorkingSet": 816795648,
+    "loadWorkingSet": 683139072,
+    "phase": "connection_cleanup"
+  },
+  {
+    "time": "2026-11-25T22:34:43.4655291+08:00",
+    "loadCpuSeconds": 55.25,
+    "loadGcCollections": [
+      81,
+      42,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 934.124,
+    "appPrivate": 880029696,
+    "dbCpuSeconds": 10.0625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 182.1875,
+    "trial": "preconnected-10000-1",
+    "freeMemoryKB": 8028196,
+    "appWorkingSet": 796442624,
+    "loadWorkingSet": 684834816,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:34:45.5503495+08:00",
+    "loadCpuSeconds": 58.015625,
+    "loadGcCollections": [
+      91,
+      49,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 815.6678,
+    "appPrivate": 916791296,
+    "dbCpuSeconds": 11.59375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 190.75,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7986772,
+    "appWorkingSet": 837251072,
+    "loadWorkingSet": 721002496,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:46.5858193+08:00",
+    "loadCpuSeconds": 59.484375,
+    "loadGcCollections": [
+      91,
+      49,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 1863.3417,
+    "appPrivate": 857182208,
+    "dbCpuSeconds": 13.0625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 197.6875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8023492,
+    "appWorkingSet": 780275712,
+    "loadWorkingSet": 721002496,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:47.5632770+08:00",
+    "loadCpuSeconds": 60.78125,
+    "loadGcCollections": [
+      92,
+      49,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 2829.9299,
+    "appPrivate": 964300800,
+    "dbCpuSeconds": 15.03125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 203.59375,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7954912,
+    "appWorkingSet": 865648640,
+    "loadWorkingSet": 721018880,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:48.4463628+08:00",
+    "loadCpuSeconds": 61.96875,
+    "loadGcCollections": [
+      92,
+      49,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 3720.2186,
+    "appPrivate": 964337664,
+    "dbCpuSeconds": 16.078125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 207.421875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7924212,
+    "appWorkingSet": 885129216,
+    "loadWorkingSet": 721178624,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:49.3152227+08:00",
+    "loadCpuSeconds": 63.28125,
+    "loadGcCollections": [
+      92,
+      49,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 4594.096,
+    "appPrivate": 964976640,
+    "dbCpuSeconds": 17.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 212.25,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7930948,
+    "appWorkingSet": 888221696,
+    "loadWorkingSet": 721207296,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:50.1940869+08:00",
+    "loadCpuSeconds": 64.3125,
+    "loadGcCollections": [
+      93,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 5472.0436,
+    "appPrivate": 965165056,
+    "dbCpuSeconds": 18.28125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 215.453125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7930904,
+    "appWorkingSet": 888586240,
+    "loadWorkingSet": 718204928,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:51.0501975+08:00",
+    "loadCpuSeconds": 64.765625,
+    "loadGcCollections": [
+      93,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 6328.1388,
+    "appPrivate": 919658496,
+    "dbCpuSeconds": 18.59375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 217.03125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7988748,
+    "appWorkingSet": 830083072,
+    "loadWorkingSet": 718258176,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:51.9657558+08:00",
+    "loadCpuSeconds": 64.828125,
+    "loadGcCollections": [
+      93,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 7234.6983,
+    "appPrivate": 919801856,
+    "dbCpuSeconds": 18.625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 217.09375,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8006056,
+    "appWorkingSet": 830619648,
+    "loadWorkingSet": 718266368,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:52.8127330+08:00",
+    "loadCpuSeconds": 65.0625,
+    "loadGcCollections": [
+      93,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 8078.8153,
+    "appPrivate": 919805952,
+    "dbCpuSeconds": 18.65625,
+    "loadThreadPoolPending": 3,
+    "appCpuSeconds": 217.375,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8001016,
+    "appWorkingSet": 830836736,
+    "loadWorkingSet": 718438400,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:53.6984974+08:00",
+    "loadCpuSeconds": 65.265625,
+    "loadGcCollections": [
+      94,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 8968.2369,
+    "appPrivate": 919805952,
+    "dbCpuSeconds": 18.6875,
+    "loadThreadPoolPending": 1,
+    "appCpuSeconds": 217.703125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7987928,
+    "appWorkingSet": 830840832,
+    "loadWorkingSet": 719052800,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:54.5653677+08:00",
+    "loadCpuSeconds": 66.390625,
+    "loadGcCollections": [
+      94,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 9844.2322,
+    "appPrivate": 925528064,
+    "dbCpuSeconds": 19.359375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 220.078125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8006708,
+    "appWorkingSet": 836849664,
+    "loadWorkingSet": 719069184,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:55.4302021+08:00",
+    "loadCpuSeconds": 67.890625,
+    "loadGcCollections": [
+      94,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 10704.4994,
+    "appPrivate": 925528064,
+    "dbCpuSeconds": 20.203125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 224.125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8010728,
+    "appWorkingSet": 836849664,
+    "loadWorkingSet": 719392768,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:56.2559074+08:00",
+    "loadCpuSeconds": 68.265625,
+    "loadGcCollections": [
+      94,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 11529.6448,
+    "appPrivate": 925528064,
+    "dbCpuSeconds": 20.390625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 224.875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8019744,
+    "appWorkingSet": 836849664,
+    "loadWorkingSet": 720838656,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:57.1805059+08:00",
+    "loadCpuSeconds": 69.0,
+    "loadGcCollections": [
+      95,
+      50,
+      8
+    ],
+    "dbWorkingSet": 557658112,
+    "requestPhaseElapsedMs": 12456.92,
+    "appPrivate": 930394112,
+    "dbCpuSeconds": 21.15625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 227.625,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8017496,
+    "appWorkingSet": 841633792,
+    "loadWorkingSet": 721772544,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:58.1616523+08:00",
+    "loadCpuSeconds": 69.1875,
+    "loadGcCollections": [
+      95,
+      50,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 13430.6948,
+    "appPrivate": 931254272,
+    "dbCpuSeconds": 21.171875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 227.65625,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8008572,
+    "appWorkingSet": 842448896,
+    "loadWorkingSet": 721932288,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:58.9840100+08:00",
+    "loadCpuSeconds": 69.25,
+    "loadGcCollections": [
+      95,
+      50,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 14256.8534,
+    "appPrivate": 932380672,
+    "dbCpuSeconds": 21.171875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 227.6875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8016312,
+    "appWorkingSet": 843886592,
+    "loadWorkingSet": 721940480,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:34:59.7904107+08:00",
+    "loadCpuSeconds": 69.3125,
+    "loadGcCollections": [
+      96,
+      50,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 15060.1858,
+    "appPrivate": 932380672,
+    "dbCpuSeconds": 21.171875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 227.71875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8009408,
+    "appWorkingSet": 843886592,
+    "loadWorkingSet": 721981440,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:00.6504433+08:00",
+    "loadCpuSeconds": 69.78125,
+    "loadGcCollections": [
+      96,
+      50,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 15924.2313,
+    "appPrivate": 934162432,
+    "dbCpuSeconds": 21.609375,
+    "loadThreadPoolPending": 2,
+    "appCpuSeconds": 228.875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8005972,
+    "appWorkingSet": 845623296,
+    "loadWorkingSet": 721203200,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:01.4958592+08:00",
+    "loadCpuSeconds": 70.703125,
+    "loadGcCollections": [
+      96,
+      50,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 16772.6719,
+    "appPrivate": 934162432,
+    "dbCpuSeconds": 22.5,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 231.796875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8010700,
+    "appWorkingSet": 845623296,
+    "loadWorkingSet": 718200832,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:02.3619798+08:00",
+    "loadCpuSeconds": 70.765625,
+    "loadGcCollections": [
+      96,
+      50,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 17634.4645,
+    "appPrivate": 934162432,
+    "dbCpuSeconds": 22.5,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 231.796875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8003600,
+    "appWorkingSet": 845627392,
+    "loadWorkingSet": 718192640,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:03.2089252+08:00",
+    "loadCpuSeconds": 71.28125,
+    "loadGcCollections": [
+      97,
+      51,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 18486.429,
+    "appPrivate": 937005056,
+    "dbCpuSeconds": 22.671875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 232.296875,
+    "trial": "warmup-2",
+    "freeMemoryKB": 8008700,
+    "appWorkingSet": 849244160,
+    "loadWorkingSet": 718307328,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:04.1451548+08:00",
+    "loadCpuSeconds": 71.90625,
+    "loadGcCollections": [
+      97,
+      51,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 19414.1267,
+    "appPrivate": 938467328,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.703125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7973724,
+    "appWorkingSet": 850718720,
+    "loadWorkingSet": 718323712,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:04.9656469+08:00",
+    "loadCpuSeconds": 72.21875,
+    "loadGcCollections": [
+      97,
+      51,
+      8
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 20008.746,
+    "appPrivate": 938549248,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.703125,
+    "trial": "warmup-2",
+    "freeMemoryKB": 7996424,
+    "appWorkingSet": 850788352,
+    "loadWorkingSet": 736665600,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:35:08.1708392+08:00",
+    "loadCpuSeconds": 75.703125,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938852352,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.8125,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8105440,
+    "appWorkingSet": 851099648,
+    "loadWorkingSet": 587898880,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:08.9875320+08:00",
+    "loadCpuSeconds": 76.640625,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938876928,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.828125,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8119384,
+    "appWorkingSet": 851120128,
+    "loadWorkingSet": 588316672,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:09.7959555+08:00",
+    "loadCpuSeconds": 77.140625,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938811392,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.875,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8104812,
+    "appWorkingSet": 851087360,
+    "loadWorkingSet": 588447744,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:10.5890019+08:00",
+    "loadCpuSeconds": 78.09375,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938811392,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.90625,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8105040,
+    "appWorkingSet": 851087360,
+    "loadWorkingSet": 588902400,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:11.4256234+08:00",
+    "loadCpuSeconds": 78.59375,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938811392,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.9375,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8092000,
+    "appWorkingSet": 851087360,
+    "loadWorkingSet": 589078528,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:12.3686903+08:00",
+    "loadCpuSeconds": 79.28125,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938811392,
+    "dbCpuSeconds": 23.0,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 233.984375,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8113476,
+    "appWorkingSet": 851087360,
+    "loadWorkingSet": 589795328,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:13.2473479+08:00",
+    "loadCpuSeconds": 79.453125,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938872832,
+    "dbCpuSeconds": 23.03125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.03125,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8089964,
+    "appWorkingSet": 851148800,
+    "loadWorkingSet": 590413824,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:14.1257686+08:00",
+    "loadCpuSeconds": 79.515625,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 938872832,
+    "dbCpuSeconds": 23.0625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.0625,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8091812,
+    "appWorkingSet": 851148800,
+    "loadWorkingSet": 590733312,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:14.9901898+08:00",
+    "loadCpuSeconds": 79.5625,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 939196416,
+    "dbCpuSeconds": 23.109375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.109375,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8093968,
+    "appWorkingSet": 851468288,
+    "loadWorkingSet": 591101952,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:15.8361154+08:00",
+    "loadCpuSeconds": 79.796875,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 939323392,
+    "dbCpuSeconds": 23.109375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.203125,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8092688,
+    "appWorkingSet": 851595264,
+    "loadWorkingSet": 586584064,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:16.6702083+08:00",
+    "loadCpuSeconds": 79.859375,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 939589632,
+    "dbCpuSeconds": 23.125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.265625,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8092468,
+    "appWorkingSet": 851857408,
+    "loadWorkingSet": 586686464,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:17.5041302+08:00",
+    "loadCpuSeconds": 79.921875,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 939716608,
+    "dbCpuSeconds": 23.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.3125,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8093320,
+    "appWorkingSet": 851984384,
+    "loadWorkingSet": 587124736,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:18.3684303+08:00",
+    "loadCpuSeconds": 80.0625,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 939716608,
+    "dbCpuSeconds": 23.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.34375,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8081744,
+    "appWorkingSet": 851980288,
+    "loadWorkingSet": 587526144,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:19.1985584+08:00",
+    "loadCpuSeconds": 80.4375,
+    "loadGcCollections": [
+      118,
+      65,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 939716608,
+    "dbCpuSeconds": 23.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.390625,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8090072,
+    "appWorkingSet": 851980288,
+    "loadWorkingSet": 587575296,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:20.0591812+08:00",
+    "loadCpuSeconds": 81.34375,
+    "loadGcCollections": [
+      119,
+      66,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 940134400,
+    "dbCpuSeconds": 23.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.46875,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8179228,
+    "appWorkingSet": 852373504,
+    "loadWorkingSet": 491667456,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:20.9318355+08:00",
+    "loadCpuSeconds": 82.671875,
+    "loadGcCollections": [
+      119,
+      66,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 940974080,
+    "dbCpuSeconds": 23.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.734375,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8181880,
+    "appWorkingSet": 853164032,
+    "loadWorkingSet": 492376064,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:21.7742147+08:00",
+    "loadCpuSeconds": 83.0625,
+    "loadGcCollections": [
+      119,
+      66,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 941555712,
+    "dbCpuSeconds": 23.140625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 234.96875,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8177480,
+    "appWorkingSet": 853696512,
+    "loadWorkingSet": 492847104,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:22.5889389+08:00",
+    "loadCpuSeconds": 83.25,
+    "loadGcCollections": [
+      119,
+      66,
+      10
+    ],
+    "dbWorkingSet": 556290048,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 941555712,
+    "dbCpuSeconds": 23.171875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 235.109375,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8167648,
+    "appWorkingSet": 853680128,
+    "loadWorkingSet": 493129728,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:23.4835083+08:00",
+    "loadCpuSeconds": 83.796875,
+    "loadGcCollections": [
+      119,
+      66,
+      10
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 941875200,
+    "dbCpuSeconds": 23.203125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 235.1875,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8160272,
+    "appWorkingSet": 853946368,
+    "loadWorkingSet": 493506560,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:24.3979264+08:00",
+    "loadCpuSeconds": 87.375,
+    "loadGcCollections": [
+      132,
+      76,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 423.3599,
+    "appPrivate": 1015107584,
+    "dbCpuSeconds": 23.59375,
+    "loadThreadPoolPending": 2484,
+    "appCpuSeconds": 241.171875,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8066584,
+    "appWorkingSet": 927940608,
+    "loadWorkingSet": 564121600,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:25.4899023+08:00",
+    "loadCpuSeconds": 90.421875,
+    "loadGcCollections": [
+      136,
+      78,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 760.1066,
+    "appPrivate": 1019584512,
+    "dbCpuSeconds": 24.25,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.0,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8003000,
+    "appWorkingSet": 935215104,
+    "loadWorkingSet": 583811072,
+    "phase": "connection_cleanup"
+  },
+  {
+    "time": "2026-11-25T22:35:26.3469916+08:00",
+    "loadCpuSeconds": 91.15625,
+    "loadGcCollections": [
+      137,
+      78,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 760.1066,
+    "appPrivate": 1019584512,
+    "dbCpuSeconds": 24.25,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.015625,
+    "trial": "preconnected-10000-2",
+    "freeMemoryKB": 8013180,
+    "appWorkingSet": 935215104,
+    "loadWorkingSet": 582356992,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:35:28.3010475+08:00",
+    "loadCpuSeconds": 92.421875,
+    "loadGcCollections": [
+      147,
+      85,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 785.4555,
+    "appPrivate": 1021370368,
+    "dbCpuSeconds": 24.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.6875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7936276,
+    "appWorkingSet": 939229184,
+    "loadWorkingSet": 672505856,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:29.1555927+08:00",
+    "loadCpuSeconds": 92.46875,
+    "loadGcCollections": [
+      147,
+      85,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 1629.6352,
+    "appPrivate": 1021370368,
+    "dbCpuSeconds": 24.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.6875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7931884,
+    "appWorkingSet": 939229184,
+    "loadWorkingSet": 672505856,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:30.0087810+08:00",
+    "loadCpuSeconds": 92.546875,
+    "loadGcCollections": [
+      148,
+      85,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 2486.5191,
+    "appPrivate": 1022623744,
+    "dbCpuSeconds": 24.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.9375,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7929480,
+    "appWorkingSet": 940601344,
+    "loadWorkingSet": 672534528,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:30.9064988+08:00",
+    "loadCpuSeconds": 92.59375,
+    "loadGcCollections": [
+      148,
+      85,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 3391.459,
+    "appPrivate": 1022623744,
+    "dbCpuSeconds": 24.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.984375,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7928176,
+    "appWorkingSet": 940642304,
+    "loadWorkingSet": 672534528,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:31.7821254+08:00",
+    "loadCpuSeconds": 92.640625,
+    "loadGcCollections": [
+      148,
+      85,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 4265.1209,
+    "appPrivate": 1022623744,
+    "dbCpuSeconds": 24.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 247.984375,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7929924,
+    "appWorkingSet": 940642304,
+    "loadWorkingSet": 672538624,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:32.6404430+08:00",
+    "loadCpuSeconds": 92.6875,
+    "loadGcCollections": [
+      148,
+      85,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 5123.582,
+    "appPrivate": 1022775296,
+    "dbCpuSeconds": 24.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 248.203125,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7933148,
+    "appWorkingSet": 940208128,
+    "loadWorkingSet": 669667328,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:33.5395388+08:00",
+    "loadCpuSeconds": 92.875,
+    "loadGcCollections": [
+      149,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 6021.3172,
+    "appPrivate": 1022775296,
+    "dbCpuSeconds": 24.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 248.296875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7924640,
+    "appWorkingSet": 940212224,
+    "loadWorkingSet": 669872128,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:34.4049679+08:00",
+    "loadCpuSeconds": 93.09375,
+    "loadGcCollections": [
+      149,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 6881.3054,
+    "appPrivate": 1022775296,
+    "dbCpuSeconds": 24.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 248.5,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7939668,
+    "appWorkingSet": 940212224,
+    "loadWorkingSet": 669810688,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:35.3020445+08:00",
+    "loadCpuSeconds": 93.15625,
+    "loadGcCollections": [
+      149,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 7785.3147,
+    "appPrivate": 1022775296,
+    "dbCpuSeconds": 24.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 248.5,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7940144,
+    "appWorkingSet": 940212224,
+    "loadWorkingSet": 669810688,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:36.1621062+08:00",
+    "loadCpuSeconds": 93.234375,
+    "loadGcCollections": [
+      150,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 8641.4405,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 24.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 248.5,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7941500,
+    "appWorkingSet": 940224512,
+    "loadWorkingSet": 669839360,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:36.9921292+08:00",
+    "loadCpuSeconds": 93.28125,
+    "loadGcCollections": [
+      150,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 9472.7402,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 24.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 248.546875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7940688,
+    "appWorkingSet": 940224512,
+    "loadWorkingSet": 669872128,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:37.8300837+08:00",
+    "loadCpuSeconds": 94.046875,
+    "loadGcCollections": [
+      150,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 10305.5568,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 24.90625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 250.21875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7936624,
+    "appWorkingSet": 940224512,
+    "loadWorkingSet": 669876224,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:38.7169163+08:00",
+    "loadCpuSeconds": 94.90625,
+    "loadGcCollections": [
+      150,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 11201.539,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 25.734375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 253.296875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7934112,
+    "appWorkingSet": 940224512,
+    "loadWorkingSet": 669872128,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:39.5953414+08:00",
+    "loadCpuSeconds": 95.03125,
+    "loadGcCollections": [
+      151,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 12078.7544,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 25.765625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 253.453125,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7939376,
+    "appWorkingSet": 940367872,
+    "loadWorkingSet": 671490048,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:40.4199815+08:00",
+    "loadCpuSeconds": 95.09375,
+    "loadGcCollections": [
+      151,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 12904.5413,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 25.765625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 253.46875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7937384,
+    "appWorkingSet": 942329856,
+    "loadWorkingSet": 674054144,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:41.3099758+08:00",
+    "loadCpuSeconds": 95.140625,
+    "loadGcCollections": [
+      151,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 13796.5295,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 25.765625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 253.46875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7937644,
+    "appWorkingSet": 942329856,
+    "loadWorkingSet": 674054144,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:42.2776119+08:00",
+    "loadCpuSeconds": 95.203125,
+    "loadGcCollections": [
+      151,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 14754.3956,
+    "appPrivate": 1022787584,
+    "dbCpuSeconds": 25.765625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 253.46875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7937088,
+    "appWorkingSet": 942329856,
+    "loadWorkingSet": 674189312,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:43.2430035+08:00",
+    "loadCpuSeconds": 95.953125,
+    "loadGcCollections": [
+      152,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 15728.2576,
+    "appPrivate": 1022795776,
+    "dbCpuSeconds": 26.78125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 255.921875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7917724,
+    "appWorkingSet": 942342144,
+    "loadWorkingSet": 674410496,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:44.1349806+08:00",
+    "loadCpuSeconds": 96.140625,
+    "loadGcCollections": [
+      152,
+      86,
+      11
+    ],
+    "dbWorkingSet": 556396544,
+    "requestPhaseElapsedMs": 16620.2763,
+    "appPrivate": 1022795776,
+    "dbCpuSeconds": 26.8125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 256.15625,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7930028,
+    "appWorkingSet": 942342144,
+    "loadWorkingSet": 674410496,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:45.0159791+08:00",
+    "loadCpuSeconds": 96.875,
+    "loadGcCollections": [
+      152,
+      86,
+      11
+    ],
+    "dbWorkingSet": 551587840,
+    "requestPhaseElapsedMs": 17493.6258,
+    "appPrivate": 1022795776,
+    "dbCpuSeconds": 27.15625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 257.71875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7964280,
+    "appWorkingSet": 942342144,
+    "loadWorkingSet": 669917184,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:45.8836288+08:00",
+    "loadCpuSeconds": 98.25,
+    "loadGcCollections": [
+      153,
+      87,
+      11
+    ],
+    "dbWorkingSet": 551587840,
+    "requestPhaseElapsedMs": 18367.6456,
+    "appPrivate": 1022795776,
+    "dbCpuSeconds": 28.390625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 262.171875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7963080,
+    "appWorkingSet": 942342144,
+    "loadWorkingSet": 669941760,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:46.7437553+08:00",
+    "loadCpuSeconds": 99.03125,
+    "loadGcCollections": [
+      153,
+      87,
+      11
+    ],
+    "dbWorkingSet": 551587840,
+    "requestPhaseElapsedMs": 19231.4254,
+    "appPrivate": 1022795776,
+    "dbCpuSeconds": 29.28125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.171875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7964868,
+    "appWorkingSet": 942370816,
+    "loadWorkingSet": 669941760,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:35:47.5828667+08:00",
+    "loadCpuSeconds": 99.21875,
+    "loadGcCollections": [
+      153,
+      87,
+      11
+    ],
+    "dbWorkingSet": 551587840,
+    "requestPhaseElapsedMs": 19999.6471,
+    "appPrivate": 1022795776,
+    "dbCpuSeconds": 29.28125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.171875,
+    "trial": "warmup-3",
+    "freeMemoryKB": 7968704,
+    "appWorkingSet": 942387200,
+    "loadWorkingSet": 678342656,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:35:50.6930326+08:00",
+    "loadCpuSeconds": 102.59375,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551587840,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024155648,
+    "dbCpuSeconds": 29.28125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.453125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8096576,
+    "appWorkingSet": 944861184,
+    "loadWorkingSet": 552255488,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:51.4862983+08:00",
+    "loadCpuSeconds": 102.65625,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024155648,
+    "dbCpuSeconds": 29.3125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.46875,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8165516,
+    "appWorkingSet": 944877568,
+    "loadWorkingSet": 552861696,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:52.2729865+08:00",
+    "loadCpuSeconds": 102.90625,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024155648,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.53125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8165816,
+    "appWorkingSet": 944877568,
+    "loadWorkingSet": 553242624,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:53.1622237+08:00",
+    "loadCpuSeconds": 103.90625,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.578125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8160156,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 554078208,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:53.9543575+08:00",
+    "loadCpuSeconds": 104.40625,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.609375,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8160460,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 554242048,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:54.7635542+08:00",
+    "loadCpuSeconds": 105.0,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.6875,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8169296,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 554541056,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:55.6351774+08:00",
+    "loadCpuSeconds": 105.34375,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.6875,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8166920,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 554713088,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:56.4659948+08:00",
+    "loadCpuSeconds": 106.03125,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.703125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8175380,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 555241472,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:57.3587747+08:00",
+    "loadCpuSeconds": 106.765625,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.75,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8177140,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 555675648,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:58.2538847+08:00",
+    "loadCpuSeconds": 107.359375,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 2,
+    "appCpuSeconds": 265.765625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8150880,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 556163072,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:59.0467892+08:00",
+    "loadCpuSeconds": 108.203125,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.8125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8161784,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 556273664,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:35:59.8690174+08:00",
+    "loadCpuSeconds": 109.078125,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.84375,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8162588,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 556388352,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:00.6864149+08:00",
+    "loadCpuSeconds": 109.546875,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.328125,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.890625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8156364,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 556474368,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:01.5797689+08:00",
+    "loadCpuSeconds": 109.6875,
+    "loadGcCollections": [
+      174,
+      101,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.953125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8155436,
+    "appWorkingSet": 944828416,
+    "loadWorkingSet": 556654592,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:02.4207586+08:00",
+    "loadCpuSeconds": 110.265625,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 265.953125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8156520,
+    "appWorkingSet": 944828416,
+    "loadWorkingSet": 527810560,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:03.3213288+08:00",
+    "loadCpuSeconds": 111.234375,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.015625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8169172,
+    "appWorkingSet": 944824320,
+    "loadWorkingSet": 528183296,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:04.1390391+08:00",
+    "loadCpuSeconds": 111.890625,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.0625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8172180,
+    "appWorkingSet": 944820224,
+    "loadWorkingSet": 528293888,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:04.8993436+08:00",
+    "loadCpuSeconds": 111.953125,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.078125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8172348,
+    "appWorkingSet": 944820224,
+    "loadWorkingSet": 528408576,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:05.7106507+08:00",
+    "loadCpuSeconds": 112.609375,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.109375,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8170780,
+    "appWorkingSet": 944816128,
+    "loadWorkingSet": 528576512,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:06.5229378+08:00",
+    "loadCpuSeconds": 113.109375,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8171884,
+    "appWorkingSet": 944812032,
+    "loadWorkingSet": 528683008,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:07.2802844+08:00",
+    "loadCpuSeconds": 113.734375,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.171875,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8170896,
+    "appWorkingSet": 944836608,
+    "loadWorkingSet": 528834560,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:08.1693391+08:00",
+    "loadCpuSeconds": 114.796875,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.1875,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8155148,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 533712896,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:08.9759239+08:00",
+    "loadCpuSeconds": 115.0,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.265625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8150312,
+    "appWorkingSet": 944832512,
+    "loadWorkingSet": 533848064,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:09.8181767+08:00",
+    "loadCpuSeconds": 115.46875,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.3125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8154464,
+    "appWorkingSet": 944824320,
+    "loadWorkingSet": 534052864,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:10.6459583+08:00",
+    "loadCpuSeconds": 115.953125,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.34375,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8168584,
+    "appWorkingSet": 944824320,
+    "loadWorkingSet": 534163456,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:11.4484861+08:00",
+    "loadCpuSeconds": 116.9375,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.390625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8172524,
+    "appWorkingSet": 944820224,
+    "loadWorkingSet": 534433792,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:12.3665112+08:00",
+    "loadCpuSeconds": 117.765625,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.453125,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8167892,
+    "appWorkingSet": 944816128,
+    "loadWorkingSet": 534671360,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:13.2891820+08:00",
+    "loadCpuSeconds": 118.046875,
+    "loadGcCollections": [
+      175,
+      102,
+      13
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 0.0,
+    "appPrivate": 1024081920,
+    "dbCpuSeconds": 29.34375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 266.515625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8162848,
+    "appWorkingSet": 944812032,
+    "loadWorkingSet": 530378752,
+    "phase": "preconnect"
+  },
+  {
+    "time": "2026-11-25T22:36:14.3029456+08:00",
+    "loadCpuSeconds": 125.125,
+    "loadGcCollections": [
+      192,
+      114,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 730.5296,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.546875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 275.875,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8055548,
+    "appWorkingSet": 975429632,
+    "loadWorkingSet": 618106880,
+    "phase": "connection_cleanup"
+  },
+  {
+    "time": "2026-11-25T22:36:15.1207313+08:00",
+    "loadCpuSeconds": 125.984375,
+    "loadGcCollections": [
+      192,
+      114,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 730.5296,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.546875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 275.890625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8052436,
+    "appWorkingSet": 975429632,
+    "loadWorkingSet": 618106880,
+    "phase": "connection_cleanup"
+  },
+  {
+    "time": "2026-11-25T22:36:15.8972177+08:00",
+    "loadCpuSeconds": 126.453125,
+    "loadGcCollections": [
+      193,
+      115,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 730.5296,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.546875,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 275.890625,
+    "trial": "preconnected-10000-3",
+    "freeMemoryKB": 8051312,
+    "appWorkingSet": 975429632,
+    "loadWorkingSet": 614662144,
+    "phase": "complete"
+  },
+  {
+    "time": "2026-11-25T22:36:17.8032643+08:00",
+    "loadCpuSeconds": 127.765625,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 724.1191,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.609375,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.1875,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7989912,
+    "appWorkingSet": 975474688,
+    "loadWorkingSet": 699314176,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:18.6825966+08:00",
+    "loadCpuSeconds": 127.921875,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 1599.8111,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.640625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.25,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7987968,
+    "appWorkingSet": 975474688,
+    "loadWorkingSet": 699555840,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:19.5181583+08:00",
+    "loadCpuSeconds": 127.984375,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 2429.2911,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.25,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7992128,
+    "appWorkingSet": 975474688,
+    "loadWorkingSet": 699555840,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:20.3199006+08:00",
+    "loadCpuSeconds": 128.046875,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 3228.3765,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.25,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7992724,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 699555840,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:21.1973185+08:00",
+    "loadCpuSeconds": 128.109375,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 4110.2421,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.25,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7983696,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 699510784,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:22.0393966+08:00",
+    "loadCpuSeconds": 128.28125,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 4960.654,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7998508,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 699543552,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:22.8674962+08:00",
+    "loadCpuSeconds": 128.328125,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 5777.5107,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 8001408,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 699547648,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:23.7127783+08:00",
+    "loadCpuSeconds": 128.484375,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 6619.459,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 7997152,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 699641856,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:24.5497590+08:00",
+    "loadCpuSeconds": 128.546875,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 7463.2897,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 8004080,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 699674624,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:25.4367278+08:00",
+    "loadCpuSeconds": 128.59375,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 8353.9857,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 8005288,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 697147392,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:26.2876708+08:00",
+    "loadCpuSeconds": 128.65625,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 9199.6208,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 8010300,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 697274368,
+    "phase": "requests"
+  },
+  {
+    "time": "2026-11-25T22:36:27.1831142+08:00",
+    "loadCpuSeconds": 128.71875,
+    "loadGcCollections": [
+      203,
+      123,
+      14
+    ],
+    "dbWorkingSet": 551542784,
+    "requestPhaseElapsedMs": 9993.5855,
+    "appPrivate": 1055748096,
+    "dbCpuSeconds": 30.65625,
+    "loadThreadPoolPending": 0,
+    "appCpuSeconds": 276.484375,
+    "trial": "recovery-100rps",
+    "freeMemoryKB": 8014804,
+    "appWorkingSet": 975962112,
+    "loadWorkingSet": 697450496,
+    "phase": "complete"
+  }
+]

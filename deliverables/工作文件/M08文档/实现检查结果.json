@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-25",
+  "branch": "feat/m08-admin-week1",
+  "sourceCommit": "8c399d44894e3bd922657f244b31ae1a1237513c",
+  "node": "v22.23.1",
+  "lint": "passed",
+  "typecheck": "passed (npm run build)",
+  "build": "passed",
+  "formatCheck": "passed",
+  "frontendTests": {
+    "passed": 25,
+    "total": 25,
+    "files": 4,
+    "success": true,
+    "report": "tests/evidence/M08/week1/test-results.json"
+  },
+  "localPreview": {
+    "url": "http://127.0.0.1:5173/login",
+    "status": "Vite entry returned successfully"
+  },
+  "productionDemoTransportIncluded": false,
+  "gitDiffCheck": "passed",
+  "documentChecks": [
+    {
+      "file": "deliverables/M08_第一周后台实施方案.md",
+      "markdownHtmlSynchronized": true,
+      "uniqueAnchors": true,
+      "sourceLocations": [
+        {
+          "file": "deliverables/M08_第一周后台实现说明.md",
+          "line": null
+        },
+        {
+          "file": "src/admin-web/README.md",
+          "line": null
+        },
+        {
+          "file": "成员任务/08_Web后台与交付汇总.md",
+          "line": 40
+        },
+        {
+          "file": "specs/contracts/api.md",
+          "line": 7
+        },
+        {
+          "file": "specs/contracts/posts-module.md",
+          "line": 7
+        },
+        {
+          "file": "src/.env.example",
+          "line": 39
+        },
+        {
+          "file": "tests/evidence/M08/week1/README.md",
+          "line": null
+        },
+        {
+          "file": "specs/contracts/api.md",
+          "line": 13
+        },
+        {
+          "file": "specs/contracts/api.md",
+          "line": 21
+        },
+        {
+          "file": "specs/contracts/api.md",
+          "line": 22
+        },
+        {
+          "file": "specs/contracts/api.md",
+          "line": 13
+        },
+        {
+          "file": "specs/contracts/api.md",
+          "line": 35
+        },
+        {
+          "file": "specs/contracts/data-model.md",
+          "line": 11
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostController.java",
+          "line": 58
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostFilter.java",
+          "line": 14
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostService.java",
+          "line": 108
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostSpecifications.java",
+          "line": 10
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostService.java",
+          "line": 196
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostErrorHandler.java",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": "deliverables/M08_第一周后台实现说明.md",
+      "markdownHtmlSynchronized": true,
+      "uniqueAnchors": true,
+      "sourceLocations": [
+        {
+          "file": "src/admin-web/README.md",
+          "line": null
+        },
+        {
+          "file": "tests/evidence/M08/week1/README.md",
+          "line": null
+        },
+        {
+          "file": "src/admin-web/src/app/router.ts",
+          "line": 60
+        },
+        {
+          "file": "src/admin-web/src/app/services.ts",
+          "line": 11
+        },
+        {
+          "file": "src/admin-web/src/modules/auth/logic/authState.ts",
+          "line": 140
+        },
+        {
+          "file": "src/admin-web/src/modules/auth/pages/LoginPage.vue",
+          "line": 29
+        },
+        {
+          "file": "src/admin-web/src/modules/auth/logic/authState.ts",
+          "line": 103
+        },
+        {
+          "file": "src/admin-web/src/common/data/adminApi.ts",
+          "line": 167
+        },
+        {
+          "file": "src/admin-web/src/modules/users/pages/UsersPage.vue",
+          "line": 21
+        },
+        {
+          "file": "src/admin-web/src/modules/posts/pages/PostsPage.vue",
+          "line": 29
+        },
+        {
+          "file": "src/admin-web/src/common/data/adminApi.ts",
+          "line": 205
+        },
+        {
+          "file": "src/backend/modules/posts/src/main/java/edu/szu/moments/posts/PostController.java",
+          "line": 58
+        },
+        {
+          "file": "src/admin-web/src/common/logic/usePagedQuery.ts",
+          "line": 39
+        },
+        {
+          "file": "src/admin-web/src/common/logic/usePagedQuery.ts",
+          "line": 75
+        },
+        {
+          "file": "src/admin-web/src/common/data/http.ts",
+          "line": 65
+        },
+        {
+          "file": "src/admin-web/src/modules/auth/logic/authState.ts",
+          "line": 28
+        }
+      ]
+    }
+  ],
+  "structuralErrors": [],
+  "browserVisualReview": "unavailable: native pipe closed before response",
+  "realBackendIntegration": "pending: M01 login/user service and fields not ready",
+  "realBackendAuthorization": "not executed; W1-09 pending",
+  "cleanInstallReplay": {
+    "status": "passed",
+    "packagesInstalled": 288,
+    "isolation": "temporary empty directory and new npm cache",
+    "exitCode": 0
+  }
+}

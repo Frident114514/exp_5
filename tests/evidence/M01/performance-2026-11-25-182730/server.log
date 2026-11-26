@@ -1,0 +1,53 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-25T18:27:40.322+08:00  INFO 21072 --- [moments-backend] [           main] edu.szu.moments.MomentsApplication       : Starting MomentsApplication v0.1.0-SNAPSHOT using Java 21.0.8 with PID 21072 (D:\软件工程\实验5\exp_5\src\backend\target\moments-backend-0.1.0-SNAPSHOT.jar started by houjiankai in D:\软件工程\实验5\exp_5)
+2026-11-25T18:27:40.335+08:00  INFO 21072 --- [moments-backend] [           main] edu.szu.moments.MomentsApplication       : The following 1 profile is active: "high-concurrency"
+2026-11-25T18:27:42.135+08:00  INFO 21072 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-25T18:27:42.252+08:00  INFO 21072 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 90 ms. Found 1 JPA repository interface.
+2026-11-25T18:27:43.995+08:00  INFO 21072 --- [moments-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 57390 (http)
+2026-11-25T18:27:44.035+08:00  INFO 21072 --- [moments-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-25T18:27:44.036+08:00  INFO 21072 --- [moments-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-25T18:27:44.131+08:00  INFO 21072 --- [moments-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-25T18:27:44.135+08:00  INFO 21072 --- [moments-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3696 ms
+2026-11-25T18:27:45.320+08:00  INFO 21072 --- [moments-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-25T18:27:46.128+08:00  INFO 21072 --- [moments-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1e734eee
+2026-11-25T18:27:46.133+08:00  INFO 21072 --- [moments-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-25T18:27:46.245+08:00  INFO 21072 --- [moments-backend] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://127.0.0.1:57372/m01_load (MySQL 8.4)
+2026-11-25T18:27:47.257+08:00  WARN 21072 --- [moments-backend] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-11-25T18:27:47.308+08:00  INFO 21072 --- [moments-backend] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `m01_load`.`flyway_schema_history` does not exist yet
+2026-11-25T18:27:47.314+08:00  INFO 21072 --- [moments-backend] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.035s)
+2026-11-25T18:27:47.348+08:00  INFO 21072 --- [moments-backend] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `m01_load`.`flyway_schema_history` ...
+2026-11-25T18:27:47.475+08:00  INFO 21072 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `m01_load`: << Empty Schema >>
+2026-11-25T18:27:47.496+08:00  INFO 21072 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `m01_load` to version "1 - users"
+2026-11-25T18:27:47.582+08:00  INFO 21072 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema `m01_load`, now at version v1 (execution time 00:00.043s)
+2026-11-25T18:27:47.873+08:00  INFO 21072 --- [moments-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-25T18:27:48.002+08:00  INFO 21072 --- [moments-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.53.Final
+2026-11-25T18:27:48.063+08:00  INFO 21072 --- [moments-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-25T18:27:48.591+08:00  INFO 21072 --- [moments-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-25T18:27:48.724+08:00  INFO 21072 --- [moments-backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.13
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-25T18:27:48.767+08:00  WARN 21072 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-25T18:27:48.991+08:00  WARN 21072 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-25T18:27:49.039+08:00  WARN 21072 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-25T18:27:49.970+08:00  INFO 21072 --- [moments-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-25T18:27:50.030+08:00  INFO 21072 --- [moments-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-25T18:27:50.692+08:00  INFO 21072 --- [moments-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-25T18:27:53.563+08:00  INFO 21072 --- [moments-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 57390 (http) with context path '/'
+2026-11-25T18:27:53.610+08:00  INFO 21072 --- [moments-backend] [           main] edu.szu.moments.MomentsApplication       : Started MomentsApplication in 14.188 seconds (process running for 15.451)
+2026-11-25T18:27:53.879+08:00  INFO 21072 --- [moments-backend] [omcat-handler-0] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-25T18:27:53.880+08:00  INFO 21072 --- [moments-backend] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-25T18:27:53.882+08:00  INFO 21072 --- [moments-backend] [omcat-handler-0] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
