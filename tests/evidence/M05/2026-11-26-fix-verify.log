@@ -1,0 +1,43 @@
+﻿# M05 排版修复复验
+# 时间：2026-11-26 13:36:33 +08:00
+# 背景：手工用例第一轮发现标题与说明同行，base.scss 补 display:block 后复验
+# 工作目录：src/miniapp
+
+
+===== 单元与组件测试 =====
+$ node node_modules\vitest\vitest.mjs run
+[33mThe CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 D:/project-softweare/exp_5/src/miniapp
+
+ ✓ tests/env.spec.ts (9 tests) 3ms
+ ✓ tests/validate.spec.ts (12 tests) 4ms
+ ✓ tests/routes.spec.ts (12 tests) 5ms
+ ✓ tests/auth-store.spec.ts (10 tests) 7ms
+ ✓ tests/auth-contract.spec.ts (8 tests) 4ms
+ ✓ tests/navigate.spec.ts (12 tests) 7ms
+ ✓ tests/http.spec.ts (13 tests) 9ms
+ ✓ tests/api-endpoints.spec.ts (4 tests) 3ms
+ ✓ tests/components/AppButton.spec.ts (7 tests) 20ms
+ ✓ tests/components/FormField.spec.ts (11 tests) 28ms
+ ✓ tests/components/StateView.spec.ts (8 tests) 26ms
+ ✓ tests/mock.spec.ts (11 tests) 1407ms
+
+ Test Files  12 passed (12)
+      Tests  117 passed (117)
+   Start at  13:36:33
+   Duration  1.73s (transform 514ms, setup 0ms, collect 1.64s, tests 1.52s, environment 1.09s, prepare 947ms)
+
+[exit code: 0]
+
+===== 类型检查 =====
+$ node node_modules\vue-tsc\bin\vue-tsc.js --noEmit
+[exit code: 0]
+
+===== 微信小程序构建 =====
+$ node node_modules\@dcloudio\vite-plugin-uni\bin\uni.js build -p mp-weixin
+编译器版本：5.34（vue3）
+正在编译中...
+DONE  Build complete.
+运行方式：打开 微信开发者工具, 导入 dist\build\mp-weixin 运行。
+[exit code: 0]
