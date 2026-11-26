@@ -13,7 +13,7 @@
 - **账号页面**：注册、登录、个人资料、修改密码（表单校验、加载态、错误提示、登录后回原页面、改密后强制重新登录）。
 - **业务接口模块（给 M06/M07 用）**：`api/posts.ts`、`api/media.ts`、`api/interactions.ts`，含完整类型与端点登记。
 - **本地模拟接口**：`api/mock.ts`，服务端未就绪时可开关切换到样例数据。
-- **单元测试**：91 项（9 个文件）全部通过。
+- **单元测试**：117 项（12 个文件）全部通过，含 3 个公共组件的 jsdom 交互测试（`@vue/test-utils` + `jsdom`）。
 
 **尚未完成（不要当成已有能力）：**
 
@@ -76,7 +76,7 @@ npm install
 | `npm run dev:h5` | 浏览器预览，默认 `http://localhost:5173`，只用于看样式 |
 | `npm run build:mp-weixin` | 生产构建，输出到 `dist/build/mp-weixin` |
 | `npm run type-check` | `vue-tsc --noEmit` 类型检查 |
-| `npm run test` | Vitest 单元测试（91 项） |
+| `npm run test` | Vitest 单元与组件测试（117 项） |
 
 ### 演示账号（仅模拟接口模式）
 

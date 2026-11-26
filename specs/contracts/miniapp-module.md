@@ -259,12 +259,12 @@ await createComment(post.id, { content: '拍得真好' })
 在 `src/miniapp/` 执行：
 
 ```sh
-npm run test          # 91 项单元测试（9 个文件）
+npm run test          # 117 项单元与组件测试（12 个文件）
 npm run type-check    # vue-tsc 类型检查
 npm run build:mp-weixin
 npm run build:h5
 ```
 
-覆盖范围：设计令牌以外的纯逻辑 —— 表单校验规则、服务端地址拼接、路由表与 `pages.json` 一致性、接口路径与 `api.md` 一致性、请求成功/失败/401/网络异常、"登录态写入与恢复/过期"、登录守卫与回跳安全校验、模拟接口数据形状。
+覆盖范围：纯逻辑 —— 表单校验规则、服务端地址拼接、路由表与 `pages.json` 一致性、接口路径与 `api.md` 一致性、请求成功/失败/401/网络异常、"登录态写入与恢复/过期"、登录守卫与回跳安全校验、模拟接口数据形状；组件交互（jsdom + `@vue/test-utils`）—— `AppButton` 防重复提交与加载态、`FormField` 输入/错误优先级/密码显隐/清空、`StateView` 四态与重试。
 
 测试证据见 [M05 测试证据](../../tests/evidence/M05/README.md)。单元测试只覆盖纯逻辑；页面行为必须在微信开发者工具中手工验证，未执行的用例保持"未执行"，不得据未经运行的推断宣称通过。

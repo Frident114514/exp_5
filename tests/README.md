@@ -24,9 +24,9 @@ python3 src/backend/modules/posts/scripts/run_mysql_tests.py
 
 ## 已有测试：M05 小程序公共层与账号模块
 
-- [测试源代码](../src/miniapp/tests/)：表单校验规则、服务端地址拼接、路由表与 `pages.json` 一致性、接口路径与 `api.md` 一致性、请求层成功/失败/401/网络异常、登录态写入恢复与过期、登录守卫与回跳安全、模拟接口数据形状，共 91 项 Vitest 用例。
+- [测试源代码](../src/miniapp/tests/)：表单校验规则、服务端地址拼接、路由表与 `pages.json` 一致性、接口路径与 `api.md` 一致性、请求层成功/失败/401/网络异常、登录态写入恢复与过期、登录守卫与回跳安全、模拟接口数据形状，以及 `AppButton` / `FormField` / `StateView` 三个公共组件的交互（jsdom），共 117 项 Vitest 用例。
 - [测试运行说明](../src/miniapp/README.md)：依赖安装、构建与微信开发者工具导入步骤。
-- [测试证据与用例映射](evidence/M05/README.md)：2026-11-25 41 项（S1）、2026-11-26 91 项（S2）全部通过，类型检查与 mp-weixin/H5 构建退出码 0。
+- [测试证据与用例映射](evidence/M05/README.md)：2026-11-25 41 项（S1）、2026-11-26 91 项（S2）与 117 项（S3，含组件测试）全部通过，类型检查与 mp-weixin/H5 构建退出码 0。
 
 在 `src/miniapp/` 执行：
 

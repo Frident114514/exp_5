@@ -4,6 +4,25 @@
 
 页面交互（真实点击、跳转、开发者工具内表现）尚未执行，见各阶段"尚未执行的验收"。
 
+## M05-S3 实际结果（2026-11-26）
+
+| 执行 | 实际结果 | 证据 |
+| --- | --- | --- |
+| 单元 + 组件测试 | 12 个测试文件、**117 项全部通过**（0 失败 / 0 跳过）：在 S2 的 91 项之上新增 `AppButton` 7 项、`FormField` 11 项、`StateView` 8 项 | [S3 验证日志](2026-11-26-s3-verify.log)、[JUnit XML](junit-results-s3.xml) |
+| 类型检查 | `vue-tsc --noEmit` 无输出、退出码 0 | [S3 验证日志](2026-11-26-s3-verify.log) |
+| 微信小程序构建 | `build -p mp-weixin` 成功，退出码 0 | [S3 验证日志](2026-11-26-s3-verify.log) |
+| H5 构建 | `build` 成功，退出码 0 | [S3 验证日志](2026-11-26-s3-verify.log) |
+
+S3 新增的组件测试（jsdom，`@vue/test-utils`）：
+
+| 组件 | 覆盖点 |
+| --- | --- |
+| `AppButton` | 点击派发一次；`loading` / `disabled` 不派发；默认 400ms 节流生效（连点 3 次只触发 1 次）；`throttle=0` 关闭节流；无插槽时渲染 `text`；`loading` 时按钮 `disabled` |
+| `FormField` | 标签与必填星号；输入派发 `update:modelValue`；失焦派发 `blur` 带值；`error` 优先于 `hint` 并加 `--error` 类；密码默认密文、点"显示"变明文且文案切换；有值时"清空"派发空串；禁用态；`placeholder-class` 使用全局类 |
+| `StateView` | loading 显示加载圈与"加载中…"；empty 显示默认标题与说明；error 显示重试按钮且点击派发 `retry`；自定义重试文案/标题；ready 只渲染插槽；loading/empty 不渲染插槽；compact 类 |
+
+同时修正两处由组件测试暴露的问题：`FormField` 的取值逻辑原本只读小程序 `detail.value`，在 H5/jsdom 下取不到值，已改为兼容 `detail.value` 与 DOM `target.value`；密码显隐改为 `:password="isPassword ? true : undefined"`，避免非密文时输出 `password="false"` 属性。
+
 ## M05-S2 实际结果（2026-11-26）
 
 | 执行 | 实际结果 | 证据 |

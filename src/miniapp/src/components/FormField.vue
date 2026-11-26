@@ -57,9 +57,13 @@ const isPassword = computed(() => props.type === 'password' && !visible.value)
 const hasClear = computed(() => props.clearable && props.modelValue.length > 0 && !props.disabled)
 
 function readValue(event: Event): string {
-  // uni-app 的 input 事件把值放在 `detail.value`，与浏览器 Event 类型不同，这里统一取值。
-  const detail = (event as unknown as { detail?: { value?: string } }).detail
-  return detail?.value ?? ''
+  // 小程序把值放在 `detail.value`；H5 / 单元测试里是 DOM 事件的 `target.value`，两种都支持。
+  const detail = (event as unknown as { detail?: { value?: unknown } }).detail
+  if (detail && typeof detail.value === 'string') {
+    return detail.value
+  }
+  const target = (event as unknown as { target?: { value?: unknown } }).target
+  return target && typeof target.value === 'string' ? target.value : ''
 }
 
 function handleInput(event: Event): void {
@@ -94,7 +98,7 @@ function toggleVisible(): void {
       <input
         class="form-field__input"
         :type="inputType"
-        :password="isPassword"
+        :password="isPassword ? true : undefined"
         :value="modelValue"
         :placeholder="placeholder"
         :placeholder-class="'form-placeholder'"
