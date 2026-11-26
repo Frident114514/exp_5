@@ -1,8 +1,18 @@
 import type { RatingSummary } from '../api/types.ts'
 
-function pad(value: number): string {
-  return value < 10 ? '0' + value : String(value)
-}
+/**
+ * 时间格式化统一按北京时间（Asia/Shanghai）输出，与服务端和 M06 的编辑页一致，
+ * 不依赖设备所在时区。接受 ISO 8601 字符串（含 Z 或 +08:00）、时间戳和 Date。
+ */
+const dateTimeFormatter = new Intl.DateTimeFormat('zh-CN', {
+  timeZone: 'Asia/Shanghai',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+})
 
 function toDate(input: string | number | Date | null | undefined): Date | null {
   if (input === null || input === undefined || input === '') return null
@@ -12,31 +22,19 @@ function toDate(input: string | number | Date | null | undefined): Date | null {
 }
 
 /**
- * 2026-11-17 10:00（设备本地时区）。
- * 同时接受 +08:00 偏移与 Z（服务端 Instant 序列化结果）。
- * 无法解析时返回空串，避免页面出现 Invalid Date。
+ * 2026-11-17 10:00（北京时间）。
+ * 详情数据未加载时传入 null/undefined 返回空串，页面不会出现 Invalid Date。
  */
 export function formatDateTime(input: string | number | Date | null | undefined): string {
   const date = toDate(input)
   if (!date) return ''
-  return (
-    date.getFullYear() +
-    '-' +
-    pad(date.getMonth() + 1) +
-    '-' +
-    pad(date.getDate()) +
-    ' ' +
-    pad(date.getHours()) +
-    ':' +
-    pad(date.getMinutes())
-  )
+  return dateTimeFormatter.format(date).replace(/\//g, '-')
 }
 
-/** 2026-11-17 */
+/** 2026-11-17（北京时间） */
 export function formatDate(input: string | number | Date | null | undefined): string {
-  const date = toDate(input)
-  if (!date) return ''
-  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate())
+  const text = formatDateTime(input)
+  return text ? text.slice(0, 10) : ''
 }
 
 const MINUTE = 60 * 1000

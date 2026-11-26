@@ -41,9 +41,10 @@ test('业务错误码转成 ApiError（HTTP 200 也是失败）', async () => {
     () => client.get('/posts'),
     (error: unknown) => {
       assert.ok(error instanceof ApiError)
-      assert.equal(error.kind, 'business')
-      assert.equal(error.code, 'VALIDATION_ERROR')
-      assert.equal(error.message, '参数有误')
+      const apiError: ApiError = error
+      assert.equal(apiError.kind, 'business')
+      assert.equal(apiError.code, 'VALIDATION_ERROR')
+      assert.equal(apiError.message, '参数有误')
       return true
     },
   )

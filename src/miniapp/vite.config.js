@@ -9,6 +9,15 @@ const uni = require('@dcloudio/vite-plugin-uni').default
 
 export default defineConfig({
   plugins: [uni()],
+  // H5 开发时如遇跨域，把 VITE_API_BASE_URL 设为 /api/v1，请求会经这里转发到本机后端
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8080',
+        changeOrigin: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

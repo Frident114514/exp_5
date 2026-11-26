@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "useDefineForClassFields": true,
     "lib": ["ESNext", "DOM"],
-    "types": ["@dcloudio/types", "vite/client"],
+    "types": ["@dcloudio/types", "vite/client", "node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

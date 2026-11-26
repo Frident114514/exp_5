@@ -10,7 +10,7 @@
 | Node.js | 18+（推荐 20.19+ / 22+；本目录的零依赖测试脚本需要 22.6+ 才能直接运行 `.ts`） |
 | 包管理器 | npm 或 pnpm |
 | 微信开发者工具 | 稳定版，导入编译产物目录 |
-| 服务端 | 本机 Spring Boot（`http://localhost:8080/api/v1`）；未就绪时用本目录的 Mock 服务 |
+| 服务端 | 本机 Spring Boot（`http://127.0.0.1:8080/api/v1`）；未就绪时用本目录的 Mock 服务 |
 
 ## 2. 快速开始
 
@@ -30,14 +30,14 @@ npm run dev:mp-weixin
 
 1. 「导入项目」→ 目录选择 `src/miniapp/dist/dev/mp-weixin`（HBuilderX 用户为 `unpackage/dist/dev/mp-weixin`）。
 2. AppID 可先选「测试号」；`src/manifest.json` 的 `mp-weixin.appid` 留空即可。
-3. 「详情 → 本地设置」勾选 **不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书**，否则 `http://localhost:8080` 会被拦截。
+3. 「详情 → 本地设置」勾选 **不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书**，否则 `http://127.0.0.1:8080` 会被拦截。
 4. 修改代码后 uni-app 会自动重新编译，开发者工具自动刷新。
 
 H5 预览（可选，仅用于快速看布局）：`npm run dev:h5`。
 
 ## 3. 联调地址配置
 
-默认地址写在 `src/config.ts`：`http://localhost:8080/api/v1`。
+默认地址写在 `src/config.ts`：`http://127.0.0.1:8080/api/v1`。
 需要改地址（真机、局域网）时复制 `.env.local.example` 为 `.env.local`：
 
 ```
@@ -63,7 +63,7 @@ src/miniapp/
 │   │   ├── feed.ts         # 分页合并、按 id 去重、hasMore 计算
 │   │   └── post.ts         # 摘要截断、标签规范化、媒体统计
 │   ├── components/
-│   │   ├── PostCard.vue        # 广场卡片
+│   │   ├── FeedPostCard.vue    # 广场卡片（M06 的“我的动态”卡片仍叫 PostCard.vue）
 │   │   ├── MediaPlaceholder.vue# 图片/视频占位（第一周不做预览与播放）
 │   │   ├── TagRow.vue          # 标签
 │   │   ├── RatingSummary.vue   # 评分摘要展示

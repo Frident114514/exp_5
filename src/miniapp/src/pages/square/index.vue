@@ -44,7 +44,7 @@
 
     <!-- 列表 -->
     <view v-else class="list">
-      <PostCard
+      <FeedPostCard
         v-for="post in items"
         :key="post.id"
         :post="post"
@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import { onLoad, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
-import PostCard from '@/components/PostCard.vue'
+import FeedPostCard from '@/components/FeedPostCard.vue'
 import StatePanel from '@/components/StatePanel.vue'
 import { usePostList } from '@/composables/usePostList.ts'
 

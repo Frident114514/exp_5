@@ -50,8 +50,8 @@ export interface PostSummary {
    * 契约示例是 +08:00 偏移；两种都能被 formatDateTime 解析为设备本地时间。
    */
   createdAt: string
-  /** 服务端返回但第一周不展示，保留字段以便后续“编辑时间”使用。 */
-  updatedAt?: string
+  /** 服务端返回的更新时间；第一周不展示，保留给后续“编辑时间”，与 main 的 PostView 保持一致为必填。 */
+  updatedAt: string
   rating: RatingSummary
 }
 

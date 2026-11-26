@@ -2,14 +2,16 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { formatDate, formatDateTime, formatRating, formatRelativeTime, ratingBadge } from '../src/utils/format.ts'
 
-const NOW = new Date('2026-11-17T12:00:00').getTime()
+const NOW = new Date('2026-11-17T12:00:00+08:00').getTime()
 
-test('formatDateTime 输出 YYYY-MM-DD HH:mm', () => {
-  assert.equal(formatDateTime('2026-11-17T10:05:00'), '2026-11-17 10:05')
-  assert.equal(formatDateTime(new Date(2026, 0, 2, 3, 4)), '2026-01-02 03:04')
+test('formatDateTime 按北京时间输出 YYYY-MM-DD HH:mm', () => {
+  assert.equal(formatDateTime('2026-11-17T10:05:00+08:00'), '2026-11-17 10:05')
+  // 服务端 Instant 序列化为 UTC，也要显示为北京时间
+  assert.equal(formatDateTime('2026-11-17T02:05:00Z'), '2026-11-17 10:05')
+  assert.equal(formatDateTime(new Date('2026-01-02T03:04:00+08:00')), '2026-01-02 03:04')
 })
 
-test('formatDateTime 对非法输入返回空串，不产生 Invalid Date', () => {
+test('formatDateTime 对空值与非法输入返回空串，不产生 Invalid Date', () => {
   assert.equal(formatDateTime(''), '')
   assert.equal(formatDateTime(null), '')
   assert.equal(formatDateTime(undefined), '')
@@ -17,7 +19,7 @@ test('formatDateTime 对非法输入返回空串，不产生 Invalid Date', () =
 })
 
 test('formatDate 只返回日期', () => {
-  assert.equal(formatDate('2026-11-17T23:59:00'), '2026-11-17')
+  assert.equal(formatDate('2026-11-17T23:59:00+08:00'), '2026-11-17')
   assert.equal(formatDate('bad'), '')
 })
 
