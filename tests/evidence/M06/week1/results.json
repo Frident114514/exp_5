@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-26",
+  "scope": "M06 week 1",
+  "nodeTests": {
+    "passed": 11,
+    "failed": 0,
+    "command": "node .node-test/tests-node/core.test.js"
+  },
+  "typecheck": "passed",
+  "sfcCompile": "passed",
+  "jsonParse": "passed",
+  "vitest": "blocked: spawn EPERM in Codex sandbox",
+  "mpWeixinBuild": "blocked: spawn EPERM in Codex sandbox",
+  "realApiIntegration": "not run: M05/M02 pending"
+}

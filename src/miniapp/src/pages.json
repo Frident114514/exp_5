@@ -1,0 +1,33 @@
+{
+  "pages": [
+    {
+      "path": "pages/my-posts/index",
+      "style": {
+        "navigationBarTitleText": "我的动态",
+        "navigationBarBackgroundColor": "#f5f7fb",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/publish/index",
+      "style": {
+        "navigationBarTitleText": "发布动态",
+        "navigationBarBackgroundColor": "#f5f7fb",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/edit/index",
+      "style": {
+        "navigationBarTitleText": "编辑动态",
+        "navigationBarBackgroundColor": "#f5f7fb",
+        "navigationBarTextStyle": "black"
+      }
+    }
+  ],
+  "globalStyle": {
+    "backgroundColor": "#f5f7fb",
+    "navigationBarBackgroundColor": "#f5f7fb",
+    "navigationBarTextStyle": "black"
+  }
+}
