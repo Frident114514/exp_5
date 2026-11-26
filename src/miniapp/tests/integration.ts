@@ -1,5 +1,5 @@
 /**
- * 联调冒烟测试：需要先启动 mock 服务（npm run mock），验证小程序请求层
+ * 联调冒烟测试：需要先启动 mock 服务（pnpm mock），验证小程序请求层
  * 与真实 HTTP 服务的字段解析、404 处理、分页顺序。
  *
  *   node mock/mock-server.mjs            # 终端 A

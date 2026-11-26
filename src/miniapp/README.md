@@ -3,12 +3,19 @@
 多媒体朋友圈展示系统 · 成员 M07 负责的动态广场与详情页。
 **当前范围：第一周（M07-S1 设计 + M07-S2 基础页面）** —— 公开浏览的列表页、详情页，以及加载 / 空结果 / 接口失败 / 已删除四种状态。筛选、评分提交、评论、登录引导属于后续阶段。
 
+## 包管理器约定（2026-11-26 组内统一）
+
+- 小程序统一使用 **pnpm**，以仓库中的 `pnpm-lock.yaml` 为准；**不要提交同目录的 `package-lock.json`**。
+- 合并时如果修改了依赖，用 `pnpm install` 更新 `pnpm-lock.yaml` 并一起提交。
+- 管理后台 `src/admin-web` 是独立工程，继续使用 npm 和它自己的 `package-lock.json`，两者不混用。
+- 首次使用需安装 pnpm：`npm i -g pnpm`（或 `corepack enable`）。
+
 ## 1. 环境要求
 
 | 项 | 要求 |
 | --- | --- |
 | Node.js | 18+（推荐 20.19+ / 22+；本目录的零依赖测试脚本需要 22.6+ 才能直接运行 `.ts`） |
-| 包管理器 | npm 或 pnpm |
+| 包管理器 | **pnpm**（见文首约定，不要提交 package-lock.json） |
 | 微信开发者工具 | 稳定版，导入编译产物目录 |
 | 服务端 | 本机 Spring Boot（`http://127.0.0.1:8080/api/v1`）；未就绪时用本目录的 Mock 服务 |
 
@@ -16,14 +23,14 @@
 
 ```powershell
 cd src/miniapp
-npm install
+pnpm install
 
 # 终端 A：启动本地数据源（二选一）
-npm run mock                 # Mock 服务，12 条演示数据，端口 8080
+pnpm mock                 # Mock 服务，12 条演示数据，端口 8080
 # 或直接启动 M02 的 Spring Boot 服务
 
 # 终端 B：编译小程序
-npm run dev:mp-weixin
+pnpm dev:mp-weixin
 ```
 
 微信开发者工具：
@@ -33,7 +40,7 @@ npm run dev:mp-weixin
 3. 「详情 → 本地设置」勾选 **不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书**，否则 `http://127.0.0.1:8080` 会被拦截。
 4. 修改代码后 uni-app 会自动重新编译，开发者工具自动刷新。
 
-H5 预览（可选，仅用于快速看布局）：`npm run dev:h5`。
+H5 预览（可选，仅用于快速看布局）：`pnpm dev:h5`。
 
 ## 3. 联调地址配置
 
@@ -131,9 +138,9 @@ src/miniapp/
 ## 7. 测试
 
 ```powershell
-npm test                    # 26 项单元测试（Node 22.6+ 直接运行 .ts）
+pnpm test                    # 26 项单元测试（Node 22.6+ 直接运行 .ts）
 node mock/mock-server.mjs   # 终端 A
-npm run test:integration    # 终端 B，4 项真实 HTTP 联调冒烟
+pnpm test:integration    # 终端 B，4 项真实 HTTP 联调冒烟
 ```
 
 | 测试文件 | 覆盖 |
@@ -148,7 +155,7 @@ npm run test:integration    # 终端 B，4 项真实 HTTP 联调冒烟
 
 ## 8. 手工验收（微信开发者工具）
 
-1. 启动 Mock（`npm run mock`）→ 编译 → 打开广场：应看到 12 条卡片、下拉刷新、触底加载第二页。
+1. 启动 Mock（`pnpm mock`）→ 编译 → 打开广场：应看到 12 条卡片、下拉刷新、触底加载第二页。
 2. 点任一卡片进入详情：作者、时间、正文、标签、媒体占位、评分摘要齐全。
 3. 访问 `/pages/detail/index?id=999`（可在开发者工具「编译模式」里填启动参数）：显示“动态不存在或已删除”。
 4. 停掉 Mock 服务后下拉刷新：显示网络失败提示与重试按钮，页面不崩溃；重启服务点重试恢复。
