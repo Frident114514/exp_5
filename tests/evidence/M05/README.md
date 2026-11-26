@@ -83,9 +83,21 @@ npm run build:h5
 
 工程依赖 `npm` 缓存可写；本机首次安装时 `postinstall` 无法在受限沙箱内 spawn，使用 `npm install --ignore-scripts` 完成安装（esbuild 的平台二进制由可选依赖提供，不受影响）。正常开发机直接 `npm install` 即可。
 
+## 工具内运行记录（微信开发者工具，2026-11-25）
+
+S1 期间尝试用 CLI 导入被工具以"不存在此 AppID"拒绝（无 AppID 模式只能走图形界面），随后**由组员在图形界面手动导入** `src/miniapp/dist/build/mp-weixin` 并成功运行。工具日志可证：
+
+- `WeappLog/logs/2026-11-25-16-36-20-881.log`：`DevtoolsFileWatcher] d:/project-softweare/exp_5/src/miniapp/dist/build/mp-weixin` —— 工程在工具中被打开；
+- `WeappLog/logs/2026-11-25-23-57-06-969.log`：编译缓存与模拟器日志引用了我们全部 9 个页面产物（`pages/{home,login,register,profile,password,plaza,post-detail,publish,my-posts}/index.json`），并有 `[SimulatorService] simulator app compile`，该日志中没有我们页面的编译错误（出现的 ERROR 均为工具内部 `backendManager`/`BackendInitEnv` 消息）。
+
+边界说明：
+
+- 那次运行的是 **S1 代码**（账号页当时是占位页）；S2 代码于 2026-11-26 13:05 重新构建，**尚未在工具内复验**。
+- 没有截图，因此不计入"界面已验收"；工具日志只能证明工程被打开、页面被编译、模拟器启动。
+
 ## 尚未执行的验收
 
-- **微信开发者工具导入运行与截图**：本机未安装该工具，`build:mp-weixin` 产物已生成但未在工具内打开，故 S1 的"在微信开发者工具导入运行"一项保留未完成，步骤已写入 [小程序 README](../../../src/miniapp/README.md)。
+- **S2 页面在开发者工具内的实际操作与截图**：S1 时组员已导入并运行过（见上节），但 S2 的登录/注册/资料/改密页面尚未在工具内点过，也没有截图。
 - **真实接口联调**：M01 的认证、M02 的动态、M03 的媒体、M04 的评分评论都还没跑过；当前只有契约、类型、模拟数据与单元测试。账号流程的真实注册→登录→改密→重新登录待 S4 进行。
 - **真机预览**：需要可用 AppID 与局域网/HTTPS 服务地址，待 M01 认证服务启动后与 S4 联调一起做。
 - **账号流程用例 M05-C01～C06**：C02/C03/C04/C05 已有单元测试覆盖对应逻辑（见上表"部分覆盖"），但页面级实操未执行；C01、C06 完全未执行。
