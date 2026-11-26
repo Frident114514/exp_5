@@ -1,0 +1,23 @@
+{
+  "name": "多媒体朋友圈",
+  "appid": "__UNI__M06WEEK1",
+  "description": "M06 第一周作者工作台",
+  "versionName": "0.1.0",
+  "versionCode": "1",
+  "transformPx": false,
+  "h5": {
+    "title": "多媒体朋友圈 · M06",
+    "router": {
+      "mode": "hash"
+    }
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "minified": true
+    },
+    "usingComponents": true
+  }
+}
