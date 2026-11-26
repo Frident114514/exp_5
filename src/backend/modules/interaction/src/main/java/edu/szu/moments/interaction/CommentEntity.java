@@ -37,6 +37,14 @@ public class CommentEntity {
 
     protected CommentEntity() {}
 
+    CommentEntity(long postId, long userId, String content, Instant now) {
+        this.postId = postId;
+        this.userId = userId;
+        this.content = content;
+        this.status = Status.ACTIVE;
+        this.createdAt = now;
+    }
+
     public Long getId() { return id; }
     public long getPostId() { return postId; }
     public long getUserId() { return userId; }

@@ -3,6 +3,10 @@
 set -euo pipefail
 
 module=$(cd -- "$(dirname -- "$0")/.." && pwd)
+maven=(mvn)
+if [[ -f "$module/../../mvnw" ]]; then
+  maven=(sh "$module/../../mvnw")
+fi
 mysql_image=${M04_MYSQL_IMAGE:-mysql:8.4}
 export MYSQL_ROOT_PASSWORD=$(openssl rand -hex 24)
 export MYSQL_PASSWORD=$(openssl rand -hex 24)
@@ -26,9 +30,17 @@ if ((attempt == 90)); then
   exit 1
 fi
 port=$(docker port "$container" 3306/tcp)
+docker exec --env MYSQL_PWD="$MYSQL_ROOT_PASSWORD" "$container" sh -c '
+  mysql --protocol=tcp -h 127.0.0.1 -u root -e "CREATE DATABASE m02_regression CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin; GRANT ALL PRIVILEGES ON m02_regression.* TO '\''m04_test'\''@'\''%'\'';"
+'
 export M04_TEST_DB_URL="jdbc:mysql://${port}/m04_schema_test?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true&allowPublicKeyRetrieval=true&sslMode=DISABLED"
 export M04_TEST_DB_USER=m04_test
 export M04_TEST_DB_PASSWORD=$MYSQL_PASSWORD
+export M02_TEST_DB_URL="jdbc:mysql://${port}/m02_regression?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true&allowPublicKeyRetrieval=true&sslMode=DISABLED"
+export M02_TEST_DB_USER=m04_test
+export M02_TEST_DB_PASSWORD=$MYSQL_PASSWORD
 unset MYSQL_ROOT_PASSWORD MYSQL_PASSWORD
-mvn -version
-mvn -B -ntp -f "$module/pom.xml" verify "$@"
+"${maven[@]}" -version
+"${maven[@]}" -B -ntp -f "$module/../posts/pom.xml" verify "$@"
+"${maven[@]}" -B -ntp -f "$module/../posts/pom.xml" install -DskipTests
+"${maven[@]}" -B -ntp -f "$module/pom.xml" verify "$@"

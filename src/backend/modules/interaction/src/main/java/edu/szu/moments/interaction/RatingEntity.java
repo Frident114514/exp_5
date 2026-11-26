@@ -34,6 +34,14 @@ public class RatingEntity {
 
     protected RatingEntity() {}
 
+    RatingEntity(long postId, long userId, int score, Instant now) {
+        this.postId = postId;
+        this.userId = userId;
+        this.score = score;
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
     public Long getId() { return id; }
     public long getPostId() { return postId; }
     public long getUserId() { return userId; }
