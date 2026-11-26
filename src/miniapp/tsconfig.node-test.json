@@ -8,10 +8,13 @@
     "skipLibCheck": true,
     "outDir": ".node-test",
     "rootDir": ".",
-    "types": ["node"]
+    "types": ["node", "@dcloudio/types"]
   },
   "include": [
-    "src/api/**/*.ts",
+    "src/api/httpPostApi.ts",
+    "src/api/mockPostApi.ts",
+    "src/api/session.ts",
+    "src/api/types.ts",
     "src/utils/postRules.ts",
     "tests-node/**/*.ts"
   ]

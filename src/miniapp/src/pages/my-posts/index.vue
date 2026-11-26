@@ -10,8 +10,8 @@
       <view class="summary-row">
         <view class="summary-card">
           <text class="summary-card__label">当前作者</text>
-          <text class="summary-card__value">{{ currentUser.nickname }}</text>
-          <text class="summary-card__hint">作者 ID {{ currentUser.id }}</text>
+          <text class="summary-card__value">{{ currentUser?.nickname ?? '未登录' }}</text>
+          <text class="summary-card__hint">作者 ID {{ currentUser?.id ?? '—' }}</text>
         </view>
         <view class="summary-card summary-card--accent">
           <text class="summary-card__label">本人动态</text>
@@ -62,7 +62,7 @@
       </view>
 
       <view v-else-if="!loading" class="post-list">
-        <PostCard
+        <OwnPostCard
           v-for="post in posts"
           :key="post.id"
           :post="post"
@@ -103,14 +103,15 @@
 import { computed, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import AppHeader from '@/components/AppHeader.vue'
-import PostCard from '@/components/PostCard.vue'
+import OwnPostCard from '@/components/OwnPostCard.vue'
 import StatusPanel from '@/components/StatusPanel.vue'
-import { getPostApi, CURRENT_USER, mockPostApi } from '@/api/runtime'
+import { ensureCurrentUser, getCurrentUser, getPostApi } from '@/api/runtime'
+import type { AuthUser } from '@/api/session'
 import type { PostView } from '@/api/types'
 import { getErrorMessage } from '@/utils/errors'
 
 const PAGE_SIZE = 5
-const currentUser = mockPostApi.getCurrentUser()
+const currentUser = ref<AuthUser | null>(getCurrentUser())
 const posts = ref<PostView[]>([])
 const page = ref(1)
 const total = ref(0)

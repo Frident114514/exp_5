@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-26",
+  "baseMainCommit": "1fcdb38",
+  "typecheck": "passed",
+  "nodeTests": {
+    "passed": 14,
+    "failed": 0
+  },
+  "realRuntimeDefault": true,
+  "mockRequiresEnv": "VITE_MINIAPP_USE_MOCK=true",
+  "cardSplit": "OwnPostCard.vue",
+  "miniappLockfile": "pnpm-lock.yaml",
+  "adminLockfile": "package-lock.json",
+  "vitest": "blocked: spawn EPERM in Codex sandbox",
+  "mpWeixinBuild": "blocked: spawn EPERM in Codex sandbox",
+  "liveBackend": "not run: 127.0.0.1:3306 and 127.0.0.1:8080 closed"
+}

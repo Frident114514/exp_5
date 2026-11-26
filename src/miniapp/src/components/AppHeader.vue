@@ -4,7 +4,7 @@
       <text class="hero__eyebrow">{{ eyebrow }}</text>
       <view class="hero__mode">
         <view class="hero__dot" />
-        <text>Mock 契约演示</text>
+        <text>{{ isUsingMock ? 'Mock 契约演示' : '真实接口模式' }}</text>
       </view>
     </view>
     <text class="hero__title">{{ title }}</text>
@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { isUsingMock } from '@/api/runtime'
+
 defineProps<{
   eyebrow: string
   title: string

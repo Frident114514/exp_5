@@ -4,3 +4,4 @@ dist/
 *.log
 .node-test/
 .pnpm-store/
+package-lock.json

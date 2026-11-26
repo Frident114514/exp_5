@@ -1,6 +1,6 @@
 # 多媒体朋友圈小程序 · M06 第一周
 
-本工程是 M06 第一周的独立开发版本，完成纯文本动态发布、我的动态分页列表、本人编辑和删除流程。真实接口尚未合入时使用符合 API 契约的 Mock 服务，页面顶部会持续标明 Mock 模式。
+本工程完成 M06 第一周的纯文本动态发布、我的动态分页列表、本人编辑和删除流程。运行时默认调用真实后端；Mock 服务只用于显式离线测试。
 
 ## 第一周范围
 
@@ -19,6 +19,25 @@
 | 发布动态 | `/pages/publish/index` | 无 |
 | 编辑动态 | `/pages/edit/index` | `id`：动态 ID |
 
+## 包管理器约定
+
+本小程序工程统一使用 **pnpm**，以 `pnpm-lock.yaml` 为唯一锁文件：
+
+```powershell
+pnpm install
+```
+
+不要在本目录创建或提交 `package-lock.json`；修改依赖后使用 pnpm 更新 `pnpm-lock.yaml`。管理后台 `src/admin-web` 是独立工程，继续使用 npm 和它自己的 `package-lock.json`。
+## 登录态与真实接口
+
+真实模式通过 `src/api/session.ts` 读取 M05 登录态。M05 登录成功后应调用：
+
+```ts
+saveAuthSession({ accessToken, expiresAt, user })
+```
+
+统一存储键为 `moments.auth.session`，同时兼容旧格式的 token/user 分键。真实请求会自动附加 `Authorization: Bearer <accessToken>`，并判断 HTTP 状态与 `{code,data,message}` 响应信封。
+只有显式设置 `VITE_MINIAPP_USE_MOCK=true` 时才启用本地 Mock。
 ## 本地运行
 
 要求 Node.js 20 或 22 LTS；当前代码已使用 Node.js 24 完成类型检查。

@@ -20,8 +20,11 @@
 
         <view class="mock-note">
           <view class="mock-note__dot" />
-          <text>
+          <text v-if="isUsingMock">
             当前使用符合 POST /api/v1/posts 契约的 Mock 服务；真实接口由 M02 合入后替换。
+          </text>
+          <text v-else>
+            当前调用真实 POST /api/v1/posts；登录状态由 M05 公共会话提供。
           </text>
         </view>
 
@@ -45,7 +48,7 @@
           </text>
         </view>
 
-        <view class="failure-toggle">
+        <view v-if="isUsingMock" class="failure-toggle">
           <view class="failure-toggle__copy">
             <text class="failure-toggle__title">模拟下一次网络失败</text>
             <text class="failure-toggle__hint">仅用于课堂演示失败提示与重试，不影响真实接口</text>
