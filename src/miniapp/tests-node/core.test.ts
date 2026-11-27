@@ -1,6 +1,19 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
+import {
+  createHttpPostApi,
+  type HttpRequestOptions,
+  type HttpTransport,
+} from '../src/api/httpPostApi'
 import { MockPostApi } from '../src/api/mockPostApi'
+import {
+  AUTH_SESSION_STORAGE_KEY,
+  isSessionExpired,
+  readAuthSession,
+  saveAuthSession,
+  type AuthSession,
+  type KeyValueStorage,
+} from '../src/api/session'
 import type { PostAuthor, PostView } from '../src/api/types'
 import {
   countCodePoints,
@@ -124,5 +137,61 @@ describe('MockPostApi 第一周契约行为', () => {
     await assert.rejects(api.create({ text: '标签', mediaIds: [], tags: ['校园'] }), {
       code: 'VALIDATION_ERROR',
     })
+  })
+})
+describe('登录态与真实 PostApi 适配', () => {
+  it('读取 M05 统一会话键中的真实用户', () => {
+    const values = new Map<string, unknown>()
+    const storage: KeyValueStorage = {
+      get<T>(key: string) { return values.get(key) as T | undefined },
+      set<T>(key: string, value: T) { values.set(key, value) },
+      remove(key: string) { values.delete(key) },
+    }
+    const session: AuthSession = {
+      accessToken: 'token-real',
+      expiresAt: '2099-01-01T00:00:00Z',
+      user: { id: 7, account: 'real_user', nickname: '真实用户', role: 'USER' },
+    }
+
+    saveAuthSession(session, storage)
+
+    assert.equal(values.has(AUTH_SESSION_STORAGE_KEY), true)
+    assert.deepEqual(readAuthSession(storage), session)
+    assert.equal(isSessionExpired(session, Date.parse('2098-01-01T00:00:00Z')), false)
+  })
+
+  it('兼容 token 与 user 分键保存的登录态', () => {
+    const storage: KeyValueStorage = {
+      get<T>(key: string) {
+        if (key === 'accessToken') return 'separate-token' as T
+        if (key === 'currentUser') return { id: 8, nickname: '分键用户' } as T
+        return undefined
+      },
+      set() {},
+      remove() {},
+    }
+
+    assert.deepEqual(readAuthSession(storage), {
+      accessToken: 'separate-token',
+      user: { id: 8, nickname: '分键用户', account: undefined, role: undefined },
+    })
+  })
+
+  it('真实 PostApi 保留 PATCH 方法并映射业务错误码', async () => {
+    const calls: Array<{ path: string; method: string }> = []
+    const transport: HttpTransport = {
+      async request<T>(options: HttpRequestOptions) {
+        calls.push({ path: options.path, method: options.method })
+        return {
+          code: 'FORBIDDEN',
+          data: null,
+          message: '只能管理本人动态',
+        } as { code: string; data: T; message: string }
+      },
+    }
+    const api = createHttpPostApi(transport)
+
+    await assert.rejects(api.edit(7, { text: '修改' }), { code: 'FORBIDDEN' })
+    assert.deepEqual(calls, [{ path: '/posts/7', method: 'PATCH' }])
   })
 })

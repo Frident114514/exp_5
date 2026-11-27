@@ -1,6 +1,7 @@
 import {
   PostApiError,
   type ApiEnvelope,
+  type ApiErrorCode,
   type CreatePostRequest,
   type CreatedPost,
   type EditPostRequest,
@@ -19,9 +20,24 @@ export interface HttpTransport {
   request<T>(options: HttpRequestOptions): Promise<ApiEnvelope<T>>
 }
 
+function errorCode(value: string): ApiErrorCode {
+  const known: ApiErrorCode[] = [
+    'VALIDATION_ERROR',
+    'UNAUTHENTICATED',
+    'FORBIDDEN',
+    'NOT_FOUND',
+    'CONFLICT',
+    'NETWORK_ERROR',
+    'DEPENDENCY_UNAVAILABLE',
+  ]
+  return known.includes(value as ApiErrorCode)
+    ? (value as ApiErrorCode)
+    : 'DEPENDENCY_UNAVAILABLE'
+}
+
 function unwrap<T>(response: ApiEnvelope<T>): T {
   if (response.code !== 'OK') {
-    throw new PostApiError('DEPENDENCY_UNAVAILABLE', response.message || '请求失败')
+    throw new PostApiError(errorCode(response.code), response.message || '请求失败')
   }
   return response.data
 }

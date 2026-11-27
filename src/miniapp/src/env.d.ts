@@ -12,6 +12,7 @@ declare module '*.vue' {
  * 两个历史名字都支持，读到任意一个即可：M07 用 VITE_API_BASE_URL，M05 用 VITE_MINIAPP_API_BASE_URL。
  */
 interface ImportMetaEnv {
+  readonly VITE_MINIAPP_USE_MOCK?: string
   readonly VITE_API_BASE_URL?: string
   readonly VITE_MINIAPP_API_BASE_URL?: string
   readonly VITE_MINIAPP_MEDIA_ORIGIN?: string

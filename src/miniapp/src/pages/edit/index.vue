@@ -88,7 +88,7 @@ import { computed, ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import AppHeader from '@/components/AppHeader.vue'
 import StatusPanel from '@/components/StatusPanel.vue'
-import { getPostApi, mockPostApi } from '@/api/runtime'
+import { ensureCurrentUser, getPostApi } from '@/api/runtime'
 import type { PostView } from '@/api/types'
 import { countCodePoints, POST_TEXT_MAX_LENGTH, validateEditedText } from '@/utils/postRules'
 import { getErrorMessage } from '@/utils/errors'
@@ -97,7 +97,6 @@ import { formatDateTime } from '@/utils/format'
 type LoadStatus = 'loading' | 'ready' | 'error'
 type SaveStatus = 'idle' | 'submitting' | 'success' | 'error'
 
-const currentUser = mockPostApi.getCurrentUser()
 const post = ref<PostView | null>(null)
 const text = ref('')
 const loadStatus = ref<LoadStatus>('loading')
@@ -130,6 +129,7 @@ async function loadPost(postId: number): Promise<void> {
   loadError.value = ''
 
   try {
+    const currentUser = await ensureCurrentUser()
     const result = await getPostApi().detail(postId)
     if (result.author.id !== currentUser.id) {
       throw new Error('只能编辑本人动态')

@@ -36,8 +36,8 @@ pnpm dev:h5             # 浏览器预览（仅看样式）
 | 命令 | 内容 |
 | --- | --- |
 | `pnpm type-check` | `vue-tsc --noEmit`，覆盖 src 与 tests |
-| `pnpm test` | Vitest：M05 的请求层/登录态/守卫/表单/组件 + M06 的 mock 与规则（116 项） |
-| `pnpm test:node` | M06 的 node:test 契约测试（11 项，`tests-node/`） |
+| `pnpm test` | Vitest：M05 的请求层/登录态/守卫/表单/组件 + M06 的 mock 与规则（118 项） |
+| `pnpm test:node` | M06 的 node:test 契约测试（14 项，`tests-node/`） |
 | `pnpm test:m07` | M07 的 node:test 测试（26 项，`node tests/index.ts`） |
 | `pnpm verify` | 依次执行 type-check、test、test:node、test:m07 |
 
@@ -51,9 +51,9 @@ pnpm dev:h5             # 浏览器预览（仅看样式）
 - `src/utils/format.ts`：合并两套时间/评分格式化，`formatDateTime` 兼容空值。
 - `src/stores/auth.ts`：登录态（`moments.auth.v1`），请求层按需加载，避免纯 Node 测试被 vue 依赖卡住。
 
-## 尚未接线（按文档由对应成员完成）
+## 第一周接口接线
 
-- **M06**：`src/api/runtime.ts` 仍固定走 `mockPostApi` 且用户写死 6006；需要改为 `createHttpPostApi(envelopeTransport)`，并让编辑页从已登录用户取 id。接口适配器已备好，改一行接线即可。
+- **M06**：发布、本人列表、编辑和删除默认通过 `envelopeTransport` 调用真实后端，与 M05/M07 共用 `moments.auth.v1` 登录态和 HTTP 请求层。仅显式设置 `VITE_MINIAPP_USE_MOCK=true` 时使用模拟数据。
 - **M07**：`pages/square`、`pages/detail` 已接真实列表/详情接口；后续筛选、评分、评论按计划追加。
 - 媒体（图片/视频）、标签、评分提交、评论本周不做，页面使用占位。
 
