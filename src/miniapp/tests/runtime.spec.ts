@@ -2,6 +2,9 @@ import { beforeEach, expect, it } from 'vitest'
 import { installUniStub, type UniStub } from './helpers/uni-stub'
 import { authStore, resetAuthStoreForTest } from '../src/stores/auth'
 import { ensureCurrentUser, getCurrentUser, getPostApi, isUsingMock } from '../src/api/runtime'
+import { createClient } from '../src/api/client'
+import { createPostsApi } from '../src/api/posts'
+import { authTransport } from '../src/api/transport'
 
 let stub: UniStub
 const user = { id: 7, account: 'actual_user', nickname: '当前用户', role: 'USER' as const }
@@ -32,4 +35,13 @@ it('作者接口收到 401 后清除 M05 登录态并报告失败', async () => 
   await expect(getPostApi().mine(1, 5)).rejects.toMatchObject({ code: 'UNAUTHENTICATED' })
   expect(authStore.isLoggedIn).toBe(false)
   expect(getCurrentUser()).toBeNull()
+})
+
+it('广场使用 H5 同源地址时只拼接一次 API 前缀', async () => {
+  stub.respond(request => request.success?.({ statusCode: 200, data: {
+    code: 'OK', data: { items: [], total: 0, page: 1, pageSize: 10 }, message: '',
+  } }))
+  const api = createPostsApi(createClient({ baseUrl: '/api/v1', transport: authTransport }))
+  expect((await api.list()).items).toEqual([])
+  expect(stub.calls.requests[0].url).toBe('/api/v1/posts?page=1&pageSize=10')
 })

@@ -31,12 +31,14 @@ pnpm dev:h5             # 浏览器预览（仅看样式）
 
 服务端地址默认 `http://127.0.0.1:8080/api/v1`。复制 `.env.local.example` 为 `.env.local` 可改 `VITE_API_BASE_URL`（也兼容 M05 的 `VITE_MINIAPP_API_BASE_URL`），改后需重启编译。
 
+H5 未显式配置 API 地址时使用同源 `/api/v1`，Vite 开发代理默认转发至 `http://127.0.0.1:8080`；可通过 `VITE_DEV_API_TARGET` 修改代理目标。生产 H5 需配置同源反向代理或允许跨域的完整 API 地址，开发代理不会随构建产物发布。
+
 ## 校验与测试（三套入口都保留）
 
 | 命令 | 内容 |
 | --- | --- |
 | `pnpm type-check` | `vue-tsc --noEmit`，覆盖 src 与 tests |
-| `pnpm test` | Vitest：M05 的请求层/登录态/守卫/表单/组件 + M06 的 mock 与规则（118 项） |
+| `pnpm test` | Vitest：M05 的请求层/登录态/守卫/表单/组件 + M06 的 mock 与规则（119 项） |
 | `pnpm test:node` | M06 的 node:test 契约测试（14 项，`tests-node/`） |
 | `pnpm test:m07` | M07 的 node:test 测试（26 项，`node tests/index.ts`） |
 | `pnpm verify` | 依次执行 type-check、test、test:node、test:m07 |

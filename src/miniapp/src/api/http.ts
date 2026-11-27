@@ -298,6 +298,8 @@ export function del<T>(path: string, query?: Record<string, QueryValue>, options
  * ========================================================================== */
 
 export interface RawRequestOptions {
+  /** client 已拼好 API 前缀时，保留原 URL（包括 H5 同源地址）。 */
+  resolvedUrl?: boolean
   /** 完整 URL 或相对路径（相对路径按 API 基础地址拼接）。 */
   url: string
   method?: HttpMethod
@@ -315,7 +317,7 @@ export interface RawResponse {
 
 export async function requestRaw(options: RawRequestOptions): Promise<RawResponse> {
   const tokenBeforeRequest = await readToken(options.withAuth !== false)
-  const url = /^https?:\/\//i.test(options.url) ? options.url : buildApiUrl(options.url)
+  const url = options.resolvedUrl || /^https?:\/\//i.test(options.url) ? options.url : buildApiUrl(options.url)
   const header: Record<string, string> = { Accept: 'application/json', ...(options.header ?? {}) }
   if (tokenBeforeRequest) {
     header.Authorization = `Bearer ${tokenBeforeRequest}`

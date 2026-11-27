@@ -17,6 +17,7 @@ import type { ApiEnvelope } from './types.ts'
 export const authTransport: HttpTransport = async (options) => {
   const response = await requestRaw({
     url: options.url,
+    resolvedUrl: true,
     method: options.method,
     data: options.data,
     header: options.header,
