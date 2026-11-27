@@ -85,3 +85,7 @@ $env:MOMENTS_ADMIN_NICKNAME = '项目管理员'
 禁用事务内按 ID 升序持有用户行锁，复核管理员状态及令牌版本，同步发布 `edu.szu.moments.auth.UserDisabled`。`UserDisabledCleanup` 已在同一事务调用动态隐藏与评论/评分清理，失败整体回滚；不要重复注册清理监听器。正式迁移使用 V3 动态、V4 媒体、V5 互动，V1/V2 保持不变。主工程公开 GET 动态列表/详情/评论和已发布媒体，管理路径仍限定 ADMIN。multipart 文件上限 50 MB、请求上限 52 MB，业务图片限制仍为 10 MB。
 
 2026-11-26 主工程接入后，独立 MySQL 8.4.13 上 31 项测试全部通过、打包成功；真实禁用清理及失败回滚见 [测试证据](../../tests/evidence/M01/integration-2026-11-26/README.md)。各模块接续任务、接口字段与验收范围见 [成员交接](../../specs/handoff-2026-11-26.md)。完整页面与媒体等流程仍由对应负责人联调。
+
+## 好友与管理员统计
+
+M01 新增好友申请/处理/解除、真实业务每日活跃记录、管理员统计接口；启动自动执行 V6。字段、错误码、分页、统计口径和 M02/M05/M08 接入方式见 [完整约定](../../specs/contracts/m01-social-statistics.md)，[真实 MySQL 回归记录](../../tests/evidence/M01/social-statistics-2026-11-27/README.md)。原有准入配置和诊断脚本保持可用。

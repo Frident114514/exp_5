@@ -36,10 +36,13 @@ public class InteractionService implements RatingPort {
     private final PostAccess posts;
     private final IdentityPort identity;
     private final Clock clock;
+    private final org.springframework.context.ApplicationEventPublisher events;
 
     public InteractionService(RatingRepository ratings, CommentRepository comments,
                               AuthorRepository authors, PostAccess posts,
-                              IdentityPort identity, @Qualifier("interactionClock") Clock clock) {
+                              IdentityPort identity, @Qualifier("interactionClock") Clock clock,
+                              org.springframework.context.ApplicationEventPublisher events) {
+        this.events = events;
         this.ratings = ratings;
         this.comments = comments;
         this.authors = authors;
@@ -60,6 +63,7 @@ public class InteractionService implements RatingPort {
         rejectAuthor(actor, post);
 
         ratings.upsert(postId, actor.id(), score, clock.instant());
+        events.publishEvent(new edu.szu.moments.posts.UserActivity(actor.id()));
         return new RatingResult(score, summarize(Set.of(postId)).get(postId));
     }
 
@@ -78,6 +82,7 @@ public class InteractionService implements RatingPort {
         if (author == null) {
             throw PostFailure.dependency();
         }
+        events.publishEvent(new edu.szu.moments.posts.UserActivity(actor.id()));
         return new CommentView(saved.getId(), author, saved.getContent(), saved.getCreatedAt());
     }
 

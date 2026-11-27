@@ -24,11 +24,14 @@ public class PostService {
     private final RatingPort ratings;
     private final AdminAuditPort audit;
     private final Clock clock;
+    private final org.springframework.context.ApplicationEventPublisher events;
 
     public PostService(PostRepository posts, TagRepository tags, AuthorRepository authors,
                        PostAccess access, IdentityPort identity, MediaPort media,
                        RatingPort ratings, AdminAuditPort audit,
-                       @Qualifier("postsClock") Clock clock) {
+                       @Qualifier("postsClock") Clock clock,
+                       org.springframework.context.ApplicationEventPublisher events) {
+        this.events = events;
         this.posts = posts;
         this.tags = tags;
         this.authors = authors;
@@ -50,6 +53,7 @@ public class PostService {
         post.edit(change.text(), resolveTags(change.tags()), now);
         posts.saveAndFlush(post);
         media.replaceBindings(actor.id(), post.getId(), change.mediaIds(), now);
+        events.publishEvent(new UserActivity(actor.id()));
         return new CreatedPost(post.getId());
     }
 
@@ -70,6 +74,7 @@ public class PostService {
             media.replaceBindings(actor.id(), id, mediaIds, now);
         }
         posts.flush();
+        events.publishEvent(new UserActivity(actor.id()));
         return views(List.of(post)).getFirst();
     }
 

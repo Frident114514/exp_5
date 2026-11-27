@@ -1,0 +1,209 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< edu.szu.moments:moments-backend >-------------------
+[INFO] Building moments-backend 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-source (module-sources) @ moments-backend ---
+[INFO] Source directory: D:\��������\ʵ��5\exp_5\src\backend\modules\posts\src\main\java added.
+[INFO] Source directory: D:\��������\ʵ��5\exp_5\src\backend\modules\media\src\main\java added.
+[INFO] Source directory: D:\��������\ʵ��5\exp_5\src\backend\modules\interaction\src\main\java added.
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ moments-backend ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 6 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:copy-resources (module-resources) @ moments-backend ---
+[INFO] Copying 1 resource from modules\posts\src\main\resources to target\classes
+[INFO] Copying 1 resource from modules\media\src\main\resources to target\classes
+[INFO] Copying 1 resource from modules\interaction\src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ moments-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 77 source files with javac [debug parameters release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ moments-backend ---
+[INFO] skip non existing resourceDirectory D:\��������\ʵ��5\exp_5\src\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ moments-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug parameters release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ moments-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running edu.szu.moments.api.M01DiagnosticsTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.468 s -- in edu.szu.moments.api.M01DiagnosticsTest
+[INFO] Running edu.szu.moments.auth.AuthAdmissionTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.693 s -- in edu.szu.moments.auth.AuthAdmissionTest
+[INFO] Running edu.szu.moments.auth.AuthIntegrationTest
+15:49:24.776 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [edu.szu.moments.auth.AuthIntegrationTest]: AuthIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:49:25.223 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration edu.szu.moments.MomentsApplication for test class edu.szu.moments.auth.AuthIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-27T15:49:26.322+08:00  INFO 14216 --- [moments-backend] [           main] e.szu.moments.auth.AuthIntegrationTest   : Starting AuthIntegrationTest using Java 21.0.8 with PID 14216 (started by houjiankai in D:\��������\ʵ��5\exp_5\src\backend)
+2026-11-27T15:49:26.324+08:00  INFO 14216 --- [moments-backend] [           main] e.szu.moments.auth.AuthIntegrationTest   : No active profile set, falling back to 1 default profile: "default"
+2026-11-27T15:49:27.805+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:27.895+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 2 JPA repository interfaces.
+2026-11-27T15:49:27.901+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:27.918+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2026-11-27T15:49:27.937+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:27.969+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 3 JPA repository interfaces.
+2026-11-27T15:49:27.972+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:27.997+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 1 JPA repository interface.
+2026-11-27T15:49:30.241+08:00  INFO 14216 --- [moments-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-11-27T15:49:30.273+08:00  INFO 14216 --- [moments-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-27T15:49:30.274+08:00  INFO 14216 --- [moments-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-27T15:49:30.467+08:00  INFO 14216 --- [moments-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-27T15:49:30.469+08:00  INFO 14216 --- [moments-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4087 ms
+2026-11-27T15:49:31.548+08:00  INFO 14216 --- [moments-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-27T15:49:32.376+08:00  INFO 14216 --- [moments-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@35841d6
+2026-11-27T15:49:32.381+08:00  INFO 14216 --- [moments-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-27T15:49:32.490+08:00  INFO 14216 --- [moments-backend] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://127.0.0.1:59764/moments_m01_test (MySQL 8.4)
+2026-11-27T15:49:33.597+08:00  WARN 14216 --- [moments-backend] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-11-27T15:49:33.660+08:00  INFO 14216 --- [moments-backend] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `moments_m01_test`.`flyway_schema_history` does not exist yet
+2026-11-27T15:49:33.665+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.049s)
+2026-11-27T15:49:33.701+08:00  INFO 14216 --- [moments-backend] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `moments_m01_test`.`flyway_schema_history` ...
+2026-11-27T15:49:33.810+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `moments_m01_test`: << Empty Schema >>
+2026-11-27T15:49:33.826+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `moments_m01_test` to version "1 - users"
+2026-11-27T15:49:33.909+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `moments_m01_test` to version "2 - admin operation logs"
+2026-11-27T15:49:33.979+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `moments_m01_test` to version "3 - posts"
+2026-11-27T15:49:34.117+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `moments_m01_test` to version "4 - media"
+2026-11-27T15:49:34.194+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `moments_m01_test` to version "5 - interaction"
+2026-11-27T15:49:34.306+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `moments_m01_test` to version "6 - friends and daily activity"
+2026-11-27T15:49:34.556+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 6 migrations to schema `moments_m01_test`, now at version v6 (execution time 00:00.537s)
+2026-11-27T15:49:34.856+08:00  INFO 14216 --- [moments-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-27T15:49:35.014+08:00  INFO 14216 --- [moments-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.53.Final
+2026-11-27T15:49:35.075+08:00  INFO 14216 --- [moments-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-27T15:49:35.629+08:00  INFO 14216 --- [moments-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-27T15:49:35.810+08:00  INFO 14216 --- [moments-backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.4.13
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-27T15:49:35.861+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.252+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.256+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.257+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.258+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.258+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.259+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.259+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.260+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:36.310+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:37.665+08:00  INFO 14216 --- [moments-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-27T15:49:37.727+08:00  INFO 14216 --- [moments-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-27T15:49:38.379+08:00  INFO 14216 --- [moments-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-27T15:49:43.344+08:00  INFO 14216 --- [moments-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 59800 (http) with context path '/'
+2026-11-27T15:49:43.361+08:00  INFO 14216 --- [moments-backend] [           main] e.szu.moments.auth.AuthIntegrationTest   : Started AuthIntegrationTest in 17.871 seconds (process running for 26.802)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\houjiankai\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-11-27T15:49:48.214+08:00  INFO 14216 --- [moments-backend] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-27T15:49:48.215+08:00  INFO 14216 --- [moments-backend] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-27T15:49:48.217+08:00  INFO 14216 --- [moments-backend] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-11-27T15:49:55.612+08:00  WARN 14216 --- [moments-backend] [o-auto-1-exec-3] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1062, SQLState: 23000
+2026-11-27T15:49:55.612+08:00 ERROR 14216 --- [moments-backend] [o-auto-1-exec-3] o.h.engine.jdbc.spi.SqlExceptionHelper   : Duplicate entry 't_efdbb80c76d74b5e85e8' for key 'users.uk_users_account'
+[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 34.03 s -- in edu.szu.moments.auth.AuthIntegrationTest
+[INFO] Running edu.szu.moments.auth.SocialStatisticsIntegrationTest
+2026-11-27T15:49:58.661+08:00  INFO 14216 --- [moments-backend] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [edu.szu.moments.auth.SocialStatisticsIntegrationTest]: SocialStatisticsIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-27T15:49:58.664+08:00  INFO 14216 --- [moments-backend] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration edu.szu.moments.MomentsApplication for test class edu.szu.moments.auth.SocialStatisticsIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-27T15:49:58.721+08:00  INFO 14216 --- [moments-backend] [           main] e.s.m.a.SocialStatisticsIntegrationTest  : Starting SocialStatisticsIntegrationTest using Java 21.0.8 with PID 14216 (started by houjiankai in D:\��������\ʵ��5\exp_5\src\backend)
+2026-11-27T15:49:58.722+08:00  INFO 14216 --- [moments-backend] [           main] e.s.m.a.SocialStatisticsIntegrationTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-27T15:49:59.126+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:59.141+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 2 JPA repository interfaces.
+2026-11-27T15:49:59.141+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:59.155+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 1 JPA repository interface.
+2026-11-27T15:49:59.155+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:59.173+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 3 JPA repository interfaces.
+2026-11-27T15:49:59.174+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-27T15:49:59.193+08:00  INFO 14216 --- [moments-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 1 JPA repository interface.
+2026-11-27T15:49:59.378+08:00  INFO 14216 --- [moments-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-11-27T15:49:59.380+08:00  INFO 14216 --- [moments-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-27T15:49:59.381+08:00  INFO 14216 --- [moments-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-27T15:49:59.529+08:00  INFO 14216 --- [moments-backend] [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-11-27T15:49:59.530+08:00  INFO 14216 --- [moments-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 804 ms
+2026-11-27T15:49:59.588+08:00  INFO 14216 --- [moments-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-11-27T15:49:59.611+08:00  INFO 14216 --- [moments-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@46061e1c
+2026-11-27T15:49:59.623+08:00  INFO 14216 --- [moments-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-11-27T15:49:59.634+08:00  INFO 14216 --- [moments-backend] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://127.0.0.1:59764/moments_m01_test (MySQL 8.4)
+2026-11-27T15:49:59.643+08:00  WARN 14216 --- [moments-backend] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.1.
+2026-11-27T15:49:59.684+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.038s)
+2026-11-27T15:49:59.695+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `moments_m01_test`: 6
+2026-11-27T15:49:59.696+08:00  INFO 14216 --- [moments-backend] [           main] o.f.core.internal.command.DbMigrate      : Schema `moments_m01_test` is up to date. No migration necessary.
+2026-11-27T15:49:59.736+08:00  INFO 14216 --- [moments-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-27T15:49:59.743+08:00  INFO 14216 --- [moments-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-27T15:49:59.768+08:00  INFO 14216 --- [moments-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-27T15:49:59.773+08:00  INFO 14216 --- [moments-backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.4.13
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-27T15:49:59.774+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.817+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.818+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.818+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.818+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.819+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.819+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.819+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.820+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.827+08:00  WARN 14216 --- [moments-backend] [           main] org.hibernate.orm.incubating             : HHH90006001: Encountered incubating setting [hibernate.type.preferred_instant_jdbc_type].  See javadoc on corresponding `org.hibernate.cfg.AvailableSettings` constant for details.
+2026-11-27T15:49:59.930+08:00  INFO 14216 --- [moments-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-27T15:49:59.944+08:00  INFO 14216 --- [moments-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-27T15:50:00.447+08:00  INFO 14216 --- [moments-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 59828 (http) with context path '/'
+2026-11-27T15:50:00.451+08:00  INFO 14216 --- [moments-backend] [           main] e.s.m.a.SocialStatisticsIntegrationTest  : Started SocialStatisticsIntegrationTest in 1.782 seconds (process running for 43.893)
+2026-11-27T15:50:00.472+08:00  INFO 14216 --- [moments-backend] [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-27T15:50:00.472+08:00  INFO 14216 --- [moments-backend] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-27T15:50:00.473+08:00  INFO 14216 --- [moments-backend] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.184 s -- in edu.szu.moments.auth.SocialStatisticsIntegrationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 39, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ moments-backend ---
+[INFO] Building jar: D:\��������\ʵ��5\exp_5\src\backend\target\moments-backend-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (repackage) @ moments-backend ---
+[INFO] Replacing main artifact D:\��������\ʵ��5\exp_5\src\backend\target\moments-backend-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to D:\��������\ʵ��5\exp_5\src\backend\target\moments-backend-0.1.0-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:10 min
+[INFO] Finished at: 2026-11-27T15:50:11+08:00
+[INFO] ------------------------------------------------------------------------
+Isolated MySQL logs: C:\Users\HOUJIA~1\AppData\Local\Temp\moments-m01-verify-7850b4f0e4c645878fc801fb5f4ea8f8\mysql.log

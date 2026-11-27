@@ -29,8 +29,11 @@ class AuthService {
     private final PasswordEncoder passwords;
     private final JwtEncoder encoder;
     private final String missingUserHash;
+    private final org.springframework.context.ApplicationEventPublisher events;
 
-    AuthService(UserRepository users, PasswordEncoder passwords, JwtEncoder encoder) {
+    AuthService(UserRepository users, PasswordEncoder passwords, JwtEncoder encoder,
+                org.springframework.context.ApplicationEventPublisher events) {
+        this.events = events;
         this.users = users;
         this.passwords = passwords;
         this.encoder = encoder;
@@ -63,7 +66,8 @@ class AuthService {
         }
     }
 
-    AuthController.LoginResult login(AuthController.Credentials request) {
+    @Transactional
+    public AuthController.LoginResult login(AuthController.Credentials request) {
         String account = normalizeAccount(request.account());
         // Invalid credential shapes use the same response as unknown accounts and wrong passwords.
         if (account == null || !validPassword(request.password())) {
@@ -83,6 +87,7 @@ class AuthService {
                 .claim("ver", user.tokenVersion()).build();
         String token = encoder.encode(JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims))
                 .getTokenValue();
+        events.publishEvent(new edu.szu.moments.posts.UserActivity(user.id()));
         return new AuthController.LoginResult(token, expiresAt, user.profile());
     }
 
