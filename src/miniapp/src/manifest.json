@@ -1,12 +1,12 @@
 {
   "name": "多媒体朋友圈",
-  "appid": "__UNI__M06WEEK1",
-  "description": "M06 第一周作者工作台",
+  "appid": "__UNI__MOMENTS",
+  "description": "多媒体朋友圈展示系统 · 用户小程序（M05/M06/M07 合并工程）",
   "versionName": "0.1.0",
   "versionCode": "1",
   "transformPx": false,
   "h5": {
-    "title": "多媒体朋友圈 · M06",
+    "title": "多媒体朋友圈",
     "router": {
       "mode": "hash"
     }

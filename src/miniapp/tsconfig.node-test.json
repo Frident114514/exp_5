@@ -11,8 +11,12 @@
     "types": ["node"]
   },
   "include": [
-    "src/api/**/*.ts",
+    "src/api/types.ts",
+    "src/api/mockPostApi.ts",
+    "src/api/httpPostApi.ts",
+    "src/api/runtime.ts",
     "src/utils/postRules.ts",
     "tests-node/**/*.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "dist", ".node-test"]
 }

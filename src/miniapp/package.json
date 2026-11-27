@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "description": "多媒体朋友圈展示系统 · 用户小程序（uni-app + Vue 3 + TypeScript，M05/M06/M07 合并工程）",
   "scripts": {
-    "dev:h5": "uni",
     "dev:mp-weixin": "uni -p mp-weixin",
-    "build:h5": "uni build",
     "build:mp-weixin": "uni build -p mp-weixin",
-    "typecheck": "vue-tsc --noEmit",
+    "dev:h5": "uni",
+    "build:h5": "uni build",
+    "mock": "node mock/mock-server.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:node": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/run-node-tests.ps1",
-    "verify": "pnpm typecheck && pnpm test:node"
+    "test:m07": "node tests/index.ts",
+    "type-check": "vue-tsc --noEmit",
+    "typecheck": "vue-tsc --noEmit",
+    "verify": "pnpm type-check && pnpm test && pnpm test:node && pnpm test:m07"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-alpha-5030820261124002",
@@ -26,9 +30,14 @@
     "@dcloudio/types": "3.4.31",
     "@dcloudio/vite-plugin-uni": "3.0.0-alpha-5030820261124002",
     "@types/node": "22.10.2",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^25.0.1",
+    "rollup": "4.68.8",
+    "sass": "1.77.8",
     "typescript": "5.4.5",
     "vite": "5.2.8",
     "vitest": "1.6.1",
-    "vue-tsc": "2.0.29"
+    "vue-tsc": "2.2.10"
   }
 }

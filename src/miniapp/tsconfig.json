@@ -10,19 +10,20 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["@dcloudio/types", "node", "vitest/globals"],
+    "types": ["@dcloudio/types", "node", "vitest/globals", "vite/client"],
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
-    "tests/**/*.ts",
-    "vite.config.ts",
-    "vitest.config.ts"
-  ]
+    "tests/**/*.ts"
+  ],
+  "exclude": ["tests-node", "node_modules", "dist"]
 }

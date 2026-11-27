@@ -1,6 +1,11 @@
 node_modules/
 dist/
+unpackage/
+.env
 .env.local
+.env.*.local
 *.log
 .node-test/
 .pnpm-store/
+.idea/
+.DS_Store

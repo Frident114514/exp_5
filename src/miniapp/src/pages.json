@@ -1,33 +1,76 @@
 {
   "pages": [
     {
-      "path": "pages/my-posts/index",
+      "path": "pages/home/index",
       "style": {
-        "navigationBarTitleText": "我的动态",
-        "navigationBarBackgroundColor": "#f5f7fb",
-        "navigationBarTextStyle": "black"
+        "navigationBarTitleText": "多媒体朋友圈"
+      }
+    },
+    {
+      "path": "pages/square/index",
+      "style": {
+        "navigationBarTitleText": "动态广场",
+        "enablePullDownRefresh": true,
+        "backgroundTextStyle": "dark",
+        "onReachBottomDistance": 100
+      }
+    },
+    {
+      "path": "pages/detail/index",
+      "style": {
+        "navigationBarTitleText": "动态详情"
       }
     },
     {
       "path": "pages/publish/index",
       "style": {
         "navigationBarTitleText": "发布动态",
-        "navigationBarBackgroundColor": "#f5f7fb",
-        "navigationBarTextStyle": "black"
+        "navigationBarBackgroundColor": "#f5f7fb"
+      }
+    },
+    {
+      "path": "pages/my-posts/index",
+      "style": {
+        "navigationBarTitleText": "我的动态",
+        "navigationBarBackgroundColor": "#f5f7fb"
       }
     },
     {
       "path": "pages/edit/index",
       "style": {
         "navigationBarTitleText": "编辑动态",
-        "navigationBarBackgroundColor": "#f5f7fb",
-        "navigationBarTextStyle": "black"
+        "navigationBarBackgroundColor": "#f5f7fb"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/register/index",
+      "style": {
+        "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "style": {
+        "navigationBarTitleText": "个人资料"
+      }
+    },
+    {
+      "path": "pages/password/index",
+      "style": {
+        "navigationBarTitleText": "修改密码"
       }
     }
   ],
   "globalStyle": {
-    "backgroundColor": "#f5f7fb",
-    "navigationBarBackgroundColor": "#f5f7fb",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "多媒体朋友圈",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#f5f6f8"
   }
 }

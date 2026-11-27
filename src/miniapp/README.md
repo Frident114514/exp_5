@@ -1,54 +1,63 @@
-# 多媒体朋友圈小程序 · M06 第一周
+# 用户小程序（M05 / M06 / M07 合并工程）
 
-本工程是 M06 第一周的独立开发版本，完成纯文本动态发布、我的动态分页列表、本人编辑和删除流程。真实接口尚未合入时使用符合 API 契约的 Mock 服务，页面顶部会持续标明 Mock 模式。
+uni-app + Vue 3 + TypeScript，构建微信小程序。本目录是 M05、M06、M07 三份第一周代码合并后的**唯一小程序工程**，此前各自独立的三套脚手架已统一到这里。
 
-## 第一周范围
+## 页面与归属
 
-- `POST /api/v1/posts`：提交 `text`、`mediaIds: []`、`tags: []`。
-- `GET /api/v1/users/me/posts`：读取本人动态，页码从 1 开始。
-- `PATCH /api/v1/posts/{postId}`：第一周只提交 `text`，省略媒体和标签字段。
-- `DELETE /api/v1/posts/{postId}`：删除前显示确认。
-- 已实现加载、空列表、失败、重试、提交中、提交成功和提交失败状态。
-- 图片、视频、上传进度和标签输入属于第二周，不在当前范围。
+| 页面 | 路径 | 负责人 | 说明 |
+| --- | --- | --- | --- |
+| 首页 | `pages/home/index` | M05 | 登录状态 + 广场/发布/我的动态/个人资料入口（入口页） |
+| 广场 | `pages/square/index` | M07 | 公开列表、下拉刷新、分页 |
+| 详情 | `pages/detail/index` | M07 | 图文/媒体占位、评分摘要、已删除状态 |
+| 发布 | `pages/publish/index` | M06 | 纯文字发布 |
+| 我的动态 | `pages/my-posts/index` | M06 | 本人列表、进入编辑、删除 |
+| 编辑 | `pages/edit/index` | M06 | 正文编辑 |
+| 登录 | `pages/login/index` | M05 | 账号密码登录、`redirect` 回跳 |
+| 注册 | `pages/register/index` | M05 | 角色固定 USER |
+| 个人资料 | `pages/profile/index` | M05 | 本人信息、改密、退出 |
+| 修改密码 | `pages/password/index` | M05 | 改密后强制重新登录 |
 
-## 页面入口
+路由登记在 `src/config/routes.ts`，与 `src/pages.json` 双向校验（`tests/routes.spec.ts`）。
 
-| 页面 | 路径 | 参数 |
-| --- | --- | --- |
-| 我的动态 | `/pages/my-posts/index` | 无 |
-| 发布动态 | `/pages/publish/index` | 无 |
-| 编辑动态 | `/pages/edit/index` | `id`：动态 ID |
+## 安装与运行
 
-## 本地运行
-
-要求 Node.js 20 或 22 LTS；当前代码已使用 Node.js 24 完成类型检查。
-
-```powershell
+```sh
 cd src/miniapp
 pnpm install
-pnpm dev:h5
+pnpm dev:mp-weixin      # 产物 dist/dev/mp-weixin，导入微信开发者工具
+pnpm build:mp-weixin    # 产物 dist/build/mp-weixin
+pnpm dev:h5             # 浏览器预览（仅看样式）
 ```
 
-微信小程序构建：
+服务端地址默认 `http://127.0.0.1:8080/api/v1`。复制 `.env.local.example` 为 `.env.local` 可改 `VITE_API_BASE_URL`（也兼容 M05 的 `VITE_MINIAPP_API_BASE_URL`），改后需重启编译。
 
-```powershell
-pnpm build:mp-weixin
-```
+## 校验与测试（三套入口都保留）
 
-构建产物位于 `dist/build/mp-weixin`，使用微信开发者工具导入该目录。本地接口联调时，在开发者工具中关闭合法域名校验。
+| 命令 | 内容 |
+| --- | --- |
+| `pnpm type-check` | `vue-tsc --noEmit`，覆盖 src 与 tests |
+| `pnpm test` | Vitest：M05 的请求层/登录态/守卫/表单/组件 + M06 的 mock 与规则（116 项） |
+| `pnpm test:node` | M06 的 node:test 契约测试（11 项，`tests-node/`） |
+| `pnpm test:m07` | M07 的 node:test 测试（26 项，`node tests/index.ts`） |
+| `pnpm verify` | 依次执行 type-check、test、test:node、test:m07 |
 
-## 测试与检查
+## 统一后的共享层
 
-```powershell
-pnpm test
-pnpm typecheck
-```
+- `src/api/http.ts`：唯一 HTTP 出口。`request<T>()` 解开 `{code,data,message}` 抛 `ApiError`；`requestRaw()` 供两套历史封装接线（各自只解包一次）。自动带 `Authorization`、统一 401 清理与登录页回跳。
+- `src/api/transport.ts`：`authTransport`（给 M07 的 `createClient`）、`envelopeTransport`（给 M06 的 `createHttpPostApi`）。
+- `src/api/types.ts`：合并两套类型名（`ApiEnvelope`/`PageView`/`PostView`/`PostApi` 与 `ApiResponse`/`PageResult`/`PostSummary`/`PostDetail`/`API_ERROR_CODES`），同形状的用别名统一；`updatedAt` 必填。
+- `src/api/posts.ts`：M07 的列表/详情封装，已改为走 `authTransport`，因此会自动带登录令牌。
+- `src/config/env.ts`：统一服务端地址与常量（`REQUEST_TIMEOUT`、`DEFAULT_PAGE_SIZE`）。
+- `src/utils/format.ts`：合并两套时间/评分格式化，`formatDateTime` 兼容空值。
+- `src/stores/auth.ts`：登录态（`moments.auth.v1`），请求层按需加载，避免纯 Node 测试被 vue 依赖卡住。
 
-`tests/` 使用 Vitest 验证正文规则和 Mock API 契约。`tests-node/` 是当前 Codex 环境无法启动 Vitest 子进程时使用的等价 Node 回归脚本，可由 TypeScript 编译后直接执行。
+## 尚未接线（按文档由对应成员完成）
 
-## 与 M05 的交接
+- **M06**：`src/api/runtime.ts` 仍固定走 `mockPostApi` 且用户写死 6006；需要改为 `createHttpPostApi(envelopeTransport)`，并让编辑页从已登录用户取 id。接口适配器已备好，改一行接线即可。
+- **M07**：`pages/square`、`pages/detail` 已接真实列表/详情接口；后续筛选、评分、评论按计划追加。
+- 媒体（图片/视频）、标签、评分提交、评论本周不做，页面使用占位。
 
-- 页面、API 类型、Mock 服务和第一周业务逻辑可复用。
-- `package.json`、入口、路由和当前局部样式是 M06 为独立开发临时建立的基础文件。
-- M05 合入正式 uni-app 工程后，应由 M05 统一维护请求封装、登录状态、401 处理和路由表；M06 页面迁入其目录，并把 `runtime.ts` 中的 Mock 实例替换为真实 `PostApi` 适配器。
-- `httpPostApi.ts` 已按契约预留真实接口调用层，等待注入 M05 的统一 HTTP 传输实现。
+## 已知限制
+
+- 微信开发者工具的导入与真机验证需在各自电脑完成；本目录只保证 `type-check`、三套测试与 `build:mp-weixin` 通过。
+- `manifest.json` 的 `mp-weixin.appid` 为空，导入时用测试号或游客模式。
